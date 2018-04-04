@@ -51,29 +51,23 @@ passport.use( new Auth0Strategy({
             return done(null, null)
            
         } else {
-            
             db.add_gprofile([
                 userResult[0].emp_id,
                 profile.id,
                 profile.picture
             ]).then( createdUser => {
-                let user = {id: userResult[0].empid, mgr: userResult[0].mgr }
-                return done(null, user )
+                return done(null, userResult[0].emp_id )
             })
         }
     })
 }))
 
-passport.serializeUser((user, done)=>{
-    // Takes the information passed in and is placed on the session store
-    // This is invoked only once when the user logs in. 
-    done(null, user);
+passport.serializeUser((empId, done)=>{
+    done(null, empId);
 })
-passport.deserializeUser((user, done)=>{
-    // This runs for every endpoint hit below this middleware after the user is logged in.
+passport.deserializeUser( (empId, done) => {
 
-    // We don't just want the id on req.user, we want all of the data from the database as well. We will query the db here.
-    app.get('db').find_session_user([id]).then( loggedInUser => {
+    app.get('db').find_session_user([empId]).then( loggedInUser => {
         done(null, loggedInUser[0]);
     })
 })
