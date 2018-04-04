@@ -74,12 +74,19 @@ passport.deserializeUser( (empId, done) => {
 
 app.get('/auth', passport.authenticate('auth0'))
 app.get('/auth/callback', passport.authenticate('auth0', {
-    successRedirect: '/success',
+    successRedirect: '/profilecheck',
     failureRedirect: '/failure'
 }))
-app.get('/success', (req, res, next) => {
-    if(req.user.mgr){return res.redirect('/manager')}
-    else {return res.redirect('/employee')}
+
+app.get('/profilecheck', function(req, res, next){
+    let { phone, address, city, state, email } = req.user
+    if(phone === null || address === null || city === null || state === null || email === null ){
+        return res.redirect('http://localhost:3000/#/finishprofile')
+    } else if(req.user.mgr){
+        return res.redirect('/manager')
+    } else {
+        return res.redirect('/employee')
+    }
 })
 
 app.get('/auth/me', function(req, res) {

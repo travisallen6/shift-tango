@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import {Switch, Route, HashRouter} from 'react-router-dom'
 import Login from './components/Login/Login'
+import ProfileComplete from './components/ProfileComplete/ProfileComplete'
 
 
 class App extends Component {
@@ -12,8 +12,8 @@ class App extends Component {
         <HashRouter>
           <Switch>
             <Route exact path='/' component={Login} />
+            <Route path='/finishprofile' component={ProfileComplete} />
           </Switch>
-
         </HashRouter>
       </div>
     );
