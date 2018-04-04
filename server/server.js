@@ -74,9 +74,14 @@ passport.deserializeUser( (empId, done) => {
 
 app.get('/auth', passport.authenticate('auth0'))
 app.get('/auth/callback', passport.authenticate('auth0', {
-    successRedirect: 'http://localhost:3000/#/success',
-    failureRedirect: 'http://localhost:3000/#/failure'
+    successRedirect: '/success',
+    failureRedirect: '/failure'
 }))
+app.get('/success', (req, res, next) => {
+    if(req.user.mgr){return res.redirect('/manager')}
+    else {return res.redirect('/employee')}
+})
+
 app.get('/auth/me', function(req, res) {
     if(req.user) {
         res.status(200).send(req.user)
