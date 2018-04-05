@@ -3,3 +3,24 @@
     justify-content: center;
     align-items:flex-end;
 }
+
+.profile-complete-container {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height:100vh
+}
+
+.profile-complete-btn-container{
+    display: flex;
+    justify-content: space-between
+}
+
+.profile-form-container > h1 {
+    font-size: 32px;
+    margin-bottom:20px;
+}
+.profile-form-container {
+    height: 80vh;
+}
