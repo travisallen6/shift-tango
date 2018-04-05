@@ -1,0 +1,12 @@
+.detail-container {
+    height: 90vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+.detail-name-header {
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+}

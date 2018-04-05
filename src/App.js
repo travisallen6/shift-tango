@@ -3,6 +3,7 @@ import './App.css';
 import {Switch, Route, HashRouter} from 'react-router-dom'
 import Login from './components/Login/Login'
 import ProfileComplete from './components/ProfileComplete/ProfileComplete'
+import ManagerDash from './components/ManagerDash/ManagerDash'
 
 
 class App extends Component {
@@ -13,6 +14,7 @@ class App extends Component {
           <Switch>
             <Route exact path='/' component={Login} />
             <Route path='/finishprofile' component={ProfileComplete} />
+            <Route path='/managerdash' component={ManagerDash} />
           </Switch>
         </HashRouter>
       </div>

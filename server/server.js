@@ -4,7 +4,10 @@ const   express = require('express')
         , session = require('express-session')
         , passport = require('passport') 
         , Auth0Strategy = require('passport-auth0')
-        , massive = require('massive');
+        , massive = require('massive')
+        , bodyParser = require('body-parser')
+        , ctrl = require('./controller')
+        // , cors = require('cors')
 
 const {
     SERVER_PORT,
@@ -17,6 +20,8 @@ const {
 } = process.env
 
 const app = express();
+
+app.use(bodyParser.json())
 
 massive(CONNECTION_STRING).then( db => {
     app.set('db', db);
@@ -51,10 +56,12 @@ passport.use( new Auth0Strategy({
             return done(null, null)
            
         } else {
+            let profPic = userResult[0].profile_pic === null ? 
+                profile.picture : userResult[0].profile_pic
             db.add_gprofile([
                 userResult[0].emp_id,
                 profile.id,
-                profile.picture
+                profPic
             ]).then( createdUser => {
                 return done(null, userResult[0].emp_id )
             })
@@ -66,7 +73,6 @@ passport.serializeUser((empId, done)=>{
     done(null, empId);
 })
 passport.deserializeUser( (empId, done) => {
-
     app.get('db').find_session_user([empId]).then( loggedInUser => {
         done(null, loggedInUser[0]);
     })
@@ -78,28 +84,15 @@ app.get('/auth/callback', passport.authenticate('auth0', {
     failureRedirect: '/failure'
 }))
 
-app.get('/profilecheck', function(req, res, next){
-    let { phone, address, city, state, email } = req.user
-    if(phone === null || address === null || city === null || state === null || email === null ){
-        return res.redirect('http://localhost:3000/#/finishprofile')
-    } else if(req.user.mgr){
-        return res.redirect('/manager')
-    } else {
-        return res.redirect('/employee')
-    }
-})
+app.get('/profilecheck', ctrl.profileCheck)
 
-app.get('/auth/me', function(req, res) {
-    if(req.user) {
-        res.status(200).send(req.user)
-    } else {
-        res.status(401).send('Nice try suckaaaaaa')
-    }
-})
-app.get('/auth/logout', (req, res) => {
-    req.logOut();
-    res.redirect('http://localhost:3000/');
-})
+app.post('/api/employee/:empid/profile', ctrl.getEmployeeProfile)
+
+app.get('/api/roster', ctrl.getRoster)
+
+app.get('/auth/me', ctrl.authCheck)
+
+app.get('/auth/logout', ctrl.authLogout)
 
 
 
