@@ -1,6 +1,6 @@
 module.exports = {
 
-    getEmployeeProfile: (req, res, next)=>{
+    updateEmployeeProfile: (req, res, next)=>{
 
         let { profile_pic, phone, address, city, state, email, zip } = req.body
     
@@ -38,6 +38,20 @@ module.exports = {
     getRoster: (req, res) =>{
         req.app.get('db').get_roster()
         .then( roster => res.send(roster) )
+    },
+
+    getEmployeeDetail: (req, res) => {
+        req.app.get('db').get_employee_detail([req.params.empid])
+        .then( employee =>{
+            req.app.get('db').get_employee_exceptions([req.params.empid])
+            .then( exceptions =>{
+                let employeeProfileExceptions = {}
+
+                employeeProfileExceptions.profile = employee[0]
+                employeeProfileExceptions.exceptions = exceptions
+                res.send(employeeProfileExceptions)
+            })
+        })
     }
 
 }

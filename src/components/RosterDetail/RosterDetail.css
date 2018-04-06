@@ -17,8 +17,8 @@
 
 .row {
     display: flex;
-    height: 6vh;
     font-size: 1.2em;
+    margin-top: 10px;
 }
 
 .row > h2 {
@@ -39,13 +39,15 @@
 .skd-cell {
     display: flex;
     flex-direction: column;
-    justify-content:space-around;
+    justify-content: space-evenly;
     width: 150px;
     padding: 0 8px;
     margin: 0 2px;
     box-shadow: 0 2px 4px 0 rgba(231, 231, 231, 0.2), 0 1px 3px 0 rgba(155, 155, 155, 0.2);
-    background: #fcfcfc;
+    background: #a0a0a0;
+    color: white;
     border-radius: 5px;
+    /* box-shadow: inset 0 0 19px #0019ff; */
 }
 
 .skd-cell-head {
@@ -59,7 +61,6 @@
     overflow-x: auto;
     white-space: nowrap;
     height: 130px;
-    padding: 8px 0;
     text-align: center;
     font-size: 1.2em;
 }
@@ -69,8 +70,8 @@
 }
 
 .skd-title {
-    margin-top: 15px;
-    margin-bottom: 8px;
+    margin-top: 7px;
+    margin-bottom: 6px;
     font-size: 1.4em;
 }
 
@@ -80,4 +81,12 @@
 
 .dt {
     font-size:1.3em
+}
+
+.skd-single {
+    font-size: 1.6em;
+    height: 43%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
