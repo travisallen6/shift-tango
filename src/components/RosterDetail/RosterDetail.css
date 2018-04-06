@@ -7,6 +7,77 @@
 
 .detail-name-header {
     font-size: 30px;
+    width: 90vw;
+    padding: 10px 20px;
     display: flex;
     align-items: center;
+    width:100%;
+    margin-top: 20px;
+}
+
+.row {
+    display: flex;
+    height: 6vh;
+    font-size: 1.2em;
+}
+
+.row > h2 {
+    width: 72px;
+
+}
+
+.address > h2 {
+    width: 72px
+}
+
+.skd-row {
+    display: flex;
+    width: 784px;
+    height: 110px;
+}
+
+.skd-cell {
+    display: flex;
+    flex-direction: column;
+    justify-content:space-around;
+    width: 150px;
+    padding: 0 8px;
+    margin: 0 2px;
+    box-shadow: 0 2px 4px 0 rgba(231, 231, 231, 0.2), 0 1px 3px 0 rgba(155, 155, 155, 0.2);
+    background: #fcfcfc;
+    border-radius: 5px;
+}
+
+.skd-cell-head {
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+}
+
+.skd-container {
+    width: 90vw;
+    overflow-x: auto;
+    white-space: nowrap;
+    height: 130px;
+    padding: 8px 0;
+    text-align: center;
+    font-size: 1.2em;
+}
+
+.skd-cell-row {
+    width:100%;
+}
+
+.skd-title {
+    margin-top: 15px;
+    margin-bottom: 8px;
+    font-size: 1.4em;
+}
+
+.dy {
+    font-size: 0.9em;
+}
+
+.dt {
+    font-size:1.3em
 }

@@ -29,11 +29,10 @@ class ManagerDash extends React.Component {
                     }
                 />
                 
-                {/* <Switch>
+                <Switch>
                     <Route exact path='/managerdash' component={ManagerRoster} />
-                    <Route path='/managerdash/detail/:employee' component={RosterDetail} />
-                </Switch> */}
-                <RosterDetail />
+                    <Route path='/managerdash/detail/' component={RosterDetail} />
+                </Switch>
                 
             </div>
         )
