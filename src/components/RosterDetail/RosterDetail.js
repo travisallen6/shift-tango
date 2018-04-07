@@ -24,7 +24,7 @@ class RosterDetail extends React.Component {
             loading: true,  
             menuOpen: false,
             skdViewDate: today,
-            empId: 205301,
+            empId: this.props.match.params.empid,
             employee: {
                 pic: '',
                 firstName: '',
@@ -95,8 +95,6 @@ class RosterDetail extends React.Component {
                     email: email,
                     pattern: { sun, mon, tue, wed, thu, fri, sat}, 
                     exceptions: exceptions
-                    
-                    
                 },
             })
        })
@@ -120,7 +118,7 @@ class RosterDetail extends React.Component {
     render() { 
         
         
-        let { empId, pic, firstName, lastName, position, doe, phone, address, city, state, zip, email, pattern, exceptions, } = this.state.employee
+        let { pic, firstName, lastName, position, doe, phone, address, city, state, zip, email, pattern, exceptions, } = this.state.employee
 
         let paperStyles = {
                 margin: '8px', 

@@ -2,6 +2,7 @@ import React from "react";
 import {Switch, Route} from 'react-router-dom';
 
 import RosterDetail from '../RosterDetail/RosterDetail'
+import PatternModify from '../PatternModify/PatternModify'
 import AppBar from 'material-ui/AppBar';
 import ManagerRoster from '../ManagerRoster/ManagerRoster'
 import FloatingActionButton from 'material-ui/FloatingActionButton';
@@ -30,8 +31,18 @@ class ManagerDash extends React.Component {
                 />
                 
                 <Switch>
-                    <Route exact path='/managerdash' component={ManagerRoster} />
-                    <Route path='/managerdash/detail/' component={RosterDetail} />
+                    <Route 
+                        path='/managerdash' exact 
+                        component={ManagerRoster} />
+                    
+                    <Route 
+                        path='/managerdash/:empid/detail/' 
+                        component={RosterDetail} />
+
+                    <Route 
+                        path='/managerdash/patternmodify'
+                        component={PatternModify} />
+
                 </Switch>
                 
             </div>

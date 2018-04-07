@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import {Link} from 'react-router-dom'
 
 import Avatar from 'material-ui/Avatar';
 import {List, ListItem} from 'material-ui/List';
@@ -28,12 +29,12 @@ class ManagerRoster extends React.Component {
 
         let empList = this.state.employees ? this.state.employees.map( (employee, i) => (
             <div key={i + employee.last_name}>
-                <ListItem
+                <Link to={`/managerdash/${employee.emp_id}/detail/`}><ListItem
                     primaryText={`${employee.last_name}, ${employee.first_name}`}
                     secondaryText={employee.position}
                     leftAvatar={<Avatar src={employee.profile_pic} />}
                     inset={true}
-                />
+                /></Link>
                 <Divider /> 
             </div>
         )) : null
