@@ -25,6 +25,8 @@ app.use(bodyParser.json())
 
 massive(CONNECTION_STRING).then( db => {
     app.set('db', db);
+    // app.get('db').init.seed()
+    // .then( res => console.log(res) )
 })
 .then( ()=>console.log(`db connected`) )
 .catch( err => console.log(err) )

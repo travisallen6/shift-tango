@@ -1,0 +1,50 @@
+.schedule-row {
+    display:flex;
+    justify-content: space-between;
+    height: 90px;
+}
+
+.schedule-input-toggle{
+    display:flex;
+    align-items:center;
+    justify-content: center;
+}
+
+.schedule-date-label {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.schedule-label-dow {
+    font-size:24px;
+}
+.schedule-label-day {
+    font-size: 34px;;
+}
+
+.schedule-value {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 152px;
+    font-size:22px;
+}
+
+.schedule-time-inputs {
+    overflow:hidden;
+    width: 152px;
+    font-size: 40px;
+}
+/* 
+#root > div > div > div.pattern-modify-container > div > div > div.schedule-time-inputs > div:nth-child(1) > div {
+    font-size: 22px !important;
+    text-align: center;
+}
+
+#root > div > div > div.pattern-modify-container > div > div > div.schedule-time-inputs > div:nth-child(2) > div {
+    font-size: 22px !important; 
+    text-align: center;
+} */

@@ -10,6 +10,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Popover from 'material-ui/Popover';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
+import lightBlueA100 from 'material-ui/styles'
 
 import './RosterDetail.css'
 
@@ -133,7 +134,7 @@ class RosterDetail extends React.Component {
             if(shiftDay.shift){
                 if(shiftDay.shift.start){
                     return (
-                        <div className='skd-cell' key={i}>
+                        <div className='skd-cell' style={{background: lightBlueA100}} key={i}>
                             <div className="skd-cell-head">
                                 <div className='skd-cell-row dy'> { dow } </div>
                                 <div className='skd-cell-row dt'>{ shortDate }</div>
@@ -156,7 +157,7 @@ class RosterDetail extends React.Component {
                     )
                 }
             } else{
-                return <h1>Loading</h1>
+                return <h1 key={i}>Loading</h1>
             }
             }) 
             
@@ -192,14 +193,14 @@ class RosterDetail extends React.Component {
                 </div>
                 
                    </Paper>
-                <div className='skd-title'>Schedule</div>
-                <div className='skd-container'>
-                    <div className='skd-row'>
-                        {mergedSchedules}
-                    </div>
-                </div>
+    <div className='skd-title'>Schedule</div>
+    <div className='skd-container'>
+        <div className='skd-row'>
+            {mergedSchedules}
+        </div>
+    </div>
 
-      <div>
+    <div>
         <RaisedButton
           onClick={this.handleClick}
           label="Modify"

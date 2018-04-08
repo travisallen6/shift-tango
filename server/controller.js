@@ -29,9 +29,9 @@ module.exports = {
         if(phone === null || address === null || city === null || state === null || email === null || zip === null ){
             return res.redirect('http://localhost:3000/#/finishprofile')
         } else if(req.user.mgr){
-            return res.redirect('/#/managerdash')
+            return res.redirect('http://localhost:3000/#/managerdash')
         } else {
-            return res.redirect('/#/employeedash')
+            return res.redirect('http://localhost:3000/#/employeedash')
         }
     },
 
