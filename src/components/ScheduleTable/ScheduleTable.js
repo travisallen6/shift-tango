@@ -29,21 +29,26 @@ class ScheduleTable extends React.Component {
             satIsOff: true
         }
 
-        this.toggleFns = this.toggleFns.bind(this)
+        this.startEditing = this.startEditing.bind(this)
         this.updateTime = this.updateTime.bind(this)
+        this.giveOffSat = this.giveOffSat.bind(this)
     }
 
 // Data is [ { date: "2018-07-" , shift: type: "" | "OFF" | { end:"12:00 pm", start:"04:00 am" } ]
 
     
     
-    toggleFns(){
+    startEditing(){
 
         this.setState({satInputsShowing: !this.state.satInputsShowing})
     }
 
     updateTime(event, time){
         this.setState({timeValue: time})
+    }
+
+    giveOffSat(){
+        this.setState({satIsOff: !this.state.satIsOff})
     }
     
     render(){
@@ -54,7 +59,7 @@ class ScheduleTable extends React.Component {
 
                     <div className="schedule-input-toggle">
                     <Checkbox 
-                            onCheck={this.toggleFns} />
+                            onCheck={this.startEditing} />
                     </div>
                 
                     <div className="schedule-date-label">
@@ -69,7 +74,7 @@ class ScheduleTable extends React.Component {
                 { !this.state.satInputsShowing &&   
                     <div className="schedule-value">
                         {!this.state.satIsOff && (
-                            <div>
+                            <div className="schedule-value-not-off">
                                 <div className="schedule-value-r1"> 04:00 am </div>
                                 <div className="schedule-value-r2"> 12:00 pm </div> 
                             </div>
@@ -81,59 +86,39 @@ class ScheduleTable extends React.Component {
                     </div> }
 
                 {this.state.satInputsShowing &&    <div className="schedule-time-inputs">
+                    <div className="schedule-input-group">
+
                         <TimePicker
                             hintText="Start Time"
                             minutesStep={5} 
                             onChange={ this.updateTime }
                             value={ this.state.timeValue} 
-                            textFieldStyle={{fontSize:22}} />
+                            textFieldStyle={{fontSize:22, height: 38, width:94}} 
+                            style={{height: 38, width: 94}}
+                            disabled={this.state.satIsOff}
+                            />
                         <TimePicker
                             hintText="End Time"
                             minutesStep={5} 
                             onChange={ this.updateTime }
                             value={ this.state.timeValue}
-                            textFieldStyle={{fontSize:22}}/>
+                            textFieldStyle={{fontSize:22, height: 38, width:94}}
+                            style={{height: 38, width: 94}}
+                            disabled={this.state.satIsOff}/>
+                    </div>
+                    <div className="schedule-off-toggle">
+                        <Toggle
+                            label="OFF" 
+                            labelPosition='right' 
+                            onToggle={ this.giveOffSat }
+                            toggled={this.state.satIsOff}/>
+                    </div>
                 </div> }
                 </div>
 
                 <Divider />
 
-                <div className='schedule-row'>
-
-                    <div className="schedule-input-toggle">
-                        <Checkbox 
-                            onCheck={this.toggleFns} />
-                    </div>
-
-                    <div className="schedule-date-label">
-                        <div className='schedule-label-row schedule-label-dow'>
-                            Mon
-                        </div>
-                        <div className='schedule-label-row schedule-label-day'>
-                            12/31
-                        </div>
-                    </div>
-
-                    { !this.state.satInputsShowing &&   <div className="schedule-value">
-                        <div className="schedule-value-r1"> 04:00 am </div>
-                        <div className="schedule-value-r2"> 12:00 pm </div>
-                    </div> }
-
-                    {this.state.satInputsShowing &&    <div className="schedule-time-inputs">
-                        <TimePicker
-                            hintText="Start Time"
-                            minutesStep={5} 
-                            onChange={ this.updateTime }
-                            value={ this.state.timeValue} 
-                            textFieldStyle={{fontSize:22}} />
-                        <TimePicker
-                            hintText="End Time"
-                            minutesStep={5} 
-                            onChange={ this.updateTime }
-                            value={ this.state.timeValue}
-                            textFieldStyle={{fontSize:22}}/>
-                    </div> }
-                    </div>
+                
             </Paper>
 
         )
