@@ -43,6 +43,7 @@ class PatternModify extends React.Component {
               className="pattern-modify-container">
                 <ScheduleTable 
                     // scheduleData={}
+                    dateLabel={true}
                 />
 
             </div> 
