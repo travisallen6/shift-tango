@@ -94,6 +94,8 @@ app.get('/api/roster', ctrl.getRoster)
 
 app.get('/api/employee/:empid/detail', ctrl.getEmployeeDetail)
 
+app.get('/api/employee/:empid/pattern', ctrl.getEmployeePattern)
+
 app.get('/auth/me', ctrl.authCheck)
 
 app.get('/auth/logout', ctrl.authLogout)

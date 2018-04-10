@@ -51,7 +51,14 @@ module.exports = {
                 employeeProfileExceptions.exceptions = exceptions
                 res.send(employeeProfileExceptions)
             })
+            .catch(err => console.log(err)) 
         })
+        .catch(err => console.log(err))
+    },
+
+    getEmployeePattern: (req, res) => {
+        req.app.get('db').get_employee_pattern([req.params.empid])
+        .then( pattern => res.send(pattern))
     }
 
 }

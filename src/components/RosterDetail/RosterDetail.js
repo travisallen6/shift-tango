@@ -4,6 +4,8 @@ import mergeSchedules from '../../mergeSchedules'
 import moment from 'moment'
 import axios from 'axios'
 
+import {Link} from 'react-router-dom'
+
 import Avatar from 'material-ui/Avatar';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -213,7 +215,9 @@ class RosterDetail extends React.Component {
           onRequestClose={this.handleRequestClose}
           >
           <Menu>
-            <MenuItem primaryText="Pattern" />
+            <Link to={`/managerdash/${this.state.empId}/detail/pattern`}>
+                <MenuItem primaryText="Pattern" />
+            </Link>
             <MenuItem primaryText="Exception" />
           </Menu>
         </Popover>

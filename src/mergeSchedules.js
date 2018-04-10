@@ -1,4 +1,4 @@
-  module.exports = function mergeSchedules(date, pattern, exceptions){
+  module.exports = function mergeSchedules(date, pattern, exceptions, selection){
     let moment = require('moment');
     // let dateRange = [];
     let startDate = moment(date).startOf('week').format('YYYY-MM-DD')
@@ -47,6 +47,10 @@
       dateObj.type = 'pattern'
       dateGroups.push(dateObj)
       
+    }
+
+    if(selection === 'pattern'){
+      return dateGroups
     }
 
     // Map over the pattern array

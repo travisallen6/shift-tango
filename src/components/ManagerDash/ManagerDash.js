@@ -40,7 +40,7 @@ class ManagerDash extends React.Component {
                         component={RosterDetail} />
 
                     <Route 
-                        path='/managerdash/patternmodify'
+                        path='/managerdash/:empid/patternmodify'
                         component={PatternModify} />
 
                 </Switch>
