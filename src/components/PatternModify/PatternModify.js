@@ -9,9 +9,14 @@ class PatternModify extends Component {
     render() { 
         return ( 
             <div>
-                Pattern
                 <Schedule 
-                    dateLabel={true}/>
+                    dateLabel={false}
+                    // baseDate={}
+                    // numWeeks={}
+                    // scheduleType={}
+                    // employeeNum={}
+                    // pattern, exception, etc.
+                />
             </div>
         )
     }

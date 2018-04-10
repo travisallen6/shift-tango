@@ -70,6 +70,48 @@ class Schedule extends React.Component {
     //     })
     // }
 
+    toggleEditing(i){
+
+        let { timeValueStart, timeValueEnd, date, timeInputStart, timeInputEnd } = this.state.shifts[i]
+        let freshShifts = [...this.state.shifts]
+
+        if(this.state.shifts[i].inputsShowing){
+            // If the user unchecks the editing box
+            // inputs showing = false
+            // timeInputStart / timeInputEnd = timeValueStart/TimeValueEnd
+            // if timevaluestart/end = '', is off=true, else false
+            let newIsoff = 
+                timeValueStart === '' && timeValueEnd === ''
+                ? true 
+                : false; 
+
+            let newShift = {
+                date: date,
+                inputsShowing: false,
+                timeValueStart: timeValueStart,
+                timeValueEnd: timeValueEnd,
+                timeInputStart: timeValueStart,
+                timeInputEnd: timeValueEnd,
+                isOff: newIsoff
+            }
+
+            freshShifts.splice(i, 1, newShift)
+            this.setState({shifts: freshShifts})
+        } else {
+            let newShift = {
+                date: date,
+                inputShowing: false,
+                timeValueStart: timeValueStart,
+                timeValueEnd: timeValueEnd,
+                timeInputStart: timeInputStart,
+                timeInputEnd: timeInputEnd
+            }
+
+            freshShifts.splice(i, 1, newShift)
+            this.setState({shifts: freshShifts})
+        }
+    }
+
 
     
 
@@ -80,8 +122,15 @@ class Schedule extends React.Component {
         let mappedShifts = this.state.shifts
         .map( (shift, i, arr) =>{
 
-            
-            <div className='schedule-row'>
+            const dowStyles= this.props.dateLabel 
+                ? {fontSize: 24} 
+                : {fontSize: 34}
+
+            return (
+
+            <div key={i + shift.date}>
+                
+                <div className='schedule-row'>
 
                     <div className="schedule-input-toggle">
                     <Checkbox 
@@ -89,135 +138,79 @@ class Schedule extends React.Component {
                     </div>
                 
                     <div className="schedule-date-label">
-                        <div className="schedule-label-dow">
+                        <div 
+                            className="schedule-label-dow"
+                            style={ dowStyles }>
                             {moment(shift.date).format('ddd')}
                         </div>
-                        <div className="schedule-date-label">
+                        {this.props.dateLabel && ( <div
+                            className="schedule-label-day">
+
                             {moment(shift.date).format('M/D')}
-                        </div>
+
+                        </div> ) }
                     </div>
 
                   
-                    <div className="schedule-value">
+                    { ! this.state.shifts[i].inputsShowing && ( <div className="schedule-value">
                         
-                        <div className="schedule-value-not-off">
+                        {!this.state.shifts[i].isOff && (<div
+                            className="schedule-value-not-off">
                             
-                            <div> {this.state.shift[i].timeValueStart} </div>
-                            <div>{ this.state.shift[i].timeValueEnd } </div> 
+                            <div> {this.state.shifts[i].timeValueStart} </div>
+                            <div>{ this.state.shifts[i].timeValueEnd } </div> 
                         
-                        </div>
+                        </div>)}
                             
-                        <div className='schedule-value-off'>
+                        {this.state.shifts[i].isOff && (<div 
+                            className='schedule-value-off'>
                             OFF
-                        </div>
+                        </div>)}
                       
-                    </div> 
+                    </div> )} 
 
                    
-                <div className='schedule-time-inputs'>
+                {this.state.shifts[i].inputsShowing && (<div
+                    className='schedule-time-inputs'>
                     <div className="schedule-input-group">
 
                         <TimePicker
                             hintText="Start"
                             minutesStep={5} 
                             onChange={ (event, time) => this.updateTimeStart(event, time, i) }
-                            value={ this.state.shift[i].timeValueStart} 
+                            value={ this.state.shifts[i].timeValueStart} 
                             textFieldStyle={{fontSize:22, height: 38, width:94}} 
                             style={{height: 38, width: 94}}
-                            disabled={this.state.shift[i].isOff}
+                            disabled={this.state.shifts[i].isOff}
                             />
                         <TimePicker
                             hintText="End"
                             minutesStep={5} 
                             onChange={ (event, time, i) => this.updateTimeEnd(event, time, i) }
-                            value={ this.state.shift[i].timeValueEnd}
+                            value={ this.state.shifts[i].timeValueEnd}
                             textFieldStyle={{fontSize:22, height: 38, width:94}}
                             style={{height: 38, width: 94}}
-                            disabled={this.state.shift[i].isOff}/>
+                            disabled={this.state.shifts[i].isOff}/>
                     </div>
                     <div className="schedule-off-toggle">
                         <Toggle
                             label="OFF" 
                             labelPosition='right' 
                             onToggle={ ()=>this.toggleOff(i) }
-                            toggled={this.state.shift[i].isOff}/>
+                            toggled={this.state.shifts[i].isOff}/>
                     </div>
-                </div> 
+                </div>)} 
             </div>
+            <Divider />
+        </div>
        
+        )
     })
         return ( 
             <div className="pattern-modify-container">
                 <Paper zDepth={1} style={{width:'90%', padding:'20px'}}>
                 <Divider />
-
-        {/* ===SUNDAY=== */}
-
-                <div className='schedule-row'>
-
-                    <div className="schedule-input-toggle">
-                    <Checkbox 
-                            onCheck={()=>this.toggleEditing('sun')} />
-                    </div>
-                
-                    <div className="schedule-date-label">
-                        <div className={ dayLabel }>
-                            Sun
-                        </div>
-                        <div className={ dateLabel }>
-                            12/31
-                        </div>
-                    </div>
-
-                  
-                    <div className={ scheduleValueSun }>
-                        
-                        <div className={ scheduleValueNotOffSun }>
-                            
-                            <div> {moment(this.state.sun.timeValueStart).format('hh:mm a')} </div>
-                            <div> {moment(this.state.sun.timeValueEnd).format('hh:mm a')} </div> 
-                        
-                        </div>
-                            
-                        <div className={ scheduleValueOffSun }>
-                            OFF
-                        </div>
-                      
-                    </div> 
-
-                   
-                <div className={ scheduleTimeInputsSun }>
-                    <div className="schedule-input-group">
-
-                        <TimePicker
-                            hintText="Start"
-                            minutesStep={5} 
-                            onChange={ (event, time) => this.updateTimeStart(event, time, 'sun') }
-                            value={ this.state.sun.timeValueStart} 
-                            textFieldStyle={{fontSize:22, height: 38, width:94}} 
-                            style={{height: 38, width: 94}}
-                            disabled={this.state.sun.isOff}
-                            />
-                        <TimePicker
-                            hintText="End"
-                            minutesStep={5} 
-                            onChange={ (event, time) => this.updateTimeEnd(event, time, 'sun') }
-                            value={ this.state.sun.timeValueEnd}
-                            textFieldStyle={{fontSize:22, height: 38, width:94}}
-                            style={{height: 38, width: 94}}
-                            disabled={this.state.sun.isOff}/>
-                    </div>
-                    <div className="schedule-off-toggle">
-                        <Toggle
-                            label="OFF" 
-                            labelPosition='right' 
-                            onToggle={ ()=>this.toggleOff('sun') }
-                            toggled={this.state.sun.isOff}/>
-                    </div>
-                </div> 
-                </div>
-
-                <Divider />
+                    {mappedShifts}
 
                 
             </Paper>
