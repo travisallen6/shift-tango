@@ -7,7 +7,6 @@ import Divider from 'material-ui/Divider';
 import Checkbox from 'material-ui/Checkbox'
 
 import moment from 'moment'
-import classnames from 'classnames'
 import axios from 'axios'
 import mergeSchedules from '../../mergeSchedules'
 
