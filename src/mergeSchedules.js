@@ -50,7 +50,13 @@
     }
 
     if(selection === 'pattern'){
-      return dateGroups
+      let parsedPattern = dateGroups.map( element => {
+        if(element.shift){
+          element.shift = parseShift(element.shift)
+        }
+        return element
+    })
+      return parsedPattern
     }
 
     // Map over the pattern array

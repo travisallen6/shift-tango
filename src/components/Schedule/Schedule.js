@@ -7,7 +7,6 @@ import Divider from 'material-ui/Divider';
 import Checkbox from 'material-ui/Checkbox'
 
 import moment from 'moment'
-import axios from 'axios'
 import mergeSchedules from '../../mergeSchedules'
 
 import './Schedule.css'
@@ -15,32 +14,32 @@ class Schedule extends React.Component {
     constructor(props) {
         super(props);
         
-        let date = moment("2018-04-05 06:35 pm", "YYYY-MM-DD hh:mm a").toDate()
+        
         
         
         this.state = {
             loading: true,
-            shifts: [
-                {
-                    date: "2018-04-06",
-                    inputsShowing: false,
-                    timeValueStart: '04:00 am',
-                    timeValueEnd: '12:00 pm',
-                    timeInputStart: moment("2018-04-06 04:35 am", "YYYY-MM-DD hh:mm a").toDate(),
-                    timeInputEnd: moment("2018-04-06 12:25 pm", "YYYY-MM-DD hh:mm a").toDate(),
-                    isOff: false
-                },
-                {
-                    date: "2018-04-07",
-                    inputsShowing: false,
-                    timeValueStart: '',
-                    timeValueEnd: '',
-                    timeInputStart: '',
-                    timeInputEnd: '',
-                    isOff: true
-                },
+            shifts: []
+            //     {
+            //         date: "2018-04-06",
+            //         inputsShowing: false,
+            //         timeValueStart: '04:00 am',
+            //         timeValueEnd: '12:00 pm',
+            //         timeInputStart: moment("2018-04-06 04:35 am", "YYYY-MM-DD hh:mm a").toDate(),
+            //         timeInputEnd: moment("2018-04-06 12:25 pm", "YYYY-MM-DD hh:mm a").toDate(),
+            //         isOff: false
+            //     },
+            //     {
+            //         date: "2018-04-07",
+            //         inputsShowing: false,
+            //         timeValueStart: '',
+            //         timeValueEnd: '',
+            //         timeInputStart: '',
+            //         timeInputEnd: '',
+            //         isOff: true
+            //     },
 
-            ]
+            // ]
             
             
         
@@ -55,19 +54,82 @@ class Schedule extends React.Component {
     
     
 // Data is [ { date: "2018-07-" , shift: type: "" | "OFF" | { end:"12:00 pm", start:"04:00 am" } ]
-    // componentDidMount(){
-    //     axios.get(`/api/employee/${this.props.match.params.empid}/pattern`)
-    //     .then( empPattern =>{
-    //         let patternDate = moment().format('YYYY-MM-DD')
-    //         let {last_name, first_name, emp_id, profile_pic, sun, mon, tue, wed, thu, fri, sat} = empPattern.data[0]
-    //         let employeePattern = {sun, mon, tue, wed, thu, fri, sat}
+    componentWillReceiveProps(newProps){
+        if( newProps.pattern !== undefined){
+            let { baseDate, exceptions, pattern, selection } = newProps
             
-    //         let parsedPattern = mergeSchedules(patternDate, employeePattern, null, 'pattern')
-    //         parsedPattern.map( (day, i) => {})
-            
-           
-    //     })
-    // }
+            let parsedSchedule = mergeSchedules(baseDate, pattern, exceptions, selection)
+
+            let undefinedShifts = false
+
+            parsedSchedule.forEach( schedule =>{
+                if(schedule.shift === undefined){
+                    undefinedShifts = true
+                }
+            })
+
+            if(!undefinedShifts){
+                let pushShift = {}
+
+                let pushSchedule = parsedSchedule.map( empShift => {
+                    let shiftOff = empShift.shift === "OFF"
+
+                    if(shiftOff){
+                        pushShift = {
+                            date: empShift.date,
+                            inputsShowing: false,
+                            timeValueStart: '',
+                            timeValueEnd: '',
+                            timeInputStart: '',
+                            timeInputEnd: '',
+                            isOff: true
+                        }
+
+                        return pushShift
+
+                    } else {
+
+                        
+                        pushShift = {
+                            date: empShift.date,
+                            type: empShift.type,
+                            inputsShowing: false,
+                            timeValueStart: empShift.shift.start,
+                            timeValueEnd: empShift.shift.end,
+                            timeInputStart: moment(`${empShift.date} ${empShift.shift.start}`, "YYYY-MM-DD hh:mm a").toDate(),
+                            timeInputEnd: moment(`${empShift.date} ${empShift.shift.end}`, "YYYY-MM-DD hh:mm a").toDate(),
+                            isOff: false
+                        }
+                        
+                        return pushShift
+                    }
+                    
+
+
+                })
+
+                this.setState({shifts: pushSchedule})
+            }
+
+
+            //         date: "2018-04-07",
+            //         inputsShowing: false,
+            //         timeValueStart: '',
+            //         timeValueEnd: '',
+            //         timeInputStart: '',
+            //         timeInputEnd: '',
+            //         isOff: true
+        }
+        
+
+
+
+
+        
+
+
+        
+    }
 
     toggleEditing(i){
 
@@ -140,6 +202,8 @@ class Schedule extends React.Component {
         
         
     render() {
+
+
 
         let mappedShifts = this.state.shifts
         .map( (shift, i, arr) =>{
