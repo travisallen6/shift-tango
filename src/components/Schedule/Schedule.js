@@ -27,8 +27,8 @@ class Schedule extends React.Component {
                     inputsShowing: false,
                     timeValueStart: '04:00 am',
                     timeValueEnd: '12:00 pm',
-                    timeInputStart: moment("2018-04-06 04:00 am", "YYYY-MM-DD hh:mm a").toDate(),
-                    timeInputEnd: moment("2018-04-06 12:00 pm", "YYYY-MM-DD hh:mm a").toDate(),
+                    timeInputStart: moment("2018-04-06 04:35 am", "YYYY-MM-DD hh:mm a").toDate(),
+                    timeInputEnd: moment("2018-04-06 12:25 pm", "YYYY-MM-DD hh:mm a").toDate(),
                     isOff: false
                 },
                 {
@@ -72,7 +72,7 @@ class Schedule extends React.Component {
 
     toggleEditing(i){
 
-        let { timeValueStart, timeValueEnd, date, timeInputStart, timeInputEnd } = this.state.shifts[i]
+        let { timeValueStart, timeValueEnd, date, timeInputStart, timeInputEnd, isOff } = this.state.shifts[i]
         let freshShifts = [...this.state.shifts]
 
         if(this.state.shifts[i].inputsShowing){
@@ -90,8 +90,8 @@ class Schedule extends React.Component {
                 inputsShowing: false,
                 timeValueStart: timeValueStart,
                 timeValueEnd: timeValueEnd,
-                timeInputStart: timeValueStart,
-                timeInputEnd: timeValueEnd,
+                timeInputStart: moment(date +' '+ timeValueStart, "YYYY-MM-DD hh:mm a").toDate(),
+                timeInputEnd: moment(date +' '+ timeValueEnd, "YYYY-MM-DD hh:mm a").toDate(),
                 isOff: newIsoff
             }
 
@@ -100,11 +100,12 @@ class Schedule extends React.Component {
         } else {
             let newShift = {
                 date: date,
-                inputShowing: false,
+                inputsShowing: true,
                 timeValueStart: timeValueStart,
                 timeValueEnd: timeValueEnd,
                 timeInputStart: timeInputStart,
-                timeInputEnd: timeInputEnd
+                timeInputEnd: timeInputEnd,
+                isOff: isOff
             }
 
             freshShifts.splice(i, 1, newShift)
@@ -112,7 +113,29 @@ class Schedule extends React.Component {
         }
     }
 
+    updateTimeStart(event, time, i){
+      
+        let newShift = Object.assign({}, this.state.shifts[i], {timeInputStart: time})
+        let freshShifts = [...this.state.shifts]
+        freshShifts.splice(i, 1, newShift)
 
+    }
+
+    updateTimeEnd(event, time, i){
+      
+        let newShift = Object.assign({}, this.state.shifts[i], {timeInputEnd: time})
+        let freshShifts = [...this.state.shifts]
+        freshShifts.splice(i, 1, newShift)
+
+    }
+
+    toggleOff(i){
+        let { isOff } = this.state.shifts[i]
+        let newShift = Object.assign({}, this.state.shifts[i], {isOff: !isOff})
+        let freshShifts = [...this.state.shifts]
+        freshShifts.splice(i, 1, newShift)
+        this.setState({shifts: freshShifts})
+    }
     
 
         
@@ -125,6 +148,7 @@ class Schedule extends React.Component {
             const dowStyles= this.props.dateLabel 
                 ? {fontSize: 24} 
                 : {fontSize: 34}
+            
 
             return (
 
@@ -152,22 +176,22 @@ class Schedule extends React.Component {
                     </div>
 
                   
-                    { ! this.state.shifts[i].inputsShowing && ( <div className="schedule-value">
+                    { ! this.state.shifts[i].inputsShowing &&  <div className="schedule-value">
                         
-                        {!this.state.shifts[i].isOff && (<div
+                        {!this.state.shifts[i].isOff && <div
                             className="schedule-value-not-off">
                             
                             <div> {this.state.shifts[i].timeValueStart} </div>
                             <div>{ this.state.shifts[i].timeValueEnd } </div> 
                         
-                        </div>)}
+                        </div>}
                             
-                        {this.state.shifts[i].isOff && (<div 
+                        {this.state.shifts[i].isOff && <div 
                             className='schedule-value-off'>
                             OFF
-                        </div>)}
+                        </div>}
                       
-                    </div> )} 
+                    </div> } 
 
                    
                 {this.state.shifts[i].inputsShowing && (<div
@@ -178,7 +202,7 @@ class Schedule extends React.Component {
                             hintText="Start"
                             minutesStep={5} 
                             onChange={ (event, time) => this.updateTimeStart(event, time, i) }
-                            value={ this.state.shifts[i].timeValueStart} 
+                            value={ this.state.shifts[i].timeInputStart} 
                             textFieldStyle={{fontSize:22, height: 38, width:94}} 
                             style={{height: 38, width: 94}}
                             disabled={this.state.shifts[i].isOff}
@@ -187,7 +211,7 @@ class Schedule extends React.Component {
                             hintText="End"
                             minutesStep={5} 
                             onChange={ (event, time, i) => this.updateTimeEnd(event, time, i) }
-                            value={ this.state.shifts[i].timeValueEnd}
+                            value={ this.state.shifts[i].timeInputEnd}
                             textFieldStyle={{fontSize:22, height: 38, width:94}}
                             style={{height: 38, width: 94}}
                             disabled={this.state.shifts[i].isOff}/>
