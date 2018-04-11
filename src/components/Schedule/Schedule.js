@@ -2,7 +2,6 @@ import React from 'react';
 
 import Toggle from 'material-ui/Toggle';
 import TimePicker from 'material-ui/TimePicker';
-import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
 import Checkbox from 'material-ui/Checkbox'
 
@@ -13,47 +12,14 @@ import './Schedule.css'
 class Schedule extends React.Component {
     constructor(props) {
         super(props);
-        
-        
-        
-        
+
         this.state = {
             loading: true,
             shifts: []
-            //     {
-            //         date: "2018-04-06",
-            //         inputsShowing: false,
-            //         timeValueStart: '04:00 am',
-            //         timeValueEnd: '12:00 pm',
-            //         timeInputStart: moment("2018-04-06 04:35 am", "YYYY-MM-DD hh:mm a").toDate(),
-            //         timeInputEnd: moment("2018-04-06 12:25 pm", "YYYY-MM-DD hh:mm a").toDate(),
-            //         isOff: false
-            //     },
-            //     {
-            //         date: "2018-04-07",
-            //         inputsShowing: false,
-            //         timeValueStart: '',
-            //         timeValueEnd: '',
-            //         timeInputStart: '',
-            //         timeInputEnd: '',
-            //         isOff: true
-            //     },
-
-            // ]
-            
-            
-        
         }
             
     }
-    
 
-    
-
-        
-    
-    
-// Data is [ { date: "2018-07-" , shift: type: "" | "OFF" | { end:"12:00 pm", start:"04:00 am" } ]
     componentWillReceiveProps(newProps){
         if( newProps.pattern !== undefined){
             let { baseDate, exceptions, pattern, selection } = newProps
@@ -110,15 +76,6 @@ class Schedule extends React.Component {
 
                 this.setState({shifts: pushSchedule})
             }
-
-
-            //         date: "2018-04-07",
-            //         inputsShowing: false,
-            //         timeValueStart: '',
-            //         timeValueEnd: '',
-            //         timeInputStart: '',
-            //         timeInputEnd: '',
-            //         isOff: true
         }
         
 
@@ -197,10 +154,8 @@ class Schedule extends React.Component {
         freshShifts.splice(i, 1, newShift)
         this.setState({shifts: freshShifts})
     }
-    
 
-        
-        
+    
     render() {
 
 
@@ -210,7 +165,7 @@ class Schedule extends React.Component {
 
             const dowStyles= this.props.dateLabel 
                 ? {fontSize: 24} 
-                : {fontSize: 34}
+                : {fontSize: 30}
             
 
             return (
@@ -266,8 +221,19 @@ class Schedule extends React.Component {
                             minutesStep={5} 
                             onChange={ (event, time) => this.updateTimeStart(event, time, i) }
                             value={ this.state.shifts[i].timeInputStart} 
-                            textFieldStyle={{fontSize:22, height: 38, width:94}} 
-                            style={{height: 38, width: 94}}
+                            textFieldStyle={{
+                                fontSize:22, 
+                                // height: 38, 
+                                height:'100%',
+                                width:94,
+                                background: 'blue'
+                            }} 
+                            style={{
+                                // height: 25,
+                                height: '50%', 
+                                width: 94,
+                                background: 'yellow'
+                            }}
                             disabled={this.state.shifts[i].isOff}
                             />
                         <TimePicker
@@ -275,8 +241,16 @@ class Schedule extends React.Component {
                             minutesStep={5} 
                             onChange={ (event, time, i) => this.updateTimeEnd(event, time, i) }
                             value={ this.state.shifts[i].timeInputEnd}
-                            textFieldStyle={{fontSize:22, height: 38, width:94}}
-                            style={{height: 38, width: 94}}
+                            textFieldStyle={{
+                                background: "green",
+                                fontSize:22, 
+                                height: 38, 
+                                width:94}}
+                            style={{
+                                height: 25, 
+                                width: 94,
+                                background: "red"
+                            }}
                             disabled={this.state.shifts[i].isOff}/>
                     </div>
                     <div className="schedule-off-toggle">
@@ -293,15 +267,10 @@ class Schedule extends React.Component {
        
         )
     })
-        return ( 
-            <div className="pattern-modify-container">
-                <Paper zDepth={1} style={{width:'90%', padding:'20px'}}>
-                <Divider />
-                    {mappedShifts}
+        return (
 
-                
-            </Paper>
-
+            <div>
+                {mappedShifts}
             </div> 
 
         )

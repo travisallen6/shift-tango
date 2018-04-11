@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import Schedule from '../Schedule/Schedule'
 import axios from 'axios'
-import moment from 'moment'
+import Paper from 'material-ui/Paper';
+import Divider from 'material-ui/Divider';
+
+import './PatternModify.css'
+
+
 
 class PatternModify extends Component {
 
@@ -12,9 +17,6 @@ class PatternModify extends Component {
             pattern: props.pattern,
 
          }
-        
-        
-        let date = moment("2018-04-05 06:35 pm", "YYYY-MM-DD hh:mm a").toDate()
     }
 
     componentDidMount(){
@@ -28,16 +30,22 @@ class PatternModify extends Component {
     }
 
     render() { 
-        return ( 
-            <div>
-                <Schedule 
-                    dateLabel={false}
-                    pattern={ this.state.pattern }
-                    exceptions={ null }
-                    baseDate={"2018-04-10"}
-                    selection="pattern"
-                />
-            </div>
+        return (
+            <div className="pattern-modify-container">
+                <Paper 
+                    zDepth={1} 
+                    style={{width:'90%', padding:'20px'}}
+                >
+                    <Divider />
+                    <Schedule 
+                        dateLabel={false}
+                        pattern={ this.state.pattern }
+                        exceptions={ null }
+                        baseDate={"2018-04-10"}
+                        selection="pattern"
+                    />
+                </Paper>
+            </div>  
         )
     }
 }
