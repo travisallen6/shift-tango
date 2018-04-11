@@ -4,6 +4,7 @@ import Toggle from 'material-ui/Toggle';
 import TimePicker from 'material-ui/TimePicker';
 import Divider from 'material-ui/Divider';
 import Checkbox from 'material-ui/Checkbox'
+import RaisedButton from 'material-ui/RaisedButton'
 
 import moment from 'moment'
 import mergeSchedules from '../../mergeSchedules'
@@ -55,7 +56,6 @@ class Schedule extends React.Component {
 
                     } else {
 
-                        
                         pushShift = {
                             date: empShift.date,
                             type: empShift.type,
@@ -69,9 +69,6 @@ class Schedule extends React.Component {
                         
                         return pushShift
                     }
-                    
-
-
                 })
 
                 this.setState({shifts: pushSchedule})
@@ -271,6 +268,15 @@ class Schedule extends React.Component {
 
             <div>
                 {mappedShifts}
+                <div className="schedule-save-container">
+                    <RaisedButton
+                        style={{width:"50%", height: 40}}
+                        secondary={true}
+                        label="save"
+                        labelStyle={{fontSize:20}}
+                        onClick={}
+                    />
+                </div>
             </div> 
 
         )

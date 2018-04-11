@@ -42,7 +42,8 @@ class PatternModify extends Component {
         } )
     }
 
-    checkPattern(){
+    checkPattern(pattern){
+        alert("Woohoo!")
         
 
     }
@@ -79,17 +80,10 @@ class PatternModify extends Component {
                         exceptions={ null }
                         baseDate={"2018-04-10"}
                         selection="pattern"
+                        checkFunction={(pattern)=>this.checkPattern(pattern)}
                         // callback={()=>this.checkPattern(shifts)}
                     />
-                    <div className="pattern-save-container">
-                        <RaisedButton
-                            style={{width:"50%", height: 40}}
-                            secondary={true}
-                            label="save"
-                            labelStyle={{fontSize:20}}
-
-                        />
-                    </div>
+                    
                 </Paper>
             </div>  
         )
