@@ -20,14 +20,7 @@ class ManagerDash extends React.Component {
 
                 <AppBar 
                     title="Dash"
-                    iconElementRight={
-                        <FloatingActionButton 
-                            secondary={true}
-                            mini={true}
-                        >
-                            <ContentAdd />
-                        </FloatingActionButton>
-                    }
+                    
                 />
                 
                 <Switch>

@@ -226,13 +226,13 @@ class Schedule extends React.Component {
                                 // height: 38, 
                                 height:'100%',
                                 width:94,
-                                background: 'blue'
+                                // background: 'blue'
                             }} 
                             style={{
                                 // height: 25,
                                 height: '50%', 
                                 width: 94,
-                                background: 'yellow'
+                                // background: 'yellow'
                             }}
                             disabled={this.state.shifts[i].isOff}
                             />
@@ -242,14 +242,14 @@ class Schedule extends React.Component {
                             onChange={ (event, time, i) => this.updateTimeEnd(event, time, i) }
                             value={ this.state.shifts[i].timeInputEnd}
                             textFieldStyle={{
-                                background: "green",
+                                // background: "green",
                                 fontSize:22, 
                                 height: 38, 
                                 width:94}}
                             style={{
                                 height: 25, 
                                 width: 94,
-                                background: "red"
+                                // background: "red"
                             }}
                             disabled={this.state.shifts[i].isOff}/>
                     </div>
