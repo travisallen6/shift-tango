@@ -133,6 +133,7 @@ class Schedule extends React.Component {
         let newShift = Object.assign({}, this.state.shifts[i], {timeInputStart: time})
         let freshShifts = [...this.state.shifts]
         freshShifts.splice(i, 1, newShift)
+        this.setState({shifts: freshShifts})
 
     }
 
@@ -141,6 +142,7 @@ class Schedule extends React.Component {
         let newShift = Object.assign({}, this.state.shifts[i], {timeInputEnd: time})
         let freshShifts = [...this.state.shifts]
         freshShifts.splice(i, 1, newShift)
+        this.setState({shifts: freshShifts})
 
     }
 
@@ -236,7 +238,7 @@ class Schedule extends React.Component {
                         <TimePicker
                             hintText="End"
                             minutesStep={5} 
-                            onChange={ (event, time, i) => this.updateTimeEnd(event, time, i) }
+                            onChange={ (event, time) => this.updateTimeEnd(event, time, i) }
                             value={ this.state.shifts[i].timeInputEnd}
                             textFieldStyle={{
                                 // background: "green",
@@ -274,7 +276,7 @@ class Schedule extends React.Component {
                         secondary={true}
                         label="save"
                         labelStyle={{fontSize:20}}
-                        onClick={}
+                        onClick={()=>this.props.checkFunction(this.state.shifts)}
                     />
                 </div>
             </div> 

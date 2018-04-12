@@ -9,6 +9,8 @@ import Save from 'material-ui/svg-icons/content/save';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import RaisedButton from 'material-ui/RaisedButton';
 
+import moment from 'moment'
+
 import './PatternModify.css'
 
 
@@ -43,9 +45,45 @@ class PatternModify extends Component {
     }
 
     checkPattern(pattern){
-        alert("Woohoo!")
-        
+    
+        let evalPattern = pattern.map( shift => {
 
+        if(shift.isOff){
+            return {
+                date: shift.date, 
+                shift: "OFF"
+            }
+            
+        } else if (shift.inputsShowing) {
+            let shiftTimes = {start: shift.timeInputStart, end: shift.timeInputEnd}
+            if(shiftTimes.start > shiftTimes.end){
+            shiftTimes.end = moment(shiftTimes.end).add(1, "d").toDate()
+            }
+            return {
+                date: shift.date,
+                shift: shiftTimes,
+            } 
+            
+        } else {
+            let shiftTimes = {
+            start: moment(`${shift.date} ${shift.timeValueStart}`, "YYYY-MM-DD hh:mm a").toDate(),
+            end: moment(`${shift.date} ${shift.timeValueEnd}`, "YYYY-MM-DD hh:mm a").toDate(),
+            }
+            if(shiftTimes.start > shiftTimes.end){
+            shiftTimes.end = moment(shiftTimes.end).add(1, "d").toDate()
+            }
+            return {
+                date: shift.date,
+                shift: shiftTimes,
+            }
+        }
+        })
+        let errors = []
+
+        evalPattern
+        // .map( evalShift =>{
+
+        // })
     }
 
     render() {
