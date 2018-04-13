@@ -22,6 +22,7 @@ class Schedule extends React.Component {
     }
 
     componentWillReceiveProps(newProps){
+        // Check if the new props are any different 
         let { baseDate: oBaseDate, exceptions: oExceptions, pattern:oPattern, selection: oSelection } = this.props
         let { baseDate, exceptions, pattern, selection } = newProps
 
@@ -32,8 +33,7 @@ class Schedule extends React.Component {
 
         if(!baseDateEqual || !exceptionsEqual || !patternEqual || !selectionEqual){
 
-            
-
+            // Do nothing if the pattern is not yet defined
             if( newProps.pattern !== undefined){
                 
                 
@@ -59,8 +59,8 @@ class Schedule extends React.Component {
                                 inputsShowing: false,
                                 timeValueStart: '',
                                 timeValueEnd: '',
-                                timeInputStart: '',
-                                timeInputEnd: '',
+                                timeInputStart: moment(`${empShift.date} 12:00 am`, "YYYY-MM-DD hh:mm a").toDate(),
+                                timeInputEnd: moment(`${empShift.date} 12:00 am`, "YYYY-MM-DD hh:mm a").toDate(),
                                 isOff: true
                             }
 

@@ -59,6 +59,14 @@ module.exports = {
     getEmployeePattern: (req, res) => {
         req.app.get('db').get_employee_pattern([req.params.empid])
         .then( pattern => res.send(pattern))
+    },
+
+    setEmployeePattern: (req, res) => {
+        let { pattern: [sun, mon, tue, wed, thu, fri, sat] } = req.body
+        let { empid } = req.params
+
+        req.app.get('db').set_employee_pattern([empid, sun, mon, tue, wed, thu, fri, sat])
+        .then( response => res.sendStatus(200) )
     }
 
 }

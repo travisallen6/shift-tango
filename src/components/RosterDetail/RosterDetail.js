@@ -215,7 +215,7 @@ class RosterDetail extends React.Component {
           onRequestClose={this.handleRequestClose}
           >
           <Menu>
-            <Link to={`/managerdash/${this.state.empId}/detail/pattern`}>
+            <Link to={`/managerdash/${this.state.empId}/pattern`}>
                 <MenuItem primaryText="Pattern" />
             </Link>
             <MenuItem primaryText="Exception" />
