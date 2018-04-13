@@ -6,6 +6,7 @@ import Divider from 'material-ui/Divider';
 import Avatar from 'material-ui/Avatar';
 import Subheader from 'material-ui/Subheader';
 import Save from 'material-ui/svg-icons/content/save';
+import Snackbar from 'material-ui/Snackbar';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import RaisedButton from 'material-ui/RaisedButton';
 
@@ -24,7 +25,9 @@ class PatternModify extends Component {
             pattern: props.pattern,
             profilePic: '',
             lastName: '',
-            firstName: ''
+            firstName: '',
+            errorMessage: [],
+            snackbarOpen: false
 
          }
     }
@@ -78,15 +81,62 @@ class PatternModify extends Component {
             }
         }
         })
-        let errors = []
+        let errors = evalPattern
+        .map( (evalShift, i, arr) => {
+            let compareShift = i === 0 
+            ? arr[arr.length - 1]
+            : arr[i - 1];
 
-        evalPattern
-        // .map( evalShift =>{
+            let weekDay = moment(evalShift.date).format("ddd")
+            let compareWeekDay = moment(compareShift.date).format("ddd")
 
-        // })
+            if(evalShift.shift === "OFF"){
+                return
+            } 
+
+            let startValid = moment(evalShift.start).isValid()
+            let endValid = moment(evalShift.end).isValid()
+
+            if (!startValid || !endValid) {
+                let error = <div><strong>{weekDay}:</strong><p>One or more inputs contains an invalid time</p></div>
+                return error
+            }
+
+            if(compareShift.shift === "OFF"){
+                return
+            }
+
+            if(evalShift.shift.start > compareShift.shift.end){
+                let error = <div><strong>Shift Overlap:</strong><p>{weekDay}(Start) cannot come before {compareWeekDay}(End)</p></div>
+                return error
+            }
+
+            return
+        })
+        errors
+        let allErrors = errors.filter( error => {
+            return error !== undefined
+        })
+
+        if (allErrors.length > 0){
+            this.setState({
+                errorMessage: allErrors,
+                snackbarOpen: true
+            })
+        }
     }
 
+    handleSnackbarClose = () => {
+        this.setState({
+          snackbarOpen: false,
+        });
+      };
+    
     render() {
+        let errMessages = this.state.errorMessage.map(message =>{
+            return message
+        })
+        
         let { profilePic, lastName, firstName } = this.state 
         return (
             <div className="pattern-modify-container">
@@ -120,6 +170,13 @@ class PatternModify extends Component {
                         selection="pattern"
                         checkFunction={(pattern)=>this.checkPattern(pattern)}
                         // callback={()=>this.checkPattern(shifts)}
+                    />
+                     <Snackbar
+                        open={this.state.snackbarOpen}
+                        message={
+                            <div>{errMessages}</div>}
+                        autoHideDuration={4000}
+                        onRequestClose={this.handleSnackbarClose}
                     />
                     
                 </Paper>
