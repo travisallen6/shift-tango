@@ -5,6 +5,8 @@ import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
 import Avatar from 'material-ui/Avatar';
 import Subheader from 'material-ui/Subheader';
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
 import Save from 'material-ui/svg-icons/content/save';
 import Snackbar from 'material-ui/Snackbar';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
@@ -27,7 +29,8 @@ class PatternModify extends Component {
             lastName: '',
             firstName: '',
             errorMessage: [],
-            snackbarOpen: false
+            snackbarOpen: false,
+            dialogOpen: false
 
          }
     }
@@ -94,8 +97,8 @@ class PatternModify extends Component {
                 return
             } 
 
-            let startValid = moment(evalShift.start).isValid()
-            let endValid = moment(evalShift.end).isValid()
+            let startValid = moment(evalShift.shift.start).isValid()
+            let endValid = moment(evalShift.shift.end).isValid()
 
             if (!startValid || !endValid) {
                 let error = <div><strong>{weekDay}:</strong><p>One or more inputs contains an invalid time</p></div>
@@ -106,7 +109,7 @@ class PatternModify extends Component {
                 return
             }
 
-            if(evalShift.shift.start > compareShift.shift.end){
+            if(evalShift.shift.start < compareShift.shift.end){
                 let error = <div><strong>Shift Overlap:</strong><p>{weekDay}(Start) cannot come before {compareWeekDay}(End)</p></div>
                 return error
             }
@@ -121,6 +124,10 @@ class PatternModify extends Component {
         if (allErrors.length > 0){
             this.setState({
                 errorMessage: allErrors,
+                dialogOpen: true
+            })
+        } else {
+            this.setState({
                 snackbarOpen: true
             })
         }
@@ -128,9 +135,15 @@ class PatternModify extends Component {
 
     handleSnackbarClose = () => {
         this.setState({
-          snackbarOpen: false,
+            snackbarOpen: false,
         });
       };
+
+    handleDialogClose = () => {
+        this.setState({
+            dialogOpen: false
+        })
+    }
     
     render() {
         let errMessages = this.state.errorMessage.map(message =>{
@@ -140,6 +153,24 @@ class PatternModify extends Component {
         let { profilePic, lastName, firstName } = this.state 
         return (
             <div className="pattern-modify-container">
+                <Dialog
+                        title="Errors"
+                        actions={[
+                                <FlatButton
+                                label="Ok"
+                                primary={true}
+                                keyboardFocused={true}
+                                onClick={this.handleDialogClose}
+                                />
+                            ]}
+                        modal={false}
+                        open={this.state.dialogOpen}
+                        // onRequestClose={this.handleDialogClose}
+                    >
+
+                    {this.state.errorMessage}
+
+                    </Dialog>
                 <div className="pattern-name-header">
                     <Avatar
                         src={profilePic}
@@ -173,13 +204,14 @@ class PatternModify extends Component {
                     />
                      <Snackbar
                         open={this.state.snackbarOpen}
-                        message={
-                            <div>{errMessages}</div>}
+                        message={ "Pattern saved" }
+                            
                         autoHideDuration={4000}
                         onRequestClose={this.handleSnackbarClose}
                     />
                     
                 </Paper>
+                
             </div>  
         )
     }

@@ -22,56 +22,69 @@ class Schedule extends React.Component {
     }
 
     componentWillReceiveProps(newProps){
-        if( newProps.pattern !== undefined){
-            let { baseDate, exceptions, pattern, selection } = newProps
+        let { baseDate: oBaseDate, exceptions: oExceptions, pattern:oPattern, selection: oSelection } = this.props
+        let { baseDate, exceptions, pattern, selection } = newProps
+
+        let baseDateEqual = oBaseDate === baseDate
+        let exceptionsEqual = oExceptions === exceptions
+        let patternEqual = oPattern === pattern
+        let selectionEqual = oSelection === selection
+
+        if(!baseDateEqual || !exceptionsEqual || !patternEqual || !selectionEqual){
+
             
-            let parsedSchedule = mergeSchedules(baseDate, pattern, exceptions, selection)
 
-            let undefinedShifts = false
+            if( newProps.pattern !== undefined){
+                
+                
+                let parsedSchedule = mergeSchedules(baseDate, pattern, exceptions, selection)
 
-            parsedSchedule.forEach( schedule =>{
-                if(schedule.shift === undefined){
-                    undefinedShifts = true
-                }
-            })
+                let undefinedShifts = false
 
-            if(!undefinedShifts){
-                let pushShift = {}
-
-                let pushSchedule = parsedSchedule.map( empShift => {
-                    let shiftOff = empShift.shift === "OFF"
-
-                    if(shiftOff){
-                        pushShift = {
-                            date: empShift.date,
-                            inputsShowing: false,
-                            timeValueStart: '',
-                            timeValueEnd: '',
-                            timeInputStart: '',
-                            timeInputEnd: '',
-                            isOff: true
-                        }
-
-                        return pushShift
-
-                    } else {
-
-                        pushShift = {
-                            date: empShift.date,
-                            type: empShift.type,
-                            inputsShowing: false,
-                            timeValueStart: empShift.shift.start,
-                            timeValueEnd: empShift.shift.end,
-                            timeInputStart: moment(`${empShift.date} ${empShift.shift.start}`, "YYYY-MM-DD hh:mm a").toDate(),
-                            timeInputEnd: moment(`${empShift.date} ${empShift.shift.end}`, "YYYY-MM-DD hh:mm a").toDate(),
-                            isOff: false
-                        }
-                        
-                        return pushShift
+                parsedSchedule.forEach( schedule =>{
+                    if(schedule.shift === undefined){
+                        undefinedShifts = true
                     }
                 })
 
-                this.setState({shifts: pushSchedule})
+                if(!undefinedShifts){
+                    let pushShift = {}
+
+                    let pushSchedule = parsedSchedule.map( empShift => {
+                        let shiftOff = empShift.shift === "OFF"
+
+                        if(shiftOff){
+                            pushShift = {
+                                date: empShift.date,
+                                inputsShowing: false,
+                                timeValueStart: '',
+                                timeValueEnd: '',
+                                timeInputStart: '',
+                                timeInputEnd: '',
+                                isOff: true
+                            }
+
+                            return pushShift
+
+                        } else {
+
+                            pushShift = {
+                                date: empShift.date,
+                                type: empShift.type,
+                                inputsShowing: false,
+                                timeValueStart: empShift.shift.start,
+                                timeValueEnd: empShift.shift.end,
+                                timeInputStart: moment(`${empShift.date} ${empShift.shift.start}`, "YYYY-MM-DD hh:mm a").toDate(),
+                                timeInputEnd: moment(`${empShift.date} ${empShift.shift.end}`, "YYYY-MM-DD hh:mm a").toDate(),
+                                isOff: false
+                            }
+                            
+                            return pushShift
+                        }
+                    })
+
+                    this.setState({shifts: pushSchedule})
+                }
             }
         }
         
