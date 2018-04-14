@@ -7,10 +7,7 @@ import Avatar from 'material-ui/Avatar';
 import Subheader from 'material-ui/Subheader';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-import Save from 'material-ui/svg-icons/content/save';
 import Snackbar from 'material-ui/Snackbar';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
-import RaisedButton from 'material-ui/RaisedButton';
 import { lightGreen800, lightGreen100 } from 'material-ui/styles/colors'
 import {Redirect} from 'react-router-dom'
 
@@ -110,7 +107,7 @@ class PatternModify extends Component {
             let weekDay = moment(evalShift.date).format("ddd")
             if (!startValid || !endValid) {
                 let error = <div><strong>{weekDay}:</strong> One or more inputs contains an invalid time</div>
-                return null
+                return error
             }
             
             if(i === 0 ){
@@ -193,14 +190,11 @@ class PatternModify extends Component {
     }
     
     render() {
-        let errMessages = this.state.errorMessage.map(message =>{
-            return message
-        })
         
         let { profilePic, lastName, firstName } = this.state 
         return (
             <div className="pattern-modify-container">
-                {this.props.redirect && <Redirect to={`/managerdash/${this.state.empId}/detail/`} />}
+                {this.state.redirect && <Redirect to={`/managerdash/${this.state.empId}/detail/`} />}
                 <Dialog
                         title="Errors"
                         actions={[
@@ -232,13 +226,17 @@ class PatternModify extends Component {
                     style={{width:'90%', padding:'20px'}}
                 >
                     <div className="pattern-sub-container">
+
                         <Subheader
-                            style={{fontSize:28, textAlign:"center", paddingLeft: 0}}
-                            > Schedule Pattern</Subheader>
-                        {/* <FloatingActionButton 
-                        secondary={true} >
-                            <Save />
-                        </FloatingActionButton> */}
+                            style={{
+                                fontSize:28, 
+                                textAlign:"center", 
+                                paddingLeft: 0
+                            }}
+                        > 
+                            Schedule Pattern
+                        </Subheader>
+
                     </div>    
                     <Divider />
                     <Schedule 
@@ -248,14 +246,13 @@ class PatternModify extends Component {
                         baseDate={"2018-04-10"}
                         selection="pattern"
                         checkFunction={(pattern)=>this.checkPattern(pattern)}
-                        // callback={()=>this.checkPattern(shifts)}
                     />
                      <Snackbar
                         open={this.state.snackbarOpen}
                         message={ "Pattern saved" }
                         contentStyle={{color: lightGreen800}}
                         bodyStyle={{background:lightGreen100}}
-                        autoHideDuration={4000}
+                        autoHideDuration={500}
                         onRequestClose={this.handleSnackbarClose}
                     />
                     

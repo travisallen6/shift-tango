@@ -97,12 +97,17 @@
       
     }
     
-    dateGroups.map( element => {
+    let splitDateGroups = dateGroups.map( element => {
         if(element.shift){
-          element.shift = parseShift(element.shift)
+          let parsedShift = parseShift(element.shift)
+          return {
+            date: element.date,
+            shift: parsedShift,
+            type: element.type
+          }
         }
         return element
     })
     
-    return dateGroups
+    return splitDateGroups
   }

@@ -3,10 +3,12 @@ import {Switch, Route} from 'react-router-dom';
 
 import RosterDetail from '../RosterDetail/RosterDetail'
 import PatternModify from '../PatternModify/PatternModify'
+import ExceptionModify from '../ExceptionModify/ExceptionModify'
+
 import AppBar from 'material-ui/AppBar';
 import ManagerRoster from '../ManagerRoster/ManagerRoster'
-import FloatingActionButton from 'material-ui/FloatingActionButton';
-import ContentAdd from 'material-ui/svg-icons/content/add';
+// import FloatingActionButton from 'material-ui/FloatingActionButton';
+// import ContentAdd from 'material-ui/svg-icons/content/add';
 
 
 
@@ -35,6 +37,9 @@ class ManagerDash extends React.Component {
                     <Route 
                         path='/managerdash/:empid/pattern'
                         component={PatternModify} />
+                    <Route 
+                        path='/managerdash/:empid/schedule'
+                        component={ExceptionModify} />
 
                 </Switch>
                 

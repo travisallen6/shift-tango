@@ -23,13 +23,12 @@ class Schedule extends React.Component {
 
     componentWillReceiveProps(newProps){
         // Check if the new props are any different 
-        let { baseDate: oBaseDate, exceptions: oExceptions, pattern:oPattern, selection: oSelection } = this.props
-        let { baseDate, exceptions, pattern, selection } = newProps
+       
 
-        let baseDateEqual = oBaseDate === baseDate
-        let exceptionsEqual = oExceptions === exceptions
-        let patternEqual = oPattern === pattern
-        let selectionEqual = oSelection === selection
+        let baseDateEqual = this.props.baseDate === newProps.baseDate
+        let exceptionsEqual = this.props.exceptions === newProps.exceptions
+        let patternEqual = this.props.pattern === newProps.pattern
+        let selectionEqual = this.props.selection === newProps.selection
 
         if(!baseDateEqual || !exceptionsEqual || !patternEqual || !selectionEqual){
 
@@ -37,7 +36,7 @@ class Schedule extends React.Component {
             if( newProps.pattern !== undefined){
                 
                 
-                let parsedSchedule = mergeSchedules(baseDate, pattern, exceptions, selection)
+                let parsedSchedule = mergeSchedules(newProps.baseDate, newProps.pattern, newProps.exceptions, newProps.selection)
 
                 let undefinedShifts = false
 
@@ -56,12 +55,13 @@ class Schedule extends React.Component {
                         if(shiftOff){
                             pushShift = {
                                 date: empShift.date,
+                                type: empShift.type,
                                 inputsShowing: false,
                                 timeValueStart: '',
                                 timeValueEnd: '',
                                 timeInputStart: moment(`${empShift.date} 12:00 am`, "YYYY-MM-DD hh:mm a").toDate(),
                                 timeInputEnd: moment(`${empShift.date} 12:00 am`, "YYYY-MM-DD hh:mm a").toDate(),
-                                isOff: true
+                                isOff: true,
                             }
 
                             return pushShift
@@ -100,7 +100,7 @@ class Schedule extends React.Component {
 
     toggleEditing(i){
 
-        let { timeValueStart, timeValueEnd, date, timeInputStart, timeInputEnd, isOff } = this.state.shifts[i]
+        let { timeValueStart, timeValueEnd, date } = this.state.shifts[i]
         let freshShifts = [...this.state.shifts]
 
         if(this.state.shifts[i].inputsShowing){
@@ -114,29 +114,27 @@ class Schedule extends React.Component {
                 : false; 
 
             let newShift = {
-                date: date,
                 inputsShowing: false,
-                timeValueStart: timeValueStart,
-                timeValueEnd: timeValueEnd,
                 timeInputStart: moment(date +' '+ timeValueStart, "YYYY-MM-DD hh:mm a").toDate(),
                 timeInputEnd: moment(date +' '+ timeValueEnd, "YYYY-MM-DD hh:mm a").toDate(),
                 isOff: newIsoff
             }
 
-            freshShifts.splice(i, 1, newShift)
+            /////
+            let replacementShift = Object.assign({}, this.state.shifts[i], newShift)
+            // let freshShifts = [...this.state.shifts]
+            freshShifts.splice(i, 1, replacementShift)
             this.setState({shifts: freshShifts})
+            
         } else {
             let newShift = {
-                date: date,
                 inputsShowing: true,
-                timeValueStart: timeValueStart,
-                timeValueEnd: timeValueEnd,
-                timeInputStart: timeInputStart,
-                timeInputEnd: timeInputEnd,
-                isOff: isOff
             }
 
-            freshShifts.splice(i, 1, newShift)
+            /////
+            let replacementShift = Object.assign({}, this.state.shifts[i], newShift)
+            // let freshShifts = [...this.state.shifts]
+            freshShifts.splice(i, 1, replacementShift)
             this.setState({shifts: freshShifts})
         }
     }
