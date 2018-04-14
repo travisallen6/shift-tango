@@ -5,6 +5,7 @@ import TimePicker from 'material-ui/TimePicker';
 import Divider from 'material-ui/Divider';
 import Checkbox from 'material-ui/Checkbox'
 import RaisedButton from 'material-ui/RaisedButton'
+import TextField from 'material-ui/TextField';
 
 import moment from 'moment'
 import mergeSchedules from '../../mergeSchedules'
@@ -62,6 +63,7 @@ class Schedule extends React.Component {
                                 timeInputStart: moment(`${empShift.date} 12:00 am`, "YYYY-MM-DD hh:mm a").toDate(),
                                 timeInputEnd: moment(`${empShift.date} 12:00 am`, "YYYY-MM-DD hh:mm a").toDate(),
                                 isOff: true,
+                                typeInput: ''
                             }
 
                             return pushShift
@@ -76,7 +78,8 @@ class Schedule extends React.Component {
                                 timeValueEnd: empShift.shift.end,
                                 timeInputStart: moment(`${empShift.date} ${empShift.shift.start}`, "YYYY-MM-DD hh:mm a").toDate(),
                                 timeInputEnd: moment(`${empShift.date} ${empShift.shift.end}`, "YYYY-MM-DD hh:mm a").toDate(),
-                                isOff: false
+                                isOff: false,
+                                typeInput: ''
                             }
                             
                             return pushShift
@@ -165,10 +168,17 @@ class Schedule extends React.Component {
         this.setState({shifts: freshShifts})
     }
 
+    handleReasonInputChange(e, i){
+        if(e.target.value.length <= 5){
+            let newShift = Object.assign({}, this.state.shifts[i], {typeInput: e.target.value})
+            let freshShifts = [...this.state.shifts]
+            freshShifts.splice(i, 1, newShift)
+            this.setState({shifts: freshShifts})
+        }
+    }
+
     
     render() {
-
-
 
         let mappedShifts = this.state.shifts
         .map( (shift, i, arr) =>{
@@ -208,15 +218,22 @@ class Schedule extends React.Component {
                         
                         {!this.state.shifts[i].isOff && <div
                             className="schedule-value-not-off">
-                            
-                            <div> {this.state.shifts[i].timeValueStart} </div>
-                            <div>{ this.state.shifts[i].timeValueEnd } </div> 
+
+                            <div className="schedule-value-time-container">
+                                <div> {this.state.shifts[i].timeValueStart} </div>
+                                <div>{ this.state.shifts[i].timeValueEnd } </div> 
+                            </div>
                         
                         </div>}
                             
                         {this.state.shifts[i].isOff && <div 
                             className='schedule-value-off'>
                             OFF
+                        </div>}
+
+                        {shift.type !== "pattern" && <div 
+                            className='schedule-value-type'> 
+                            {shift.type}
                         </div>}
                       
                     </div> } 
@@ -269,6 +286,16 @@ class Schedule extends React.Component {
                             labelPosition='right' 
                             onToggle={ ()=>this.toggleOff(i) }
                             toggled={this.state.shifts[i].isOff}/>
+                        {this.props.selection === "mixed" && <div className="schedule-reason-input">
+                            <TextField
+                                hintText="Reason"
+                                onChange={(e)=>this.handleReasonInputChange(e, i)}
+                                value={ this.state.shifts[i].typeInput }
+                                style={{width:"100%", height:"100%"}}
+                                inputStyle={{width: "100%", height:"100%"}}
+                            />
+                            
+                        </div>}
                     </div>
                 </div>)} 
             </div>

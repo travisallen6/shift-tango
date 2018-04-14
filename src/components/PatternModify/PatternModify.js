@@ -183,10 +183,9 @@ class PatternModify extends Component {
       };
 
     handleDialogClose = () => {
-        this.props.history.push('/')
-        // this.setState({
-        //     dialogOpen: false
-        // })
+        this.setState({
+            dialogOpen: false,
+        })
     }
     
     render() {
@@ -207,7 +206,7 @@ class PatternModify extends Component {
                             ]}
                         modal={false}
                         open={this.state.dialogOpen}
-                        // onRequestClose={this.handleDialogClose}
+                        onRequestClose={this.handleDialogClose}
                     >
 
                     {this.state.errorMessage}

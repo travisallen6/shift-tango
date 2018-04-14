@@ -29,8 +29,7 @@
 .schedule-value {
     display: flex;
     align-items: center;
-    flex-direction: column;
-    justify-content: space-around;
+    justify-content: center;
     width: 176px;
     font-size: 20px;
 }
@@ -38,12 +37,11 @@
 .schedule-value-not-off {
     height: 100%;
     display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
 }
 
 .schedule-value-off {
     font-size: 25px;
+    display:flex;
 }
 
 .schedule-time-inputs {
@@ -61,10 +59,29 @@
     height:100%;
     width:74px;
     display:flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
 }
 
 .schedule-save-container{
     padding-top: 20px;
+    display: flex;
+}
+
+.schedule-value-time-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.schedule-value-type {
+    margin-left: 10px;
+    color: rgb(194, 194, 194)
+
+}
+
+.schedule-reason-input {
+    height: 50%;
+    margin-bottom: -8px;
 }
