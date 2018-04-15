@@ -8,11 +8,13 @@ import {Link} from 'react-router-dom'
 
 import Avatar from 'material-ui/Avatar';
 import Paper from 'material-ui/Paper';
+import EditIcon from 'material-ui/svg-icons/image/edit'
 import RaisedButton from 'material-ui/RaisedButton';
 import Popover from 'material-ui/Popover';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import lightBlueA100 from 'material-ui/styles'
+import { grey400, grey300 } from 'material-ui/styles/colors'
 
 import './RosterDetail.css'
 
@@ -126,7 +128,8 @@ class RosterDetail extends React.Component {
         let paperStyles = {
                 margin: '8px', 
                 width: '90vw', 
-                padding: '20px'
+                padding: '20px',
+                position: 'relative'
             }
             
         let mergedSchedules = mergeSchedules(this.state.skdViewDate, pattern, exceptions)
@@ -177,6 +180,9 @@ class RosterDetail extends React.Component {
                         style={paperStyles} 
                         zDepth={1} 
                     >
+                    <div className="detail-edit-icon">
+                        <EditIcon color={grey300} hoverColor={grey400}/>
+                    </div>
 
 
                 <div className='row'><h2>Emp#:</h2><p> { this.state.empId } </p></div>

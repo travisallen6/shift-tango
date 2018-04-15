@@ -90,3 +90,9 @@
     justify-content: center;
     align-items: center;
 }
+
+.detail-edit-icon {
+    position: absolute;
+    top: 8px;
+    right:8px;
+}
