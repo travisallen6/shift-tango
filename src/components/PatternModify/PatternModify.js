@@ -245,6 +245,9 @@ class PatternModify extends Component {
                         baseDate={"2018-04-10"}
                         selection="pattern"
                         checkFunction={(pattern)=>this.checkPattern(pattern)}
+                        primaryBtnLabel="save"
+                        secondaryBtnLabel="back"
+                        secondaryBtnFunction={this.handleSnackbarClose}
                     />
                      <Snackbar
                         open={this.state.snackbarOpen}

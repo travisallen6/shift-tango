@@ -76,8 +76,9 @@ module.exports = {
         exceptions.forEach( exception =>{
             let { date, type, shift } = exception
             req.app.get('db').add_exception( [empid, date, type, shift] )
-            .then( response => res.sendStatus(200) )
+            
         })
+        res.sendStatus(200)
 
     },
 
@@ -86,6 +87,7 @@ module.exports = {
         req.app.get('db').get_employee_exceptions([empid]).then( empExceptions =>{
             res.send(empExceptions)
         })
+        .catch( err => console.log(err))
     }
 
 }

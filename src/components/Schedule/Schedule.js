@@ -196,7 +196,8 @@ class Schedule extends React.Component {
 
                     <div className="schedule-input-toggle">
                     <Checkbox 
-                            onCheck={()=>this.toggleEditing(i)} />
+                            onCheck={()=>this.toggleEditing(i)} 
+                            checked={this.state.shifts[i].inputsShowing}/>
                     </div>
                 
                     <div className="schedule-date-label">
@@ -310,12 +311,20 @@ class Schedule extends React.Component {
                 {mappedShifts}
                 <div className="schedule-save-container">
                     <RaisedButton
-                        style={{width:"50%", height: 40}}
+                        style={{width:"45%", height: 40}}
                         secondary={true}
-                        label="save"
+                        label={this.props.primaryBtnLabel}
                         labelStyle={{fontSize:20}}
                         onClick={()=>this.props.checkFunction(this.state.shifts)}
                     />
+                    { this.props.secondaryBtnLabel && <RaisedButton
+                        style={{width:"45%", height: 40}}
+                        // secondary={true}
+                        label={this.props.secondaryBtnLabel}
+                        labelStyle={{fontSize:20}}
+                        onClick={()=>this.props.secondaryBtnFunction()}
+                        default={true}
+                    /> }
                 </div>
             </div> 
 

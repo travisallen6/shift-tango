@@ -218,7 +218,9 @@ class RosterDetail extends React.Component {
             <Link to={`/managerdash/${this.state.empId}/pattern`}>
                 <MenuItem primaryText="Pattern" />
             </Link>
-            <MenuItem primaryText="Exception" />
+            <Link to={`/managerdash/${this.state.empId}/schedule`}>
+                <MenuItem primaryText="Exception" />
+            </Link>
           </Menu>
         </Popover>
       </div>

@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import axios from 'axios'
+import { Redirect } from 'react-router-dom'
 import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
 import Avatar from 'material-ui/Avatar';
 import Subheader from 'material-ui/Subheader';
 import DatePicker from 'material-ui/DatePicker';
+import Dialog from 'material-ui/Dialog';
 import ForwardIcon from 'material-ui/svg-icons/navigation/chevron-right'
 import BackIcon from 'material-ui/svg-icons/navigation/chevron-left'
 import DateRangeIcon from 'material-ui/svg-icons/action/date-range'
+import Snackbar from 'material-ui/Snackbar';
+import { lightGreen800, lightGreen100 } from 'material-ui/styles/colors'
 
 // import {Redirect} from 'react-router-dom'
 
@@ -30,13 +34,18 @@ class ExceptionModify extends Component {
             pattern: {},
             scheduleExceptions: [],
             dateSelectInput: moment().toDate(),
-            datePickerShowing: false
+            datePickerShowing: false,
+            dialogOpen: false,
+            errorMessage: [],
+            snackbarOpen: false,
+            redirect: false
 
         }
     }
 
     componentDidMount(){
-        axios.get(`/api/employee/${205301}/detail`)
+        let { empid } = this.props.match.params
+        axios.get(`/api/employee/${empid}/detail`)
         // axios.get(`/api/employee/${this.props.match.params.empid}/detail`)
         .then( empData =>{
             let { profile: { last_name, first_name, emp_id, profile_pic, sun, mon, tue, wed, thu, fri, sat } } = empData.data
@@ -78,6 +87,23 @@ class ExceptionModify extends Component {
         })
     }
 
+    handleDialogClose = () => {
+        this.setState({
+            dialogOpen: false
+        })
+    }
+
+    handleSnackbarClose = () => {
+        this.setState({
+            snackbarOpen: false,
+        })
+    }
+
+    handleRedirect = () => {
+        this.setState({
+            redirect: true
+        })
+    }
 
     checkSchedule(schedule){
     
@@ -168,9 +194,9 @@ class ExceptionModify extends Component {
                 // If an exception matches, use that shift, if not use the pattern shift for that day
                 let firstCompareSchedule = matchingCompareException.length > 0 
                     ? { 
-                        date: matchingCompareException.date,
-                        shift: matchingCompareException.shift,
-                        type: matchingCompareException.type
+                        date: matchingCompareException[0].date,
+                        shift: matchingCompareException[0].shift,
+                        type: matchingCompareException[0].type
                     }
                     : {
                         date: firstCompareDate,
@@ -190,8 +216,8 @@ class ExceptionModify extends Component {
 
                     let end = parsedShift[1]
 
-                    let momentStart = moment(`${date} ${start}, YYYY-MM-DD HHmm`).toDate()
-                    let momentEnd = moment(`${date} ${end}, YYYY-MM-DD HHmm`).toDate()
+                    let momentStart = moment(`${date} ${start}`, `YYYY-MM-DD HHmm`).toDate()
+                    let momentEnd = moment(`${date} ${end}`, `YYYY-MM-DD HHmm`).toDate()
 
                     if(momentEnd < momentStart){
                         momentEnd = moment(momentEnd).add(1,"d").toDate()
@@ -220,9 +246,9 @@ class ExceptionModify extends Component {
                 // If an exception matches, use that shift, if not use the pattern shift for that day
                 let lastCompareSchedule = matchingCompareException.length > 0 
                     ? { 
-                        date: matchingCompareException.date,
-                        shift: matchingCompareException.shift,
-                        type: matchingCompareException.type
+                        date: matchingCompareException[0].date,
+                        shift: matchingCompareException[0].shift,
+                        type: matchingCompareException[0].type
                     }
                     : {
                         date: lastCompareDate,
@@ -242,8 +268,8 @@ class ExceptionModify extends Component {
 
                     let end = parsedShift[1]
 
-                    let momentStart = moment(`${date} ${start}, YYYY-MM-DD HHmm`).toDate()
-                    let momentEnd = moment(`${date} ${end}, YYYY-MM-DD HHmm`).toDate()
+                    let momentStart = moment(`${date} ${start}`, "YYYY-MM-DD HHmm").toDate()
+                    let momentEnd = moment(`${date} ${end}`, "YYYY-MM-DD HHmm").toDate()
 
                     if(momentEnd < momentStart){
                         momentEnd = moment(momentEnd).add(1,"d").toDate()
@@ -263,7 +289,7 @@ class ExceptionModify extends Component {
                 compareShift = {...arr[i-1]}
             }
 
-            if( compareShift.shift.end > evalShift.shift.start ) {
+            if( compareShift.shift.end > evalShift.shift.start && i !== 6 ) {
                 let compareShiftDate = moment(compareShift.date)
                     .format("MM/DD/YY")
                 let firstCompareEnd = moment(compareShift.shift.end)
@@ -276,9 +302,27 @@ class ExceptionModify extends Component {
                
                     // Shift overlap: Sat 12/31/18 end: 05:00 am conflicts with Sun 01/01/19 start: 04:00 am 
 
-                let error = <div><strong>Shift Overlap:</strong> {compareShiftDate}end: { firstCompareEnd } conflicts with { evalShiftDate } start: { evalShiftStart }</div>
+                let error = <div key={i}><strong>Shift Overlap:</strong> {compareShiftDate} end: { firstCompareEnd } conflicts with { evalShiftDate } start: { evalShiftStart }</div>
             
                 return error
+
+            } else if(compareShift.shift.start < evalShift.shift.end && i === 6){
+                let compareShiftDate = moment(compareShift.date)
+                    .format("MM/DD/YY")
+                let firstCompareStart = moment(compareShift.shift.start)
+                    .format("hh:mm a")
+               
+                    let evalShiftDate = moment(evalShift.date)
+                    .format("MM/DD/YY")
+                let evalShiftEnd = moment(evalShift.shift.end)
+                    .format("hh:mm a")
+               
+                    // Shift overlap: Sat 12/31/18 end: 05:00 am conflicts with Sun 01/01/19 start: 04:00 am 
+
+                let error = <div key={i}><strong>Shift Overlap:</strong> {evalShiftDate} end: { evalShiftEnd } conflicts with { compareShiftDate } start: { firstCompareStart }</div>
+            
+                return error
+
             }
 
 
@@ -292,20 +336,6 @@ class ExceptionModify extends Component {
         let excToSend = evalSchedule.filter( exception => {
             return exception.inputsShowing === true
         })
-
-        // let excErrors = excToSend.map( exception => {
-        //     let currExcMatch = this.state.exceptions.filter( exc =>{
-        //         return exc.date === exception.date
-        //     })
-
-        //     if(currExcMatch.length > 0){
-        //         let exceptionDisplayDate = moment(exception.date).format("MM/DD/YY")
-        //         let error = <div><strong>Exception Conflict:</strong> An exception already exists for { exceptionDisplayDate }. Submitting anyway will </div>
-        //     }
-
-        //     return null
-        // })
-
         
         if (allErrors.length > 0){
             this.setState({
@@ -344,7 +374,10 @@ class ExceptionModify extends Component {
                 axios.get(`/api/employee/${this.state.empId}/exception`)
                 .then( returnedExceptions =>{
                     
-                    this.setState({ scheduleExceptions: returnedExceptions.data })
+                    this.setState({ 
+                        scheduleExceptions: returnedExceptions.data,
+                        snackbarOpen: true 
+                    })
                 })
             })
 
@@ -370,6 +403,7 @@ class ExceptionModify extends Component {
 
         return ( 
             <div className="exception-container">
+                {this.state.redirect && <Redirect to={`/managerdash/${this.state.empId}/detail`} />}
                 <div className="pattern-name-header">
                     <Avatar
                         src={profilePic}
@@ -438,18 +472,41 @@ class ExceptionModify extends Component {
                         baseDate={ baseDate }
                         selection="mixed"
                         checkFunction={(schedule)=>this.checkSchedule(schedule)}
-                        // checkFunction={(pattern)=>this.checkPattern(pattern)}
+                        primaryBtnLabel="save"
+                        secondaryBtnLabel="back"
+                        secondaryBtnFunction={this.handleRedirect}
+
                     />
-                     {/* <Snackbar
+                    
+                    
+                </Paper>
+                <Dialog
+                        title="Errors"
+                        actions={[
+                                <FlatButton
+                                label="Ok"
+                                primary={true}
+                                keyboardFocused={true}
+                                onClick={this.handleDialogClose}
+                                />
+                            ]}
+                        modal={false}
+                        open={this.state.dialogOpen}
+                        onRequestClose={this.handleDialogClose}
+                    >
+
+                    {this.state.errorMessage}
+
+                    </Dialog>
+
+                     <Snackbar
                         open={this.state.snackbarOpen}
-                        message={ "Pattern saved" }
+                        message={ "Schedule Saved" }
                         contentStyle={{color: lightGreen800}}
                         bodyStyle={{background:lightGreen100}}
                         autoHideDuration={500}
                         onRequestClose={this.handleSnackbarClose}
-                    /> */}
-                    
-                </Paper>
+                    />
                 
             </div> 
         )
