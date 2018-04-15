@@ -8,8 +8,8 @@ create table exceptions
 );
 
 INSERT INTO exceptions
-values
 (emp_id, type, date, shift)
-(205301, 'Trade', '2018-04-05', '0400-1200')
-(205301, 'UTO', '2018-04-07', 'OFF')
-(205301, 'UTO', '2018-04-01', 'OFF')
+values
+(205301, 'Trade', '2018-04-05', '0400-1200'),
+(205301, 'UTO', '2018-04-07', 'OFF'),
+(205301, 'UTO', '2018-04-01', 'OFF');

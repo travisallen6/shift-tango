@@ -67,6 +67,25 @@ module.exports = {
 
         req.app.get('db').set_employee_pattern([empid, sun, mon, tue, wed, thu, fri, sat])
         .then( response => res.sendStatus(200) )
+    },
+
+    addEmployeeExceptions: (req, res) => {
+        let { exceptions } = req.body
+        let {empid} = req.params
+
+        exceptions.forEach( exception =>{
+            let { date, type, shift } = exception
+            req.app.get('db').add_exception( [empid, date, type, shift] )
+            .then( response => res.sendStatus(200) )
+        })
+
+    },
+
+    getEmployeeExceptions: (req, res) => {
+        let {empid} = req.params
+        req.app.get('db').get_employee_exceptions([empid]).then( empExceptions =>{
+            res.send(empExceptions)
+        })
     }
 
 }

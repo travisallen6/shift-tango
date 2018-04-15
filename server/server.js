@@ -98,6 +98,10 @@ app.get('/api/employee/:empid/pattern', ctrl.getEmployeePattern)
 
 app.post('/api/employee/:empid/pattern', ctrl.setEmployeePattern)
 
+app.post('/api/employee/:empid/exception', ctrl.addEmployeeExceptions)
+
+app.get('/api/employee/:empid/exception', ctrl.getEmployeeExceptions)
+
 app.get('/auth/me', ctrl.authCheck)
 
 app.get('/auth/logout', ctrl.authLogout)

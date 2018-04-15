@@ -26,6 +26,7 @@ class ExceptionModify extends Component {
             lastName:'',
             firstName: '',
             profilePic: '',
+            empId: '',
             pattern: {},
             scheduleExceptions: [],
             dateSelectInput: moment().toDate(),
@@ -38,12 +39,13 @@ class ExceptionModify extends Component {
         axios.get(`/api/employee/${205301}/detail`)
         // axios.get(`/api/employee/${this.props.match.params.empid}/detail`)
         .then( empData =>{
-            let { profile: { last_name, first_name, profile_pic, sun, mon, tue, wed, thu, fri, sat } } = empData.data
+            let { profile: { last_name, first_name, emp_id, profile_pic, sun, mon, tue, wed, thu, fri, sat } } = empData.data
             let scheduleExceptions = empData.data.exceptions
 
             this.setState({
                 lastName: last_name,
                 firstName: first_name,
+                empId: emp_id,
                 profilePic: profile_pic,
                 pattern: { sun, mon, tue, wed, thu, fri, sat },
                 scheduleExceptions: scheduleExceptions
@@ -79,7 +81,7 @@ class ExceptionModify extends Component {
 
     checkSchedule(schedule){
     
-        let evalPattern = schedule.map( (shift, i) => {
+        let evalSchedule = schedule.map( (shift, i) => {
         
         
 
@@ -133,10 +135,10 @@ class ExceptionModify extends Component {
         })
 
         
-        let errors = evalPattern.map( (evalShift, i, arr) => {
+        let errors = evalSchedule.map( (evalShift, i, arr) => {
 
             
-            if(evalShift.shift === "OFF" && shift.!inputsShowing){
+            if(evalShift.shift === "OFF" ){
                 return null
             } 
             
@@ -148,72 +150,209 @@ class ExceptionModify extends Component {
                 let error = <div><strong>{weekDay}:</strong> One or more inputs contains an invalid time</div>
                 return error
             }
+
+            let compareShift
+
             
             if(i === 0 ){
-                let firstCompareShift = {...arr[6]}
-                let firstWeekDay = moment(evalShift.date).format("ddd")
-                let firstCompareWeekDay = moment(firstCompareShift.date).format("ddd")
-
-                if(firstCompareShift.shift === "OFF"){
-                    return null
-                }
+                // Get the day before the first day of the current display schedule for comparison
+                let firstCompareDate = moment(evalShift.date).subtract(1,"d").format("YYYY-MM-DD")
                 
-                if(evalShift.shift.start < moment(firstCompareShift.shift.end).subtract(7, "days")){
-                    let error = <div><strong>Shift Overlap:</strong> {firstWeekDay}(start) cannot come before {firstCompareWeekDay}(end)</div>
-                    return error
-                }
                 
-                return null
 
-               
+                // Search for a matching exception
+                let matchingCompareException = this.state.scheduleExceptions.filter( excShift =>{
+                    return excShift.date === firstCompareDate
+                })
+
+                // If an exception matches, use that shift, if not use the pattern shift for that day
+                let firstCompareSchedule = matchingCompareException.length > 0 
+                    ? { 
+                        date: matchingCompareException.date,
+                        shift: matchingCompareException.shift,
+                        type: matchingCompareException.type
+                    }
+                    : {
+                        date: firstCompareDate,
+                        shift: this.state.pattern.sat,
+                        type: "pattern"
+                    }
+                
+                // No errors if the comparison shift is off
+                if(firstCompareSchedule.shift === "OFF") return null
+
+                else {
+                    let { date, shift, type } = firstCompareSchedule
+
+                    let parsedShift = shift.split("-")
+                    
+                    let start = parsedShift[0]
+
+                    let end = parsedShift[1]
+
+                    let momentStart = moment(`${date} ${start}, YYYY-MM-DD HHmm`).toDate()
+                    let momentEnd = moment(`${date} ${end}, YYYY-MM-DD HHmm`).toDate()
+
+                    if(momentEnd < momentStart){
+                        momentEnd = moment(momentEnd).add(1,"d").toDate()
+                    }
+
+                    compareShift = {
+                        date: date,
+                        shift: {
+                            start: momentStart,
+                            end: momentEnd
+                        },
+                        type: type
+                    }
+                }
+            } else if(i === 6) {
+                // Get the day after the last day of the current display schedule for comparison
+                let lastCompareDate = moment(evalShift.date).add(1,"d").format("YYYY-MM-DD")
+                
+                
+
+                // Search for a matching exception
+                let matchingCompareException = this.state.scheduleExceptions.filter( excShift =>{
+                    return excShift.date === lastCompareDate
+                })
+
+                // If an exception matches, use that shift, if not use the pattern shift for that day
+                let lastCompareSchedule = matchingCompareException.length > 0 
+                    ? { 
+                        date: matchingCompareException.date,
+                        shift: matchingCompareException.shift,
+                        type: matchingCompareException.type
+                    }
+                    : {
+                        date: lastCompareDate,
+                        shift: this.state.pattern.sun,
+                        type: "pattern"
+                    }
+                
+                // No errors if the comparison shift is off
+                if(lastCompareSchedule.shift === "OFF") return null
+
+                else {
+                    let { date, shift, type } = lastCompareSchedule
+
+                    let parsedShift = shift.split("-")
+                    
+                    let start = parsedShift[0]
+
+                    let end = parsedShift[1]
+
+                    let momentStart = moment(`${date} ${start}, YYYY-MM-DD HHmm`).toDate()
+                    let momentEnd = moment(`${date} ${end}, YYYY-MM-DD HHmm`).toDate()
+
+                    if(momentEnd < momentStart){
+                        momentEnd = moment(momentEnd).add(1,"d").toDate()
+                    }
+
+                    compareShift = {
+                        date: date,
+                        shift: {
+                            start: momentStart,
+                            end: momentEnd
+                        },
+                        type: type
+                    }
+                }
 
             } else {
-                let otherCompareShift = {...arr[i - 1]}
-                let otherWeekDay = moment(evalShift.date).format("ddd")
-                let otherCompareWeekDay = moment(otherCompareShift.date).format("ddd")
-                
-                if(otherCompareShift.shift === "OFF"){
-                    return null
-                }
-                
-                if(evalShift.shift.start < otherCompareShift.shift.end){
-                    let error = <div><strong>Shift Overlap:</strong> {otherWeekDay}(start) cannot come before {otherCompareWeekDay}(end)</div>
-                    return error
-                }
-                
-                return null
+                compareShift = {...arr[i-1]}
             }
+
+            if( compareShift.shift.end > evalShift.shift.start ) {
+                let compareShiftDate = moment(compareShift.date)
+                    .format("MM/DD/YY")
+                let firstCompareEnd = moment(compareShift.shift.end)
+                    .format("hh:mm a")
+               
+                    let evalShiftDate = moment(evalShift.date)
+                    .format("MM/DD/YY")
+                let evalShiftStart = moment(evalShift.shift.start)
+                    .format("hh:mm a")
+               
+                    // Shift overlap: Sat 12/31/18 end: 05:00 am conflicts with Sun 01/01/19 start: 04:00 am 
+
+                let error = <div><strong>Shift Overlap:</strong> {compareShiftDate}end: { firstCompareEnd } conflicts with { evalShiftDate } start: { evalShiftStart }</div>
+            
+                return error
+            }
+
+
+            return null
         })
 
         let allErrors = errors.filter( error => {
             return error !== null
         })
 
+        let excToSend = evalSchedule.filter( exception => {
+            return exception.inputsShowing === true
+        })
+
+        // let excErrors = excToSend.map( exception => {
+        //     let currExcMatch = this.state.exceptions.filter( exc =>{
+        //         return exc.date === exception.date
+        //     })
+
+        //     if(currExcMatch.length > 0){
+        //         let exceptionDisplayDate = moment(exception.date).format("MM/DD/YY")
+        //         let error = <div><strong>Exception Conflict:</strong> An exception already exists for { exceptionDisplayDate }. Submitting anyway will </div>
+        //     }
+
+        //     return null
+        // })
+
+        
         if (allErrors.length > 0){
             this.setState({
                 errorMessage: allErrors,
                 dialogOpen: true
             })
-        } else {
 
-            let preFlightPattern = evalPattern.map( patternShift =>{
-                if(patternShift.shift ==="OFF" ){
-                    return "OFF"
+        } else {
+            let preFlightExceptions = excToSend.map( exception => {
+                let excType = exception.typeInput.length > 0 
+                    ? exception.typeInput
+                    : "?"
+
+                if(exception.shift === "OFF"){
+                    return {
+                        date: exception.date,
+                        type: excType,
+                        shift: "OFF" 
+                    }
                 } else {
-                    let start = moment(patternShift.shift.start).format('HHmm')
-                    let end = moment(patternShift.shift.end).format('HHmm')
-                    return `${start}-${end}`
+                    let excStart = moment(exception.shift.start).format("HHmm")  
+                    let excEnd = moment(exception.shift.end).format("HHmm")  
+                    let excShift = `${excStart}-${excEnd}`
+
+                    return {
+                        date: exception.date,
+                        type: excType,
+                        shift: excShift
+                    }
                 }
             })
 
-            // axios.post(`/api/employee/${this.state.empId}/pattern`, {pattern: preFlightPattern})
-            // .then(
-            //     this.setState({
-            //         snackbarOpen: true
-            //     })
-            // )
+            axios.post(`/api/employee/${this.state.empId}/exception`, {exceptions: preFlightExceptions})
+            .then( postExceptionResponse => {
+
+                axios.get(`/api/employee/${this.state.empId}/exception`)
+                .then( returnedExceptions =>{
+                    
+                    this.setState({ scheduleExceptions: returnedExceptions.data })
+                })
+            })
+
         }
     }
+
+    
+    
 
     
     render() {
