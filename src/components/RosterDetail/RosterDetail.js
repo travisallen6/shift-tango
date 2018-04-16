@@ -168,68 +168,70 @@ class RosterDetail extends React.Component {
             
             return (
                 <div className="detail-container">
-                <div className="detail-name-header">
-                    <Avatar
-                        src={pic}
-                        size={100}
-                        style={{marginRight:'18px'}}
-                        />
-                    <div><h1>{`${lastName}, ${firstName}`}</h1></div>
-                </div>
                    < Paper 
                         style={paperStyles} 
                         zDepth={1} 
                     >
+
+                    <div className="detail-name-header">
+                        <Avatar
+                            src={pic}
+                            size={100}
+                            style={{marginRight:'18px'}}
+                            />
+                        <div><h1>{`${lastName}, ${firstName}`}</h1></div>
+                    </div>
+                    
                     <div className="detail-edit-icon">
                         <EditIcon color={grey300} hoverColor={grey400}/>
                     </div>
 
 
-                <div className='row'><h2>Emp#:</h2><p> { this.state.empId } </p></div>
-                <div className='row'><h2>Pos:</h2><p> { position } </p></div>
-                <div className='row'><h2>DOE:</h2><p> { doe } </p></div>
-                <div className='row'><h2>Phone:</h2><p> { phone } </p></div>
-                <div className='row'><h2>Email:</h2><p> { email } </p></div>
-                <div className='row'>
-                    <div className='address'>
-                        <h2>Add:</h2>
+                    <div className='row'><h2>Emp#:</h2><p> { this.state.empId } </p></div>
+                    <div className='row'><h2>Pos:</h2><p> { position } </p></div>
+                    <div className='row'><h2>DOE:</h2><p> { doe } </p></div>
+                    <div className='row'><h2>Phone:</h2><p> { phone } </p></div>
+                    <div className='row'><h2>Email:</h2><p> { email } </p></div>
+                    <div className='row'>
+                        <div className='address'>
+                            <h2>Add:</h2>
+                        </div>
+                        <div>
+                            <p>{ address }</p>
+                            <p> { city }, {state} {zip} </p>
+                        </div>
                     </div>
-                    <div>
-                        <p>{ address }</p>
-                        <p> { city }, {state} {zip} </p>
-                    </div>
-                </div>
                 
-                   </Paper>
-    <div className='skd-title'>Schedule</div>
-    <div className='skd-container'>
-        <div className='skd-row'>
-            {mergedSchedules}
-        </div>
-    </div>
+                    <div className='skd-title'>Schedule</div>
+                    <div className='skd-container'>
+                        <div className='skd-row'>
+                            {mergedSchedules}
+                        </div>
+                    </div>
 
-    <div>
-        <RaisedButton
-          onClick={this.handleClick}
-          label="Modify"
-          />
-        <Popover
-          open={this.state.open}
-          anchorEl={this.state.anchorEl}
-          anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
-          targetOrigin={{horizontal: 'left', vertical: 'top'}}
-          onRequestClose={this.handleRequestClose}
-          >
-          <Menu>
-            <Link to={`/managerdash/${this.state.empId}/pattern`}>
-                <MenuItem primaryText="Pattern" />
-            </Link>
-            <Link to={`/managerdash/${this.state.empId}/schedule`}>
-                <MenuItem primaryText="Exception" />
-            </Link>
-          </Menu>
-        </Popover>
-      </div>
+                    <div>
+                        <RaisedButton
+                        onClick={this.handleClick}
+                        label="Modify"
+                        />
+                        <Popover
+                        open={this.state.open}
+                        anchorEl={this.state.anchorEl}
+                        anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
+                        targetOrigin={{horizontal: 'left', vertical: 'top'}}
+                        onRequestClose={this.handleRequestClose}
+                        >
+                        <Menu>
+                            <Link to={`/managerdash/${this.state.empId}/pattern`}>
+                                <MenuItem primaryText="Pattern" />
+                            </Link>
+                            <Link to={`/managerdash/${this.state.empId}/schedule`}>
+                                <MenuItem primaryText="Exception" />
+                            </Link>
+                        </Menu>
+                        </Popover>
+                    </div>
+                   </Paper>
 
             </div> 
         )

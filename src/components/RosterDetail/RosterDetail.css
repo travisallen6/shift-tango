@@ -57,12 +57,13 @@
 }
 
 .skd-container {
-    width: 90vw;
+    width: 89vw;
     overflow-x: auto;
     white-space: nowrap;
     height: 130px;
     text-align: center;
     font-size: 1.2em;
+    margin: 0px -19px;
 }
 
 .skd-cell-row {
@@ -70,9 +71,11 @@
 }
 
 .skd-title {
-    margin-top: 7px;
+    margin-top: 16px;
     margin-bottom: 6px;
-    font-size: 1.4em;
+    font-size: 1.3em;
+    font-weight: 600;
+    text-align: center;
 }
 
 .dy {
