@@ -1,0 +1,33 @@
+.prof-form-container {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.prof-form-row {
+    display: flex;
+    justify-content: space-between;
+    overflow: hidden;
+}
+
+.prof-form-col {
+    display: flex;
+    flex-direction: column;
+    width:50%
+}
+
+.prof-form-avatar {
+    display:flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-right: 15px;
+    width:61%;
+    
+}
+
+.prof-form-name-col {
+    display: flex;
+    flex-direction: column;
+    width:61%
+}
