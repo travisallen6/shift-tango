@@ -58,8 +58,19 @@ module.exports = {
     },
 
     getRoster: (req, res) =>{
-        req.app.get('db').get_roster()
-        .then( roster => res.send(roster) )
+        req.app.get('db').get_roster_active()
+        .then( activeRoster => {
+            req.app.get('db').get_roster_terminated()
+            .then(terminatedRoster => {
+                
+                let combinedRoster = {
+                    active: activeRoster,
+                    terminated: terminatedRoster
+                }
+
+                res.send(combinedRoster)
+            })
+        })
     },
 
     getEmployeeDetail: (req, res) => {

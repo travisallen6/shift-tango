@@ -240,7 +240,13 @@ class ManagerProfileEdit extends Component {
     }
 
     executeTermination = () => {
-        axios.post(`/api/employee/${this.state.empId}/terminate`)
+        let { terminationDate, terminationReason } = this.state
+        let terminationData = {
+            reason: terminationReason,
+            termination_date: moment(terminationDate).format("YYYY-MM-DD")
+        }
+
+        axios.post(`/api/employee/${this.state.empId}/terminate`, terminationData)
         .then( response => {
             this.setState({
                 termSnackbarOpen: true
