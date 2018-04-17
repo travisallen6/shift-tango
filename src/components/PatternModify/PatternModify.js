@@ -37,7 +37,7 @@ class PatternModify extends Component {
     }
 
     componentDidMount(){
-        axios.get(`/api/employee/${this.props.match.params.empid}/pattern`)
+        axios.get(`/api/employee/${this.props.empid}/pattern`)
         .then( empData => {
            let{ sun, mon, tue, wed, thu, fri, sat, profile_pic, last_name, first_name, emp_id } = empData.data[0]
             let empPattern = {sun, mon, tue, wed, thu, fri, sat}
@@ -212,32 +212,13 @@ class PatternModify extends Component {
                     {this.state.errorMessage}
 
                     </Dialog>
-                <div className="pattern-name-header">
-                    <Avatar
-                        src={profilePic}
-                        size={100}
-                        style={{marginRight:'18px'}}
-                        />
-                    <div><h1>{`${lastName}, ${firstName}`}</h1></div>
-                </div>
+               
                 <Paper 
                     zDepth={1} 
                     style={{width:'90%', padding:'20px'}}
                 >
-                    <div className="pattern-sub-container">
-
-                        <Subheader
-                            style={{
-                                fontSize:28, 
-                                textAlign:"center", 
-                                paddingLeft: 0
-                            }}
-                        > 
-                            Schedule Pattern
-                        </Subheader>
-
-                    </div>    
-                    <Divider />
+                    
+                    {/* <Divider /> */}
                     <Schedule 
                         dateLabel={false}
                         pattern={ this.state.pattern }

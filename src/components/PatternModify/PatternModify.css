@@ -7,11 +7,13 @@
 
 .pattern-name-header {
     font-size: 30px;
-    width: 90vw;
-    padding: 10px 20px;
     display: flex;
     align-items: center;
-    width:100%;
+    justify-content: center;
+    width: 100%;
+    /* margin: 17px 0; */
+    /* width: 90vw;  */
+
 }
 
 .pattern-sub-container {

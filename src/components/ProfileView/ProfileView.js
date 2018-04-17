@@ -49,13 +49,7 @@ class ProfileView extends Component {
         
         let { pic, firstName, lastName, position, doe, phone, address, city, state, zip, email, pattern, exceptions, skdViewDate, manager} = this.props
 
-    let paperStyles = {
-            margin: '8px', 
-            width: '90vw', 
-            padding: '20px',
-            position: 'relative'
-        }
-
+    
         let mergedSchedules
 
         if(exceptions && pattern && skdViewDate){
@@ -94,30 +88,21 @@ class ProfileView extends Component {
             }) 
         }
 
+        let paperStyles = {
+            margin: '8px', 
+            width: '90vw', 
+            padding: '20px',
+            position: 'relative'
+        }
+
+
         return ( 
                 < Paper 
                     style={paperStyles} 
                     zDepth={1} 
                 >
                 { this.state.redirect && <Redirect to={this.props.editLinkPath} /> }
-                    <div className="profile-name-header">
-                        <Avatar
-                            src={pic}
-                            size={100}
-                            style={{marginRight:'18px'}}
-                            />
-                        <div><h1>{`${lastName}, ${firstName}`}</h1></div>
-                    </div>
                     
-                        <div className="profile-edit-icon">
-
-                                <FlatButton
-                                    href={this.props.editLinkPath}
-                                    secondary={true}
-                                    icon={<EditIcon color={grey300} hoverColor={grey400}/>}
-    />
-                                
-                        </div>
 
 
                     <div className='row'><h2>Emp#:</h2><p> { this.props.empId } </p></div>
@@ -135,7 +120,17 @@ class ProfileView extends Component {
                         </div>
                     </div>
                 
-                    <div className='skd-title'>Schedule</div>
+                    <div className="profile-edit-button">
+
+                            <RaisedButton
+                                href={this.props.editLinkPath}
+                                label="Edit"
+                                secondary={true}
+                                icon={<EditIcon />}
+                            />
+                            
+                    </div>
+                    {/* <div className='skd-title'>Schedule</div>
                     <div className='skd-container'>
                         <div className='skd-row'>
                             {mergedSchedules}
@@ -163,7 +158,7 @@ class ProfileView extends Component {
                             </Link>
                         </Menu>
                         </Popover>
-                    </div> }
+                    </div> } */}
                    </Paper>
          )
     }

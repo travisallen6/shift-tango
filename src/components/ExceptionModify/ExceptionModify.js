@@ -44,7 +44,7 @@ class ExceptionModify extends Component {
     }
 
     componentDidMount(){
-        let { empid } = this.props.match.params
+        let { empid } = this.props
         axios.get(`/api/employee/${empid}/detail`)
         // axios.get(`/api/employee/${this.props.match.params.empid}/detail`)
         .then( empData =>{
@@ -401,39 +401,40 @@ class ExceptionModify extends Component {
             ? yearStart
             : `${yearStart} - ${yearEnd}`        
 
+        let paperStyles = {
+            margin: '8px', 
+            width: '90vw', 
+            padding: '20px',
+            position: 'relative'  
+        }
+
         return ( 
             <div className="exception-container">
                 {this.state.redirect && <Redirect to={`/manager/detail/${this.state.empId}`} />}
-                <div className="pattern-name-header">
+                {/* <div className="pattern-name-header">
                     <Avatar
                         src={profilePic}
                         size={100}
                         style={{marginRight:'18px'}}
                         />
                     <div><h1>{`${lastName}, ${firstName}`}</h1></div>
-                </div>
-                <Paper 
+                </div> */}
+       
+
+
+                < Paper 
+                    style={paperStyles} 
                     zDepth={1} 
-                    style={{width:'90%', padding:'20px'}}
                 >
                     <div className="pattern-sub-container">
                         
-
-
-                        <Subheader
-                            style={{
-                                fontSize:28, 
-                                textAlign:"center", 
-                                paddingLeft: 0
-                            }}
-                        > 
-                            Schedule
-                        </Subheader>
-
+                        <FlatButton
+                            primary={true}
+                            icon={<DateRangeIcon />}
+                            onClick={ ()=>this.toggleDateClick() }
+                        />
+                     
                     </div>    
-                    <div className="exception-modify-year">
-                        {yearDisplay}
-                    </div>
                     <div className="exception-button-container">
 
                         <FlatButton
@@ -441,13 +442,10 @@ class ExceptionModify extends Component {
                             icon={<BackIcon />}
                             onClick={ ()=>this.cycleDate(dateBack) }
                         />
+                        <div className="exception-modify-year">
+                            {yearDisplay}
+                        </div>
 
-                        <FlatButton
-                            primary={true}
-                            icon={<DateRangeIcon />}
-                            onClick={ ()=>this.toggleDateClick() }
-                        />
-                            
                         <FlatButton
                             secondary={true}
                             icon={<ForwardIcon />}
@@ -473,8 +471,8 @@ class ExceptionModify extends Component {
                         selection="mixed"
                         checkFunction={(schedule)=>this.checkSchedule(schedule)}
                         primaryBtnLabel="save"
-                        secondaryBtnLabel="back"
-                        secondaryBtnFunction={this.handleRedirect}
+                        // secondaryBtnLabel="back"
+                        // secondaryBtnFunction={this.handleRedirect}
 
                     />
                     

@@ -6,11 +6,14 @@ import Divider from 'material-ui/Divider';
 import Checkbox from 'material-ui/Checkbox'
 import RaisedButton from 'material-ui/RaisedButton'
 import TextField from 'material-ui/TextField';
+import IconButton from 'material-ui/IconButton';
+import ActionGrade from 'material-ui/svg-icons/action/grade';
 
 import moment from 'moment'
 import mergeSchedules from '../../mergeSchedules'
 
 import './Schedule.css'
+import { yellow600 } from 'material-ui/styles/colors';
 class Schedule extends React.Component {
     constructor(props) {
         super(props);
@@ -217,6 +220,16 @@ class Schedule extends React.Component {
                   
                     { ! this.state.shifts[i].inputsShowing &&  <div className="schedule-value">
                         
+                       <div className='schedule-value-type'> 
+                             {shift.type !== "pattern" && 
+                             <IconButton 
+                                tooltip={shift.type} 
+                                touch={true}  
+                                tooltipPosition="top-center"
+                            >
+                                <ActionGrade color={yellow600}/>
+                            </IconButton> }
+                        </div>
                         {!this.state.shifts[i].isOff && <div
                             className="schedule-value-not-off">
 
@@ -232,10 +245,6 @@ class Schedule extends React.Component {
                             OFF
                         </div>}
 
-                        {shift.type !== "pattern" && <div 
-                            className='schedule-value-type'> 
-                            {shift.type}
-                        </div>}
                       
                     </div> } 
 

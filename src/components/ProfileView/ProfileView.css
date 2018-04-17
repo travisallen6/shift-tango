@@ -86,8 +86,9 @@
     align-items: center;
 }
 
-.profile-edit-icon {
-    position: absolute;
-    top: 8px;
-    right:8px;
+.profile-edit-button {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    height:67px;
 }

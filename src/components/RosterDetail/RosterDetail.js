@@ -17,7 +17,7 @@ class RosterDetail extends React.Component {
         this.state = {
             loading: true,  
             skdViewDate: today,
-            empId: this.props.match.params.empid,
+            empId: this.props.empid,
             employee: {
                 pic: '',
                 firstName: '',
@@ -120,7 +120,7 @@ class RosterDetail extends React.Component {
                         exceptions={ exceptions }
                         skdViewDate={ this.state.skdViewDate }
                         manager={ true }
-                        editLinkPath={`/#/manager/profile/${this.state.empId}/`}
+                        editLinkPath={`/#/manager/edit/${this.state.empId}/`}
                     />
                    
 

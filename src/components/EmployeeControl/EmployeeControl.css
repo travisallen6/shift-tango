@@ -1,0 +1,30 @@
+.emp-control-name-header {
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    position:relative;
+
+    /* margin: 17px 0; */
+    /* width: 90vw;  */
+
+}
+
+.emp-control-avatar {
+    width: 100px;
+    height:100px;
+}
+
+.emp-control-name {
+    width:60%;
+    text-align: center;
+}
+
+/* .emp-control-close-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+} */
