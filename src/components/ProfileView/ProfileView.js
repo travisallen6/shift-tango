@@ -155,10 +155,10 @@ class ProfileView extends Component {
                         onRequestClose={this.handleRequestClose}
                         >
                         <Menu>
-                            <Link to={`/managerdash/${this.props.empId}/pattern`}>
+                            <Link to={`/manager/pattern/${this.props.empId}/`}>
                                 <MenuItem primaryText="Pattern" />
                             </Link>
-                            <Link to={`/managerdash/${this.props.empId}/schedule`}>
+                            <Link to={`/manager/schedule/${this.props.empId}/`}>
                                 <MenuItem primaryText="Exception" />
                             </Link>
                         </Menu>

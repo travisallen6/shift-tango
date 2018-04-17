@@ -16,9 +16,7 @@ class App extends Component {
           <Switch>
             <Route exact path='/' component={Login} />
             <Route path='/finishprofile' component={ProfileComplete} />
-            <Route path='/managerdash' component={ManagerDash} />
-            <Route path='/managerdash/:empid/detail/' component={RosterDetail} />
-            <Route path='/managerdash/pattern' component={PatternModify}/>
+            <Route path='/manager' component={ManagerDash} />
           </Switch>
         </HashRouter>
       </div>

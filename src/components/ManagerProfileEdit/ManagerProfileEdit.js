@@ -285,8 +285,8 @@ class ManagerProfileEdit extends Component {
         
         return ( 
         <div className="manager-profile-edit-container">
-            {this.state.redirect && <Redirect to={`/managerdash/${this.state.empId}/detail`}/>}
-            {this.state.termRedirect && <Redirect to={`/managerdash/`}/>}
+            {this.state.redirect && <Redirect to={`/manager/detail/${this.state.empId}/`}/>}
+            {this.state.termRedirect && <Redirect to={`/manager/dash/`}/>}
             <ProfileEdit 
                 firstName={ this.state.firstName }
                 lastName={ this.state.lastName }

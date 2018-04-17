@@ -6,6 +6,7 @@ import PatternModify from '../PatternModify/PatternModify'
 import ExceptionModify from '../ExceptionModify/ExceptionModify'
 import ManagerProfileEdit from '../ManagerProfileEdit/ManagerProfileEdit'
 import AddEmployee from '../AddEmployee/AddEmployee'
+import EmployeeControl from '../EmployeeControl/EmployeeControl'
 
 import AppBar from 'material-ui/AppBar';
 import ManagerRoster from '../ManagerRoster/ManagerRoster'
@@ -29,26 +30,34 @@ class ManagerDash extends React.Component {
                 
                 <Switch>
                     <Route 
-                        path='/managerdash' exact 
+                        path='/manager/' exact  
+                        component={ManagerRoster} />
+                    <Route 
+                        path='/manager/dash' 
                         component={ManagerRoster} />
                     
+                    <Route
+                        path='/manager/control/:empid'
+                        component={EmployeeControl}
+                    />
+                    
                     <Route 
-                        path='/managerdash/:empid/detail/' 
+                        path='/manager/detail/:empid' 
                         component={RosterDetail} />
 
                     <Route 
-                        path='/managerdash/addemployee' 
+                        path='/manager/addemployee' 
                         component={ AddEmployee } />
                     
                     <Route 
-                        path='/managerdash/:empid/profile/' 
+                        path='/manager/edit/:empid' 
                         component={ ManagerProfileEdit } />
 
                     <Route 
-                        path='/managerdash/:empid/pattern'
+                        path='/manager/pattern/:empid'
                         component={PatternModify} />
                     <Route 
-                        path='/managerdash/:empid/schedule'
+                        path='/manager/schedule/:empid'
                         component={ExceptionModify} />
 
                 </Switch>

@@ -193,7 +193,7 @@ class PatternModify extends Component {
         let { profilePic, lastName, firstName } = this.state 
         return (
             <div className="pattern-modify-container">
-                {this.state.redirect && <Redirect to={`/managerdash/${this.state.empId}/detail/`} />}
+                {this.state.redirect && <Redirect to={`/manager/detail/${this.state.empId}/`} />}
                 <Dialog
                         title="Errors"
                         actions={[

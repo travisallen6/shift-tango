@@ -36,7 +36,7 @@ class ManagerRoster extends React.Component {
 
         let activeEmpList = this.state.activeEmployees ? this.state.activeEmployees.map( (employee, i) => (
             <div key={i + employee.last_name}>
-                <Link to={`/managerdash/${employee.emp_id}/detail/`}><ListItem
+                <Link to={`/manager/detail/${employee.emp_id}/`}><ListItem
                     primaryText={`${employee.last_name}, ${employee.first_name}`}
                     secondaryText={employee.position}
                     leftAvatar={<Avatar src={employee.profile_pic} />}
@@ -48,7 +48,7 @@ class ManagerRoster extends React.Component {
        
         let terminatedEmpList = this.state.terminatedEmployees ? this.state.terminatedEmployees.map( (employee, i) => (
             <div key={i + employee.last_name}>
-                <Link to={`/managerdash/${employee.emp_id}/detail/`}><ListItem
+                <Link to={`/manager/detail/${employee.emp_id}/`}><ListItem
                     primaryText={`${employee.last_name}, ${employee.first_name}`}
                     secondaryText={employee.position}
                     leftAvatar={<Avatar src={employee.profile_pic} />}
@@ -78,7 +78,7 @@ class ManagerRoster extends React.Component {
                     <div className="roster-action-fixed">
                         <FloatingActionButton 
                             secondary={true}
-                            href="/#/managerdash/addemployee"
+                            href="/#/manager/addemployee"
                         >
                             <ContentAdd />
                         </FloatingActionButton>

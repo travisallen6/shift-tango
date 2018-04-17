@@ -403,7 +403,7 @@ class ExceptionModify extends Component {
 
         return ( 
             <div className="exception-container">
-                {this.state.redirect && <Redirect to={`/managerdash/${this.state.empId}/detail`} />}
+                {this.state.redirect && <Redirect to={`/manager/detail/${this.state.empId}`} />}
                 <div className="pattern-name-header">
                     <Avatar
                         src={profilePic}

@@ -118,7 +118,7 @@ class AddEmployee extends Component {
 
                 this.setState({
                     snackbarOpen: true,
-                    redirectPath: `/managerdash/${employeeId.data[0].emp_id}/pattern/`
+                    redirectPath: `/manager/pattern/${employeeId.data[0].emp_id}`
                 })
             })
         }
@@ -245,7 +245,7 @@ class AddEmployee extends Component {
                    
                     <RaisedButton 
                         label="Cancel"
-                        href="/#/managerdash" 
+                        href="/#/manager/dash" 
                         default={true}
                         style={half}
                         />
