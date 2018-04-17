@@ -67,9 +67,6 @@ class ManagerRoster extends React.Component {
                 <Tab label="Active" >
                 <div className="list-container">
                 <br />
-                    <FloatingActionButton >
-                        <ContentAdd />
-                    </FloatingActionButton>
                     <Paper style={{width: '90vw'} } zDepth={1} >
 
                     <List>
@@ -78,15 +75,18 @@ class ManagerRoster extends React.Component {
                     </List>
 
                     </Paper>
+                    <div className="roster-action-fixed">
+                        <FloatingActionButton secondary={true}>
+                            <ContentAdd />
+                        </FloatingActionButton>
+                    </div>
       
                 </div> 
 
                 </Tab>
                 <Tab label="Terminated" >
                 <div className="list-container">
-                    <FloatingActionButton >
-                        <ContentAdd />
-                    </FloatingActionButton>
+                   
                     <br />
                     <Paper style={{width: '90vw'} } zDepth={1} >
 

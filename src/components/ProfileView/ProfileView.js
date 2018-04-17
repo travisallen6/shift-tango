@@ -30,7 +30,7 @@ class ProfileView extends Component {
         event.preventDefault();
 
         this.setState({
-            open: true,
+            menuOpen: true,
             anchorEl: event.currentTarget,
         });
     };

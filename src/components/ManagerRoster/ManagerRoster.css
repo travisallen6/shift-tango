@@ -20,3 +20,9 @@ a:hover {
 a:active {
     text-decoration: underline;
 }
+
+.roster-action-fixed {
+    position: fixed;
+    bottom: 21px;
+    right: 21px;
+}

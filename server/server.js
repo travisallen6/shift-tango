@@ -7,6 +7,7 @@ const   express = require('express')
         , massive = require('massive')
         , bodyParser = require('body-parser')
         , ctrl = require('./controller')
+        , nodemailer = require('nodemailer')
         // , cors = require('cors')
 
 const {
@@ -16,7 +17,9 @@ const {
     CLIENT_ID,
     CLIENT_SECRET,
     CALLBACK_URL,
-    CONNECTION_STRING
+    CONNECTION_STRING,
+    GMAIL_USER,
+    GMAIL_PASS
 } = process.env
 
 const app = express();
@@ -86,6 +89,30 @@ app.get('/auth/callback', passport.authenticate('auth0', {
     failureRedirect: '/failure'
 }))
 
+var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: GMAIL_USER,
+        pass: GMAIL_PASS
+    }
+})
+
+const mailOptions = {
+    from: 'travis@allen.com',
+    to: 'travisallen6@gmail.com',
+    subject: 'Hello World',
+    html: '<h1>Hello World</h1>'
+}
+
+app.get('/api/sendmail', function(req, res){
+    transporter.sendMail(mailOptions, function(err, info){
+        if(err) console.log(err)
+        else console.log(info)
+    })
+    res.sendStatus(200)
+    
+})
+
 app.get('/profilecheck', ctrl.profileCheck)
 
 app.post('/api/employee/:empid/profile', ctrl.completeEmployeeProfile)
@@ -109,6 +136,8 @@ app.get('/api/employee/:empid/exception', ctrl.getEmployeeExceptions)
 app.get('/auth/me', ctrl.authCheck)
 
 app.get('/auth/logout', ctrl.authLogout)
+
+
 
 
 
