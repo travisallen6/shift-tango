@@ -1,0 +1,29 @@
+.employee-add-container {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.add-form-container {
+    padding: 30px;
+}
+
+
+.add-form-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.add-btn-container {
+    width: 211px;
+    margin-top: 21px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.add-employee-error-item {
+    margin: 10px 0;
+}
+

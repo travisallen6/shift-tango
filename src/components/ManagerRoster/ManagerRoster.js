@@ -76,7 +76,10 @@ class ManagerRoster extends React.Component {
 
                     </Paper>
                     <div className="roster-action-fixed">
-                        <FloatingActionButton secondary={true}>
+                        <FloatingActionButton 
+                            secondary={true}
+                            href="/#/managerdash/addemployee"
+                        >
                             <ContentAdd />
                         </FloatingActionButton>
                     </div>

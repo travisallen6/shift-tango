@@ -5,6 +5,7 @@ import RosterDetail from '../RosterDetail/RosterDetail'
 import PatternModify from '../PatternModify/PatternModify'
 import ExceptionModify from '../ExceptionModify/ExceptionModify'
 import ManagerProfileEdit from '../ManagerProfileEdit/ManagerProfileEdit'
+import AddEmployee from '../AddEmployee/AddEmployee'
 
 import AppBar from 'material-ui/AppBar';
 import ManagerRoster from '../ManagerRoster/ManagerRoster'
@@ -34,6 +35,11 @@ class ManagerDash extends React.Component {
                     <Route 
                         path='/managerdash/:empid/detail/' 
                         component={RosterDetail} />
+
+                    <Route 
+                        path='/managerdash/addemployee' 
+                        component={ AddEmployee } />
+                    
                     <Route 
                         path='/managerdash/:empid/profile/' 
                         component={ ManagerProfileEdit } />

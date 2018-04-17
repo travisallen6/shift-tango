@@ -1,5 +1,15 @@
 module.exports = {
 
+    addUser: (req, res) => {
+        let { 
+            firstNameInput, lastNameInput, positionInput, managerInput, empIdInput, googleInput, doeInput
+        } = req.body
+
+        req.app.get('db')
+        .add_user([empIdInput, managerInput, lastNameInput, firstNameInput, googleInput, positionInput, doeInput])
+        .then( newUser => res.send(newUser))
+    },
+
     completeEmployeeProfile: (req, res, next)=>{
 
         let { profile_pic, phone, address, city, state, email, zip } = req.body
@@ -7,8 +17,9 @@ module.exports = {
         let { empid } = req.params
     
         req.app.get('db').update_user_profile([empid, profile_pic, phone, address, city, state, email, zip])
+        .then( res.sendStatus(200) )
     
-        res.sendStatus(200)
+        
     },
 
     managerUpdateEmployeeProfile: (req, res)=>{
@@ -23,7 +34,7 @@ module.exports = {
         .catch( err => console.log(err))
 
     },
-
+   
     terminateEmployee: (req, res) => {
         let{ empid } = req.params
         let { reason, termination_date } = req.body
@@ -51,9 +62,9 @@ module.exports = {
         if(phone === null || address === null || city === null || state === null || email === null || zip === null ){
             return res.redirect('http://localhost:3000/#/finishprofile')
         } else if(req.user.mgr){
-            return res.redirect('http://localhost:3000/#/managerdash')
+            return res.redirect('http://localhost:3000/#/manager/dash')
         } else {
-            return res.redirect('http://localhost:3000/#/employeedash')
+            return res.redirect('http://localhost:3000/#/employee/dash')
         }
     },
 

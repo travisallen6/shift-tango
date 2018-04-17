@@ -115,6 +115,8 @@ app.get('/api/sendmail', function(req, res){
 
 app.get('/profilecheck', ctrl.profileCheck)
 
+app.post('/api/user', ctrl.addUser)
+
 app.post('/api/employee/:empid/profile', ctrl.completeEmployeeProfile)
 
 app.put('/api/employee/:empid/profile', ctrl.managerUpdateEmployeeProfile)

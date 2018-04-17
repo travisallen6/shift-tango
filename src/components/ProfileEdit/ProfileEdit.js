@@ -37,49 +37,6 @@ class ProfileEdit extends Component {
          }
     }
 
-    handleInputChange = (e) => {
-        this.setState({
-            [e.target.name]: e.target.value
-        })
-    }
-
-
-    closeDialog = () => {
-        this.setState({
-            dialogOpen: false
-        })
-    }
-
-    handleDateInputChange = (event,
-        date) => {
-        this.setState({
-          doeInput: date,
-        });
-      };
-
-    
-      resetInputs = () => {
-        let { firstName, lastName, picUrl, position, empId, doe, phone, address, city, state, zip, email, manager } = this.props
-       
-        
-            this.setState({
-                firstNameInput: firstName,
-                lastNameInput:lastName,
-                positionInput: position,
-                picUrlInput: picUrl,
-                managerInput: manager,
-                empIdInput: empId,
-                doeInput: doe,
-                phoneInput: phone,
-                addressInput: address,
-                cityInput: city,
-                stateInput: state,
-                zipInput: zip,
-                emailInput: email,
-            })
-        
-    }
-
     componentWillReceiveProps(newProps){
 
         let { firstName, lastName, picUrl, position, empId, doe, phone, address, city, state, zip, email, manager } = newProps
@@ -115,6 +72,50 @@ class ProfileEdit extends Component {
             })
         }
     }
+
+    handleInputChange = (e) => {
+        this.setState({
+            [e.target.name]: e.target.value
+        })
+    }
+
+
+    closeDialog = () => {
+        this.setState({
+            dialogOpen: false
+        })
+    }
+
+    handleDateInputChange = (event, date) => {
+        this.setState({
+          doeInput: date,
+        });
+      };
+
+    
+      resetInputs = () => {
+        let { firstName, lastName, picUrl, position, empId, doe, phone, address, city, state, zip, email, manager } = this.props
+       
+        
+            this.setState({
+                firstNameInput: firstName,
+                lastNameInput:lastName,
+                positionInput: position,
+                picUrlInput: picUrl,
+                managerInput: manager,
+                empIdInput: empId,
+                doeInput: doe,
+                phoneInput: phone,
+                addressInput: address,
+                cityInput: city,
+                stateInput: state,
+                zipInput: zip,
+                emailInput: email,
+            })
+        
+    }
+
+
 
     handleManagerChange = (event, index, value) => {
         this.setState({managerInput: value})
@@ -317,6 +318,7 @@ class ProfileEdit extends Component {
                     />
                     </div>
                 </div>
+                
                 
                 
                
