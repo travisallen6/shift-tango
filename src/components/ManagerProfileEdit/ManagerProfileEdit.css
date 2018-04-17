@@ -1,0 +1,37 @@
+.manager-profile-edit-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center
+}
+
+.manager-profile-edit-danger{
+    margin: 10px;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.manager-profile-edit-danger-zone{
+    border: 5px solid #F44336;
+    display:flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;
+    width: 332px;
+    height: 396px;
+    margin-top: -20px;
+    padding: 40px;
+}
+
+.termination-name {
+    font-size: 1.2em;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.termination-btn-container {
+    display: flex;
+    justify-content: space-between;
+    margin: 36px 0;
+}

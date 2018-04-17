@@ -120,6 +120,7 @@ class RosterDetail extends React.Component {
                         exceptions={ exceptions }
                         skdViewDate={ this.state.skdViewDate }
                         manager={ true }
+                        editLinkPath={`/#/managerdash/${this.state.empId}/profile`}
                     />
                    
 

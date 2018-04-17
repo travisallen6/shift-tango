@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import mergeSchedules from '../../mergeSchedules'
 import moment from 'moment'
 
-import {Link} from 'react-router-dom'
+import {Redirect, Link} from 'react-router-dom'
 
 import Avatar from 'material-ui/Avatar';
 import Paper from 'material-ui/Paper';
@@ -13,6 +13,7 @@ import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import lightBlueA100 from 'material-ui/styles'
 import { grey400, grey300 } from 'material-ui/styles/colors'
+import FlatButton from 'material-ui/FlatButton'
 
 import './ProfileView.css'
 
@@ -20,7 +21,8 @@ class ProfileView extends Component {
     constructor(props) {
         super(props);
         this.state = { 
-            menuOpen: false
+            menuOpen: false,
+            redirect: false,
          }
     }
 
@@ -35,9 +37,13 @@ class ProfileView extends Component {
 
     handleRequestClose = () => {
         this.setState({
-            open: false,
+            menuOpen: false,
         });
     };
+
+    handleRedirect = () => {
+        this.setState({redirect:true})
+    }
 
     render() {
         
@@ -93,7 +99,7 @@ class ProfileView extends Component {
                     style={paperStyles} 
                     zDepth={1} 
                 >
-
+                { this.state.redirect && <Redirect to={this.props.editLinkPath} /> }
                     <div className="profile-name-header">
                         <Avatar
                             src={pic}
@@ -103,9 +109,15 @@ class ProfileView extends Component {
                         <div><h1>{`${lastName}, ${firstName}`}</h1></div>
                     </div>
                     
-                    <div className="profile-edit-icon">
-                        <EditIcon color={grey300} hoverColor={grey400}/>
-                    </div>
+                        <div className="profile-edit-icon">
+
+                                <FlatButton
+                                    href={this.props.editLinkPath}
+                                    secondary={true}
+                                    icon={<EditIcon color={grey300} hoverColor={grey400}/>}
+    />
+                                
+                        </div>
 
 
                     <div className='row'><h2>Emp#:</h2><p> { this.props.empId } </p></div>
@@ -136,7 +148,7 @@ class ProfileView extends Component {
                         label="Modify"
                         />
                         <Popover
-                        open={this.state.open}
+                        open={this.state.menuOpen}
                         anchorEl={this.state.anchorEl}
                         anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
                         targetOrigin={{horizontal: 'left', vertical: 'top'}}

@@ -1,6 +1,6 @@
 module.exports = {
 
-    updateEmployeeProfile: (req, res, next)=>{
+    completeEmployeeProfile: (req, res, next)=>{
 
         let { profile_pic, phone, address, city, state, email, zip } = req.body
     
@@ -9,6 +9,28 @@ module.exports = {
         req.app.get('db').update_user_profile([empid, profile_pic, phone, address, city, state, email, zip])
     
         res.sendStatus(200)
+    },
+
+    managerUpdateEmployeeProfile: (req, res)=>{
+        let {
+            firstNameInput, lastNameInput, picUrlInput, positionInput, managerInput, empIdInput, doeInput, phoneInput, addressInput, cityInput, stateInput, zipInput, emailInput 
+        } = req.body.profileData
+
+        let {empid} = req.params
+
+        req.app.get('db').manager_update_employee_profile([empid, firstNameInput, lastNameInput, picUrlInput, positionInput, managerInput, empIdInput, doeInput, phoneInput,addressInput, cityInput, stateInput, zipInput, emailInput ])
+        .then( updatedProfile => res.send(updatedProfile))
+        .catch( err => console.log(err))
+
+    },
+
+    terminateEmployee: (req, res) => {
+        let{ empid } = req.params
+        let { reason, termination_date } = req.body
+        req.app.get('db').terminate_employee([empid, reason, termination_date])
+        .then( terminatedEmp =>{
+            res.sendStatus(200)
+        })
     },
 
     authCheck: (req, res) => {
@@ -91,3 +113,7 @@ module.exports = {
     }
 
 }
+
+
+
+

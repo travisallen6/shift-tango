@@ -31,3 +31,22 @@
     flex-direction: column;
     width:61%
 }
+
+.prof-edit-btn-container{
+    height: 111px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 70%;
+    margin-left: 20px
+}
+
+.prof-edit-reset-back-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.profile-error-item {
+    margin-bottom:10px;
+}

@@ -88,7 +88,11 @@ app.get('/auth/callback', passport.authenticate('auth0', {
 
 app.get('/profilecheck', ctrl.profileCheck)
 
-app.post('/api/employee/:empid/profile', ctrl.updateEmployeeProfile)
+app.post('/api/employee/:empid/profile', ctrl.completeEmployeeProfile)
+
+app.put('/api/employee/:empid/profile', ctrl.managerUpdateEmployeeProfile)
+
+app.post('/api/employee/:empid/terminate', ctrl.terminateEmployee)
 
 app.get('/api/roster', ctrl.getRoster)
 

@@ -4,7 +4,7 @@ import {Switch, Route} from 'react-router-dom';
 import RosterDetail from '../RosterDetail/RosterDetail'
 import PatternModify from '../PatternModify/PatternModify'
 import ExceptionModify from '../ExceptionModify/ExceptionModify'
-import ProfileEdit from '../ProfileEdit/ProfileEdit'
+import ManagerProfileEdit from '../ManagerProfileEdit/ManagerProfileEdit'
 
 import AppBar from 'material-ui/AppBar';
 import ManagerRoster from '../ManagerRoster/ManagerRoster'
@@ -36,7 +36,7 @@ class ManagerDash extends React.Component {
                         component={RosterDetail} />
                     <Route 
                         path='/managerdash/:empid/profile/' 
-                        component={ ProfileEdit } />
+                        component={ ManagerProfileEdit } />
 
                     <Route 
                         path='/managerdash/:empid/pattern'
