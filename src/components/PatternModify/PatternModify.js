@@ -229,6 +229,7 @@ class PatternModify extends Component {
                         primaryBtnLabel="save"
                         secondaryBtnLabel="back"
                         secondaryBtnFunction={this.handleSnackbarClose}
+                        editable={true}
                     />
                      <Snackbar
                         open={this.state.snackbarOpen}

@@ -471,6 +471,7 @@ class ExceptionModify extends Component {
                         selection="mixed"
                         checkFunction={(schedule)=>this.checkSchedule(schedule)}
                         primaryBtnLabel="save"
+                        editable={true}
                         // secondaryBtnLabel="back"
                         // secondaryBtnFunction={this.handleRedirect}
 

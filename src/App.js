@@ -6,6 +6,7 @@ import ProfileComplete from './components/ProfileComplete/ProfileComplete'
 import ManagerDash from './components/ManagerDash/ManagerDash'
 import PatternModify from './components/PatternModify/PatternModify'
 import RosterDetail from './components/RosterDetail/RosterDetail';
+import EmployeeDash from './components/EmployeeDash/EmployeeDash';
 
 
 class App extends Component {
@@ -17,6 +18,7 @@ class App extends Component {
             <Route exact path='/' component={Login} />
             <Route path='/finishprofile' component={ProfileComplete} />
             <Route path='/manager' component={ManagerDash} />
+            <Route path='/employee' component={EmployeeDash} />
           </Switch>
         </HashRouter>
       </div>
