@@ -7,8 +7,11 @@ import Subheader from 'material-ui/Subheader'
 import {List, ListItem} from 'material-ui/List';
 
 import EmployeeSchedule from '../EmployeeSchedule/EmployeeSchedule'
-import { Divider } from "material-ui";
+import { Divider, FlatButton, RaisedButton } from "material-ui";
 import EmployeeRequestTO from "../EmployeeRequestTO/EmployeeRequestTO";
+import EmployeeRequestDash from "../EmployeeRequestDash/EmployeeRequestDash";
+
+import './EmployeeDash.css'
 
 class EmployeeDash extends Component {
     constructor(props) {
@@ -18,9 +21,9 @@ class EmployeeDash extends Component {
          }
     }
 
-    handleToggle = () => this.setState({open: !this.state.open});
+    handleToggle = () => this.setState({drawerOpen: !this.state.drawerOpen});
 
-    handleClose = () => this.setState({open: false});
+    handleClose = () => this.setState({drawerOpen: false});
 
     render() { 
         return ( 
@@ -41,14 +44,19 @@ class EmployeeDash extends Component {
                     <Route 
                         path='/employee/requestto' 
                         component={EmployeeRequestTO} />
+                    <Route 
+                        path='/employee/requestdash' 
+                        component={EmployeeRequestDash} />
                 </Switch>   
 
                 <Drawer
+                    
                     docked={false}
                     width={200}
-                    open={this.state.open}
+                    open={this.state.drawerOpen}
                     onRequestChange={(boolIn) => this.setState({drawerOpen: boolIn})}
                 >
+                    
                     <List>
                     <Subheader>My Schedule</Subheader>
 
@@ -56,17 +64,20 @@ class EmployeeDash extends Component {
                         primaryText="Time Off Request"
                         href="/#/employee/RequestTO"
                         onClick={this.handleClose}
-                    />
+                        />
 
                     <ListItem
                         primaryText="Shift Trade"
                         href="/#/employee/RequestTO"
                         onClick={this.handleClose}
-                    />
+                        />
 
                     <Divider />
+                  
+                        
                    
                     </List>
+                    
                     
                     
                     

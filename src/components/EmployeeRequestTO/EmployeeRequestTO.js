@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 
+import {connect} from 'react-redux'
+import moment from 'moment'
+import axios from 'axios'
+
 import Paper from 'material-ui/Paper'
 import { Subheader, RaisedButton } from 'material-ui';
 import Toggle from 'material-ui/Toggle'
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import DatePicker from 'material-ui/DatePicker';
-import moment from 'moment'
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField'
@@ -85,6 +88,31 @@ class EmployeeRequestTO extends Component {
         })
     }
 
+    handleSubmit = () =>{
+        let preFlightTORequest
+        let {emp_id} = this.props
+        let {startDateInput, endDateInput, requestTypeInput, requestReasonInput, singleDateInput, dateRange} = this.state
+        if(dateRange){
+            preFlightTORequest = {
+                startDate: startDateInput,
+                endDate: endDateInput,
+                requestType: requestTypeInput,
+                requestReason: requestReasonInput
+            }
+        } else {
+            preFlightTORequest = {
+                startDate: singleDateInput,
+                endDate: singleDateInput,
+                requestType: requestTypeInput,
+                requestReason: requestReasonInput
+            }
+        }
+
+        axios.post(`/api/timeoff/${emp_id}/request`, preFlightTORequest)
+        .then( alert("All done!"))
+        .catch(err => console.log(err))
+    }
+
     render() { 
         let paperStyles = {
             margin: '8px', 
@@ -98,8 +126,9 @@ class EmployeeRequestTO extends Component {
             : "One Day Off"
 
         let { dateRange, singleDateInput, startDateInput, endDateInput, requestTypeInput, requestReasonInput } = this.state
+        
 
-        let dateInputsFilled = singleDateInput || endDateInput && startDateInput
+        let dateInputsFilled = singleDateInput || ( endDateInput && startDateInput )
 
         let allInputsFilled = dateInputsFilled && requestTypeInput && requestReasonInput
 
@@ -158,7 +187,7 @@ class EmployeeRequestTO extends Component {
                     />
                 </div>}
 
-        { (singleDateInput || startDateInput && endDateInput) &&  <SelectField
+        { (singleDateInput || (startDateInput && endDateInput) ) &&  <SelectField
                     floatingLabelText="Type of Request"
                     value={this.state.requestTypeInput}
                     onChange={this.handleSelectChange}
@@ -181,10 +210,12 @@ class EmployeeRequestTO extends Component {
                 secondary={true}
                 disabled={!allInputsFilled}
                 label="submit"
+                onClick={this.handleSubmit}
             />
             <RaisedButton 
                 default={true}
                 label="clear"
+                onClick={this.clearInputs}
             />
 
 
@@ -195,5 +226,11 @@ class EmployeeRequestTO extends Component {
          )
     }
 }
+
+function mapStateToProps(state){
+    return{
+        emp_id: state.user.emp_id
+    }
+}
  
-export default EmployeeRequestTO;
+export default connect(mapStateToProps)(EmployeeRequestTO);

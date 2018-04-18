@@ -131,6 +131,8 @@ app.get('/api/employee/:empid/pattern', ctrl.getEmployeePattern)
 
 app.post('/api/employee/:empid/pattern', ctrl.setEmployeePattern)
 
+app.post('/api/timeoff/:empid/request', ctrl.addTOReuest)
+
 app.post('/api/employee/:empid/exception', ctrl.addEmployeeExceptions)
 
 app.get('/api/employee/:empid/exception', ctrl.getEmployeeExceptions)

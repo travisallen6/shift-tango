@@ -126,6 +126,19 @@ module.exports = {
 
     },
 
+    addTOReuest: (req, res) => {
+        let { empid } = req.params
+        let { 
+            startDate, endDate, requestType, requestReason
+        } = req.body
+        
+        req.app.get('db').add_timeoff_request([empid, startDate, endDate, 'Pending', requestReason, requestType])
+        .then( res.sendStatus(200) )
+        .catch( err => console.log(err) )
+
+    },
+
+
     getEmployeeExceptions: (req, res) => {
         let {empid} = req.params
         req.app.get('db').get_employee_exceptions([empid]).then( empExceptions =>{
