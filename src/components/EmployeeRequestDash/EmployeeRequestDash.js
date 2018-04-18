@@ -16,10 +16,17 @@ import {
   import Chip from 'material-ui/Chip';
 import FontIcon from 'material-ui/FontIcon';
 import SvgIconFace from 'material-ui/svg-icons/action/face';
-import {blue300, indigo900} from 'material-ui/styles/colors';
+import PendingIcon from 'material-ui/svg-icons/device/access-time'
+import ApprovedIcon from 'material-ui/svg-icons/action/thumb-up'
+import DeniedIcon from 'material-ui/svg-icons/action/thumb-down'
+import {blue300, indigo900, yellow700, yellow800, green300, green800, green700, red300, red800, red700, red200} from 'material-ui/styles/colors';
 
 import './EmployeeRequestDash.css'
 import { Divider } from 'material-ui';
+import { yellow300 } from 'material-ui/styles/colors';
+import { yellow900 } from 'material-ui/styles/colors';
+import { green200 } from 'material-ui/styles/colors';
+import { yellow200 } from 'material-ui/styles/colors';
 
 class EmployeeRequestDash extends Component {
     constructor(props) {
@@ -27,9 +34,58 @@ class EmployeeRequestDash extends Component {
         this.state = { 
             requests: [
                 {id:2, startDate:"2012-10-17", endDate: "2012-10-17", status: "Pending"},
-                {id:4, startDate:"2012-10-19", endDate: "2012-10-21", status: "Pending"}
+                {id:4, startDate:"2012-10-19", endDate: "2012-10-21", status: "Approved"},
+                {id:4, startDate:"2012-10-19", endDate: "2012-10-21", status: "Denied"}
             ]
          }
+    }
+
+    chooseChip = (status) => {
+        if(status === "Pending"){
+            return(
+
+                <Chip
+                    backgroundColor={yellow200}
+                    labelColor={yellow800}>
+                    <Avatar 
+                        size={32} 
+                        color={yellow200} 
+                        backgroundColor={yellow700} 
+                        icon={<PendingIcon />}/>
+                    Pending
+                </Chip>
+            )
+        }
+        if(status === "Approved"){
+            return(
+
+                <Chip
+                    backgroundColor={green200}
+                    labelColor={green800}>
+                    <Avatar 
+                        size={32} 
+                        color={green200} 
+                        backgroundColor={green700} 
+                        icon={<ApprovedIcon />}/>
+                    Approved
+                </Chip>
+            )
+        }
+        if(status === "Denied"){
+            return(
+
+                <Chip
+                    backgroundColor={red200}
+                    labelColor={red800}>
+                    <Avatar 
+                        size={32} 
+                        color={red200} 
+                        backgroundColor={red700} 
+                        icon={<DeniedIcon />}/>
+                    Denied
+                </Chip>
+            )
+        }
     }
     render() { 
 
@@ -63,18 +119,14 @@ class EmployeeRequestDash extends Component {
   
          
 
+                            
             return(
                 <div key={i}>
                     <div className="to-request-row">
                         <div className="to-request-col to-request-id"> { request.id } </div>
                         <div className="to-request-col to-request-val"> { dateDisplay } </div>
-                        <div className="to-request-col to-request-val"> 
-                            <Chip
-                                backgroundColor={blue300}
-                                >
-                                <Avatar size={32} color={blue300} backgroundColor={indigo900} icon={<SvgIconFace />} />
-                                Pending
-                            </Chip>
+                        <div className="to-request-col to-request-">
+                        {this.chooseChip(request.status)} 
                         </div>
                     </div>
                     <Divider />
