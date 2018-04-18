@@ -1,19 +1,1 @@
-.to-request-row{
-    display:flex;
-    justify-content: space-evenly;
-    padding: 16px 0;
-}
 
-.to-request-col{
-    width: 40%;
-    line-height: 25px;
-    font-size: 20px;
-} 
-
-.to-request-id{
-    width: 10%
-}
-
-.to-request-val{
-
-}

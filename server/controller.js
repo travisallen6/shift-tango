@@ -138,6 +138,15 @@ module.exports = {
 
     },
 
+    getMyRequests: (req, res) => {
+        let { empid } = req.params
+        req.app.get('db').get_timeoff_requests([empid])
+        .then( myRequests => {
+            res.send(myRequests)
+        })
+        .catch(err => console.log(err))
+    },
+
 
     getEmployeeExceptions: (req, res) => {
         let {empid} = req.params
