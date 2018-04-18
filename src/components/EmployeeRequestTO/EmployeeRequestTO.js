@@ -182,7 +182,6 @@ class EmployeeRequestTO extends Component {
                 disabled={!allInputsFilled}
                 label="submit"
             />
-            <Subheader>{`You have completed${trueCount}/${fieldCount}`}</Subheader>
             <RaisedButton 
                 default={true}
                 label="clear"
