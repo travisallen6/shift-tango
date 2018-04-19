@@ -1,3 +1,7 @@
+require('dotenv').config()
+
+
+
 module.exports = {
 
     addUser: (req, res) => {
@@ -54,17 +58,17 @@ module.exports = {
     
     authLogout: (req, res) => {
         req.logOut();
-        res.redirect('http://localhost:3000/');
+        res.redirect(process.env.LOGOUT_REDIRECT);
     },
 
     profileCheck: (req, res, next) => {
         let { phone, address, city, state, email, zip } = req.user
         if(phone === null || address === null || city === null || state === null || email === null || zip === null ){
-            return res.redirect('http://localhost:3000/#/finishprofile')
+            return res.redirect(process.env.FINISH_PROFILE)
         } else if(req.user.mgr){
-            return res.redirect('http://localhost:3000/#/manager/dash')
+            return res.redirect(process.env.MANAGER_REDIRECT)
         } else {
-            return res.redirect('http://localhost:3000/#/employee/dash')
+            return res.redirect(process.env.EMPLOYEE_REDIRECT)
         }
     },
 

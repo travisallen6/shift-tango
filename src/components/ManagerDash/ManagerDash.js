@@ -26,6 +26,7 @@ class ManagerDash extends React.Component {
 
                 <AppBar 
                     title="Dash"
+                    className="manager-app-bar"
                     
                 />
                 
