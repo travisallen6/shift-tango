@@ -152,9 +152,12 @@ class EmployeeRequestTO extends Component {
         let {redirect} = this.state
 
         return ( 
-            <div>
+            <div 
+                className="emp-rto-container">
                 {redirect && <Redirect to="/employee/requestdash" /> }
-                <Subheader style={{fontSize: 24}}>Request Time Off</Subheader>
+                <Subheader 
+                    className="request-to-headline"
+                    style={{fontSize: 24}}>Request Time Off</Subheader>
                 < Paper 
                     style={paperStyles} 
                     zDepth={1} 
@@ -226,17 +229,19 @@ class EmployeeRequestTO extends Component {
                     rowsMax={5}
                     value={this.state.requestReasonInput}
                 />}
+        <div className="emp-rto-btn-container">
             <RaisedButton 
                 secondary={true}
                 disabled={!allInputsFilled}
                 label="submit"
                 onClick={this.handleSubmit}
-            />
+                />
             <RaisedButton 
                 default={true}
                 label="clear"
                 onClick={this.clearInputs}
-            />
+                />
+        </div>
                 </Paper>
                 <Snackbar
                         open={this.state.snackbarOpen}

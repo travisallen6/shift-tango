@@ -29,10 +29,8 @@ class EmployeeDash extends Component {
         return ( 
             <div>
                 <AppBar 
-                    title="Employee Dashboard"
                     className="employee-app-bar"
                     onLeftIconButtonClick={this.handleToggle}
-                    
                 />
 
                  <Switch>
