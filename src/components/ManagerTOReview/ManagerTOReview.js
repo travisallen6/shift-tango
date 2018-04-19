@@ -201,7 +201,7 @@ class ManagerTOReview extends Component {
             
 
             </Paper>
-            <Popover
+            {/* <Popover
                 open={this.state.popOverOpen}
                 anchorEl={this.state.anchorEl}
                 anchorOrigin={this.state.anchorOrigin}
@@ -209,7 +209,7 @@ class ManagerTOReview extends Component {
                 onRequestClose={this.handleRequestClose} >
                 <div>Date:</div>
                 <div>Shift:</div>
-            </Popover>
+            </Popover> */}
             </div>
         )
         
