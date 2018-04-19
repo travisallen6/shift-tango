@@ -151,6 +151,7 @@ module.exports = {
         req.app.get('db').get_all_timeoff_requests([])
         .then( timeoffRequests => {
             res.send(timeoffRequests)
+            // req.app.get('db').append_employee_pattern()
         })
     },
 

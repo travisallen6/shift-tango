@@ -30,6 +30,7 @@ class ManagerTOReview extends Component {
         this.state = { 
             pendingRequests: [],
             resolvedRequests: [],
+            popoverOpen: false,
          }
     }
 
