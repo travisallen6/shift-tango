@@ -3,7 +3,9 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux'
 import moment from 'moment'
 import axios from 'axios'
+import {Redirect} from 'react-router-dom'
 
+import Snackbar from 'material-ui/Snackbar'
 import Paper from 'material-ui/Paper'
 import { Subheader, RaisedButton } from 'material-ui';
 import Toggle from 'material-ui/Toggle'
@@ -14,6 +16,9 @@ import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField'
 
 import './EmployeeRequestTO.css'
+import { lightBlue800 } from 'material-ui/styles/colors';
+import { lightGreen100 } from 'material-ui/styles/colors';
+import { lightGreen800 } from 'material-ui/styles/colors';
 
 class EmployeeRequestTO extends Component {
     constructor(props) {
@@ -24,9 +29,14 @@ class EmployeeRequestTO extends Component {
             endDateInput: null,
             requestTypeInput: null,
             requestReasonInput: "",
-            dateRange: false
+            dateRange: false,
+            snackbarOpen: false,
+            redirect: false
          }
+
     }
+
+ 
     
     disableSingleRange = (date) => {
       return moment(date) <= moment() || moment(date) >= moment().add(6,"months")
@@ -88,6 +98,13 @@ class EmployeeRequestTO extends Component {
         })
     }
 
+    handleSnackbarClose = () => {
+        this.setState({
+            snackbarOpen: false,
+            redirect: true
+        })
+    }
+
     handleSubmit = () =>{
         let preFlightTORequest
         let {emp_id} = this.props
@@ -109,7 +126,7 @@ class EmployeeRequestTO extends Component {
         }
 
         axios.post(`/api/timeoff/${emp_id}/request`, preFlightTORequest)
-        .then( alert("All done!"))
+        .then( this.setState({snackbarOpen: true}) )
         .catch(err => console.log(err))
     }
 
@@ -132,8 +149,11 @@ class EmployeeRequestTO extends Component {
 
         let allInputsFilled = dateInputsFilled && requestTypeInput && requestReasonInput
 
+        let {redirect} = this.state
+
         return ( 
             <div>
+                {redirect && <Redirect to="/employee/requestdash" /> }
                 <Subheader style={{fontSize: 24}}>Request Time Off</Subheader>
                 < Paper 
                     style={paperStyles} 
@@ -217,11 +237,15 @@ class EmployeeRequestTO extends Component {
                 label="clear"
                 onClick={this.clearInputs}
             />
-
-
-                
-
                 </Paper>
+                <Snackbar
+                        open={this.state.snackbarOpen}
+                        message={ "Request Submitted" }
+                        contentStyle={{color: lightGreen800}}
+                        bodyStyle={{background: lightGreen100}}
+                        autoHideDuration={500}
+                        onRequestClose={this.handleSnackbarClose}
+                    />
             </div>
          )
     }

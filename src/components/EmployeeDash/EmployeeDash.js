@@ -58,16 +58,25 @@ class EmployeeDash extends Component {
                 >
                     
                     <List>
-                    <Subheader>My Schedule</Subheader>
+
+                    <Subheader>Schedule</Subheader>
+                    <ListItem
+                        primaryText="My Schedule"
+                        href="/#/employee/dash"
+                        onClick={this.handleClose}
+                        />
+                    
+                    <Divider />
+                    <Subheader>Requests</Subheader>
 
                     <ListItem
-                        primaryText="Time Off Request"
-                        href="/#/employee/RequestTO"
+                        primaryText="Time Off"
+                        href="/#/employee/requestdash"
                         onClick={this.handleClose}
                         />
 
                     <ListItem
-                        primaryText="Shift Trade"
+                        primaryText="Shift Trades"
                         href="/#/employee/RequestTO"
                         onClick={this.handleClose}
                         />
@@ -83,13 +92,7 @@ class EmployeeDash extends Component {
                     
                     
                     
-                    {/* <MenuItem
-                        href='/#/employee/timeoff' 
-                        onClick={this.handleClose}
-                    >
-                        Request Time Off
-                    </MenuItem>
-                    <MenuItem onClick={this.handleClose}>Trade Shifts</MenuItem> */}
+                   
                 </Drawer>
             </div>
          )

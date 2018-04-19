@@ -2,25 +2,19 @@ import React, { Component } from 'react';
 
 import moment from 'moment'
 import axios from 'axios'
+import {connect} from 'react-redux'
 
 import Paper from 'material-ui/Paper'
 import Subheader from 'material-ui/Subheader'
 import Avatar from 'material-ui/Avatar';
-import {
-    Table,
-    TableBody,
-    TableHeader,
-    TableHeaderColumn,
-    TableRow,
-    TableRowColumn,
-  } from 'material-ui/Table';
-  import Chip from 'material-ui/Chip';
-import FontIcon from 'material-ui/FontIcon';
+import Chip from 'material-ui/Chip';
 import SvgIconFace from 'material-ui/svg-icons/action/face';
 import PendingIcon from 'material-ui/svg-icons/device/access-time'
 import ApprovedIcon from 'material-ui/svg-icons/action/thumb-up'
 import DeniedIcon from 'material-ui/svg-icons/action/thumb-down'
 import {blue300, indigo900, yellow700, yellow800, green300, green800, green700, red300, red800, red700, red200} from 'material-ui/styles/colors';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
 
 import './EmployeeRequestDash.css'
 import { Divider } from 'material-ui';
@@ -34,21 +28,17 @@ class EmployeeRequestDash extends Component {
         super(props);
         this.state = { 
             requests: [
-                {id:2, startDate:"2012-10-17", endDate: "2012-10-17", status: "Pending", type: "VAC", reason: "Because it will be a fun time"},
-                {id:4, startDate:"2012-10-19", endDate: "2012-10-21", status: "Approved", type: "VAC", reason: "Because it will be a fun time"},
-                {id:2, startDate:"2012-10-17", endDate: "2012-10-17", status: "Pending", type: "VAC", reason: "Because it will be a fun time"},
-                {id:4, startDate:"2012-10-19", endDate: "2012-10-21", status: "Approved", type: "VAC", reason: "Because it will be a fun time"},
-                {id:2, startDate:"2012-10-17", endDate: "2012-10-17", status: "Pending", type: "VAC", },
-                {id:4, startDate:"2012-10-19", endDate: "2012-10-21", status: "Approved", type: "VAC", },
-                {id:2, startDate:"2012-10-17", endDate: "2012-10-17", status: "Pending", type: "VAC", },
-                {id:4, startDate:"2012-10-19", endDate: "2012-10-21", status: "Approved", type: "VAC", reason: "Because it will be a fun time"},
-                {id:203, startDate:"2012-10-17", endDate: "2012-10-17", status: "Pending", type: "VAC", reason: "Because it will be a fun time"},
-                {id:4, startDate:"2012-10-19", endDate: "2012-10-21", status: "Approved", type: "VAC", reason: "Because it will be a fun time"},
-                {id:2, startDate:"2012-10-17", endDate: "2012-10-17", status: "Pending", type: "VAC", reason: "Because it will be a fun time"},
-                {id:4, startDate:"2012-10-19", endDate: "2012-10-21", status: "Approved", type: "VAC", reason: "Because it will be a fun time"},
-                {id:4, startDate:"2012-10-19", endDate: "2012-10-21", status: "Denied"}
+           
             ]
          }
+    }
+
+    componentDidMount(){
+        axios.get(`/api/timeoff/${this.props.empId}/request`)
+        .then( requests => {
+            this.setState({requests: requests.data})
+
+        })
     }
 
     chooseChip = (status) => {
@@ -99,10 +89,6 @@ class EmployeeRequestDash extends Component {
         }
     }
 
-    componentDidMount(){
-        // axios.get('/api/timeoff/:empid/request')
-    }
-
 
 
     render() { 
@@ -122,9 +108,9 @@ class EmployeeRequestDash extends Component {
         }
 
         let rowsDisplay = this.state.requests.map( (request, i) => {
-            let dateDisplay = request.startDate === request.endDate 
-                ? moment(request.startDate).format("M / D /YY")
-                : moment(request.startDate).format("M / D /YY") + " - " + moment(request.endDate).format("M / D / YY")
+            let dateDisplay = request.start_date === request.end_date 
+                ? moment(request.start_date).format("M / D /YY")
+                :<div><div> {moment(request.start_date).format("M / D /YY")} </div> <div>{moment(request.end_date).format("M / D / YY")}</div></div>
             
             let idColStyles = {
                 padding: "0 8px",
@@ -132,20 +118,14 @@ class EmployeeRequestDash extends Component {
                 whiteSpace: "wrap",
                 textOverflow: "clip",
             }
-        
-        
-       
-  
-         
 
-                            
             return(
-                <div key={i}>
+                <div key={i + request.timeoff_id}>
                     <div className="to-request-row">
-                        <div className="to-request-col to-request-id"> { request.id } </div>
+                        <div className="to-request-col to-request-id"> { request.timeoff_id } </div>
                         <div className="to-request-col to-request-val"> { dateDisplay } </div>
                         <div className="to-request-col to-request-chip">
-                        {request.type}
+                        {request.request_type}
                         {this.chooseChip(request.status)} 
                         </div>
                     </div>
@@ -174,9 +154,23 @@ class EmployeeRequestDash extends Component {
                 {rowsDisplay}
 
                 </Paper>
+                <div className="to-request-action-fixed">
+                        <FloatingActionButton 
+                            secondary={true}
+                            href="/#/employee/RequestTO"
+                        >
+                            <ContentAdd />
+                        </FloatingActionButton>
+                    </div>
             </div>
          )
     }
 }
+
+function mapStateToProps(state){
+    return {
+        empId: state.user.emp_id
+    }
+}
  
-export default EmployeeRequestDash;
+export default connect(mapStateToProps)(EmployeeRequestDash);

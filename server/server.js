@@ -131,9 +131,12 @@ app.get('/api/employee/:empid/pattern', ctrl.getEmployeePattern)
 
 app.post('/api/employee/:empid/pattern', ctrl.setEmployeePattern)
 
-app.post('/api/timeoff/:empid/request', ctrl.addTOReuest)
+app.post('/api/timeoff/:empid/request', ctrl.addTORequest)
 
 app.get('/api/timeoff/:empid/request', ctrl.getMyRequests)
+
+///////////////////////////////////////////////////////////////
+app.get('/api/review/timeoff', ctrl.getAllRequests)
 
 app.post('/api/employee/:empid/exception', ctrl.addEmployeeExceptions)
 
@@ -153,4 +156,17 @@ app.listen(SERVER_PORT, () => console.log(`Hard to port ${SERVER_PORT}`))
 
 
 
+// {
+//     "timeoff_id": 1,
+//     "start_date": "2018-04-17T06:00:00.000Z",
+//     "end_date": "2018-04-18T06:00:00.000Z",
+//     "status": "Pending",
+//     "reason": "Because computer",
+//     "request_type": null,
+// }
 
+// "emp_id": 205301,
+// "last_name": "Nauahi",
+// "first_name": "John",
+// "position": "865432"
+// "profile_pic": "https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg\t",

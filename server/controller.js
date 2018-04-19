@@ -126,7 +126,7 @@ module.exports = {
 
     },
 
-    addTOReuest: (req, res) => {
+    addTORequest: (req, res) => {
         let { empid } = req.params
         let { 
             startDate, endDate, requestType, requestReason
@@ -147,6 +147,13 @@ module.exports = {
         .catch(err => console.log(err))
     },
 
+    getAllRequests: (req, res) => {
+        req.app.get('db').get_all_timeoff_requests([])
+        .then( timeoffRequests => {
+            res.send(timeoffRequests)
+        })
+    },
+
 
     getEmployeeExceptions: (req, res) => {
         let {empid} = req.params
@@ -157,6 +164,8 @@ module.exports = {
     }
 
 }
+
+
 
 
 

@@ -47,3 +47,9 @@
     flex-direction:column;
     align-items: center;
 }
+
+.to-request-action-fixed {
+    position: fixed;
+    bottom: 21px;
+    right: 21px;
+}

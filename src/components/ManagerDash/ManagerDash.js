@@ -10,6 +10,7 @@ import EmployeeControl from '../EmployeeControl/EmployeeControl'
 
 import AppBar from 'material-ui/AppBar';
 import ManagerRoster from '../ManagerRoster/ManagerRoster'
+import ManagerTOReview from "../ManagerTOReview/ManagerTOReview";
 // import FloatingActionButton from 'material-ui/FloatingActionButton';
 // import ContentAdd from 'material-ui/svg-icons/content/add';
 
@@ -59,6 +60,9 @@ class ManagerDash extends React.Component {
                     <Route 
                         path='/manager/schedule/:empid'
                         component={ExceptionModify} />
+                    <Route 
+                        path='/manager/timeoff/review'
+                        component={ManagerTOReview} />
 
                 </Switch>
                 
