@@ -123,7 +123,7 @@ module.exports = {
 
         exceptions.forEach( exception =>{
             let { date, type, shift } = exception
-            req.app.get('db').add_exception( [empid, date, type, shift] )
+            req.app.get('db').add_exception( [empid, date, type, shift, null] )
             
         })
         res.sendStatus(200)
@@ -152,17 +152,29 @@ module.exports = {
     },
 
     getAllRequests: (req, res) => {
+
         req.app.get('db').get_all_timeoff_requests([])
         .then( timeoffRequests => {
-            res.send(timeoffRequests)
-            // req.app.get('db').append_employee_pattern()
-        })
+            req.app.get('db').append_employee_exceptions([])
+            .then( exceptions => {
+                    res.send( {timeoffRequests, exceptions} )
+            })
+            .catch(err => console.log(err))
+        }) 
+        .catch(err => console.log(err))
+       
     },
 
     changeStatusOfRequest: (req, res) => {
         let { id, newStatus, reason } = req.body
         req.app.get('db').update_status_timeoff_request([id, newStatus, reason])
-        .then( newRequests => res.send(newRequests) )
+        .then( timeoffRequests => {
+            req.app.get('db').append_employee_exceptions([])
+            .then( exceptions => {
+                    res.send( {timeoffRequests, exceptions} )
+            })
+            .catch(err => console.log(err))
+        })
         .catch( err => console.log( err ))
     },
 
@@ -172,7 +184,20 @@ module.exports = {
             res.send(empExceptions)
         })
         .catch( err => console.log(err))
-    }
+    },
+
+   addMultipleExceptions: (req, res) => {
+       let { exceptions, timeoffId } = req.body
+       let { empid } = req.params
+
+       exceptions.forEach( exception => {
+           req.app.get('db')
+           .add_exception([empid, exception.date, exception.type, exception.shift, timeoffId])
+           .catch(err => console.log(err))
+       })
+
+       res.sendStatus(200)
+   }
 
 }
 

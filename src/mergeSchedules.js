@@ -1,4 +1,4 @@
-  module.exports = function mergeSchedules(date, pattern, exceptions, selection){
+  module.exports = function mergeSchedules(date, pattern, exceptions, selection=null){
     let moment = require('moment');
     // let dateRange = [];
     let startDate = moment(date).startOf('week').format('YYYY-MM-DD')

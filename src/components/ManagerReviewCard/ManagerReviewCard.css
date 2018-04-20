@@ -112,12 +112,15 @@
     cursor: pointer;
 }
 
-
-
-
-.to-pop-reason-input {
-    width: 121px !important; 
+.to-review-popover-row {
+    display: flex;
+    margin-bottom: 14px;
+    line-height: 20px;
+    flex-direction:column;
 }
+
+
+
 
 .to-pop-btn-container {
     display:flex;
@@ -125,6 +128,15 @@
     align-items:center;
     margin:5px;
     justify-content: space-evenly;
+}
+
+.to-pop-date-container-skd{
+    display: flex;
+    flex-direction: column;
+    margin: 6px;
+    font-size: 18px;
+    padding: 5px;
+    overflow: auto !important;
 }
 
 .to-pop-btn {
@@ -135,4 +147,15 @@
 
 #to-day-label {
     font-size: 20px;
+}
+
+.to-pop-btn-container-skd {
+    display: flex;
+}
+
+.to-pop-dialog {
+}
+
+.to-pop-dialog > div:nth-child(1) > div > div > div:nth-child(2) {
+    overflow: auto !important;
 }

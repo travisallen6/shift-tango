@@ -34,6 +34,7 @@ class ManagerTOReview extends Component {
         this.state = { 
             pendingRequests: [],
             resolvedRequests: [],
+            exceptions: [],
             slideIndex: 0
          }
     }
@@ -41,27 +42,34 @@ class ManagerTOReview extends Component {
     componentDidMount(){
         axios.get(`/api/review/timeoff`)
         .then( requests => {
-            let pending = _.filter(requests.data, (e) => e.status === "Pending")
-            let resolved = _.filter(requests.data, (e) => e.status !== "Pending")
+
+            
+            let pending = _.filter(requests.data.timeoffRequests, (e) => e.status === "Pending")
+            let resolved = _.filter(requests.data.timeoffRequests, (e) => e.status !== "Pending")
 
             this.setState({
                 pendingRequests: pending,
-                resolvedRequests: resolved
+                resolvedRequests: resolved,
+                exceptions: requests.data.exceptions
             })
 
         })
     }
 
     judge = ( id, newStatus, reason ) => {
+
         let preFlightRequestUpdate = { id , newStatus, reason }
+
+        axios
         axios.patch('/api/review/timeoff/', preFlightRequestUpdate)
         .then( requests => {
-            let pending = _.filter(requests.data, (e) => e.status === "Pending")
-            let resolved = _.filter(requests.data, (e) => e.status !== "Pending")
+            let pending = _.filter(requests.data.timeoffRequests, (e) => e.status === "Pending")
+            let resolved = _.filter(requests.data.timeoffRequests, (e) => e.status !== "Pending")
 
             this.setState({
                 pendingRequests: pending,
-                resolvedRequests: resolved
+                resolvedRequests: resolved,
+                exceptions: requests.data.exceptions
             })
         })
     }
@@ -82,8 +90,19 @@ class ManagerTOReview extends Component {
         }
         
         let pendingowsDisplay = this.state.pendingRequests.map( (request, i) => {
+            let empExceptions = _.filter( this.state.exceptions, e => {
+
+                let excDate = moment(e.date).toDate()
+                let toStartDate = moment(request.start_date).toDate() 
+                let toEndDate = moment(request.end_date).toDate() 
+
+                return e.emp_id === request.emp_id && excDate >= toStartDate && excDate <= toEndDate
+            })
+
             return( 
-                <ManagerReviewCard 
+                <ManagerReviewCard
+                    key={i}
+                    reqExceptions={ empExceptions }
                     request={ request }
                     cardNum={ i } 
                     judge={ this.judge }/>
@@ -93,6 +112,7 @@ class ManagerTOReview extends Component {
         let completedRowsDisplay = this.state.resolvedRequests.map( (request, i) => {
             return( 
                 <ManagerReviewCard 
+                    reqExceptions={[]}
                     request={ request }
                     cardNum={ i } 
                     judge={ this.judge }/>
