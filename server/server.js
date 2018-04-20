@@ -140,6 +140,8 @@ app.get('/api/timeoff/:empid/request', ctrl.getMyRequests)
 ///////////////////////////////////////////////////////////////
 app.get('/api/review/timeoff', ctrl.getAllRequests)
 
+app.patch('/api/review/timeoff/', ctrl.changeStatusOfRequest)
+
 app.post('/api/employee/:empid/exception', ctrl.addEmployeeExceptions)
 
 app.get('/api/employee/:empid/exception', ctrl.getEmployeeExceptions)

@@ -1,4 +1,4 @@
-.to-review-row{
+.to-review-card-row{
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -6,13 +6,13 @@
     color: #282828,
 }
 
-.to-review-name-row {
+.to-review-card-name-row {
     display: flex;
     /* justify-content: space-between; */
     align-items: center;
 }
 
-.to-review-id-row{
+.to-review-card-id-row{
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -22,11 +22,11 @@
     margin: 15px 0 8px 0;
 }
 
-.to-review-avatar {
+.to-review-card-avatar {
     padding-right: 16px;
 }
 
-.to-review-name-position {
+.to-review-card-name-position {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -34,27 +34,27 @@
     height: 50px;
 }
 
-.to-review-name {
+.to-review-card-name {
     font-size: 24px;
 }
 
-.to-review-position {
+.to-review-card-position {
     font-size: 18px;
     font-weight: 100;
     padding-top: 8px;
 }
 
-.to-review-id{
+.to-review-card-id{
     display: flex;
     color: rgba(0, 0, 0, 0.54);
     font-size: 25px;
     
 }
-.to-review-type {
+.to-review-card-type {
     font-size: 20px;
 }
 
-.to-review-row-type-dates {
+.to-review-card-row-type-dates {
     height: 110px;
     display: flex;
     flex-direction: column;
@@ -63,7 +63,7 @@
 
 }
 
-.to-review-chip {
+.to-review-card-chip {
     width: 38%;
     display: flex;
     flex-direction: column;
@@ -71,7 +71,7 @@
     align-items: center;
 }
 
-#to-review-row-hd {
+#to-review-card-row-hd {
     height: 56px;
     padding: 20px 0 10px 0;
     min-height: 20px;
@@ -79,12 +79,12 @@
     align-items: flex-end;
 }
 
-.to-review-reason{
+.to-review-card-reason{
     font-size: 17px;
     
 }
 
-.to-review-date-group {
+.to-review-card-date-group {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -92,19 +92,14 @@
     height: 70px;
 }
 
-.to-review-dates {
+.to-review-card-dates {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.to-review-container {
-    display:flex; 
-    flex-direction:column;
-    align-items: center;
-}
 
-.to-review-num-days {
+.to-review-card-num-days {
     font-size: 30px;
     display: flex;
     flex-direction: column;
@@ -115,6 +110,26 @@
     box-shadow: 0 2px 6px 0 hsla(0, 0%, 0%, .2);
     width: 50px;
     cursor: pointer;
+}
+
+
+
+
+.to-pop-reason-input {
+    width: 121px !important; 
+}
+
+.to-pop-btn-container {
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+    margin:5px;
+    justify-content: space-evenly;
+}
+
+.to-pop-btn {
+    width: 128px;
+    margin: 5px;
 }
 
 

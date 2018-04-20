@@ -159,6 +159,12 @@ module.exports = {
         })
     },
 
+    changeStatusOfRequest: (req, res) => {
+        let { id, newStatus, reason } = req.body
+        req.app.get('db').update_status_timeoff_request([id, newStatus, reason])
+        .then( newRequests => res.send(newRequests) )
+        .catch( err => console.log( err ))
+    },
 
     getEmployeeExceptions: (req, res) => {
         let {empid} = req.params

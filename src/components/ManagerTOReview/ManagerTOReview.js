@@ -4,7 +4,11 @@ import moment from 'moment'
 import axios from 'axios'
 import _ from 'lodash'
 
+import ManagerReviewCard from '../ManagerReviewCard/ManagerReviewCard'
+
 import Paper from 'material-ui/Paper'
+import {Tabs, Tab} from 'material-ui/Tabs';
+import SwipeableViews from 'react-swipeable-views';
 import Subheader from 'material-ui/Subheader'
 import Avatar from 'material-ui/Avatar';
 import Chip from 'material-ui/Chip';
@@ -30,6 +34,7 @@ class ManagerTOReview extends Component {
         this.state = { 
             pendingRequests: [],
             resolvedRequests: [],
+            slideIndex: 0
          }
     }
 
@@ -47,137 +52,51 @@ class ManagerTOReview extends Component {
         })
     }
 
-    chooseChip = (status) => {
-        if(status === "Pending"){
-            return(
+    judge = ( id, newStatus, reason ) => {
+        let preFlightRequestUpdate = { id , newStatus, reason }
+        axios.patch('/api/review/timeoff/', preFlightRequestUpdate)
+        .then( requests => {
+            let pending = _.filter(requests.data, (e) => e.status === "Pending")
+            let resolved = _.filter(requests.data, (e) => e.status !== "Pending")
 
-                <Chip
-                    backgroundColor={yellow200}
-                    labelColor={yellow800}>
-                    <Avatar 
-                        size={32} 
-                        color={yellow200} 
-                        backgroundColor={yellow700} 
-                        icon={<PendingIcon />}/>
-                    Pending
-                </Chip>
-            )
-        }
-        if(status === "Approved"){
-            return(
-
-                <Chip
-                    backgroundColor={green200}
-                    labelColor={green800}>
-                    <Avatar 
-                        size={32} 
-                        color={green200} 
-                        backgroundColor={green700} 
-                        icon={<ApprovedIcon />}/>
-                    Approved
-                </Chip>
-            )
-        }
-        if(status === "Denied"){
-            return(
-
-                <Chip
-                    backgroundColor={red200}
-                    labelColor={red800}>
-                    <Avatar 
-                        size={32} 
-                        color={red200} 
-                        backgroundColor={red700} 
-                        icon={<DeniedIcon />}/>
-                    Denied
-                </Chip>
-            )
-        }
+            this.setState({
+                pendingRequests: pending,
+                resolvedRequests: resolved
+            })
+        })
     }
-    
 
-    
-    
+    handleTabChange = (value) => {
+        this.setState({
+          slideIndex: value,
+        });
+    };
+
     render() { 
-        let colStyles = {
-            padding: "0 8px",
-            height: 20, 
-            whiteSpace: "wrap",
-            textOverflow: "clip",
-        }
-
+       
         let paperStyles = {
             margin: '8px', 
             width: '90vw', 
             padding: '20px',
             position: 'relative'  
         }
-        let rowsDisplay = this.state.pendingRequests.map( (request, i) => {
-            let dateDisplay = request.start_date === request.end_date 
-                ? <div className="to-review-date-group"> <div><strong>Date:</strong> {moment(request.start_date).format("ddd, MMM DD, YYYY") }</div></div>
-                :<div className="to-review-date-group">
-                    <div><strong>From:</strong> {moment(request.start_date).format("ddd MMM, DD, YYYY")} </div>
-                    <div><strong>To:</strong> {moment(request.end_date).format("ddd, MMM DD, YYYY")}</div>
-                </div>
-            
-            let idColStyles = {
-                padding: "0 8px",
-                height: 20, 
-                whiteSpace: "wrap",
-                textOverflow: "clip",
-            }
+        
+        let pendingowsDisplay = this.state.pendingRequests.map( (request, i) => {
+            return( 
+                <ManagerReviewCard 
+                    request={ request }
+                    cardNum={ i } 
+                    judge={ this.judge }/>
+            )
+        })
 
-            let numDays = moment(request.end_date) - moment(request.start_date); 
-            numDays = moment(numDays).add(1, "d").format("D")
-
-            let dayLabel = +numDays === 1 
-                ? "day"
-                : "days"
-
-            return(
-                <div key={i + request.timeoff_id}>
-                    <div className="to-review-id-row">
-                        <div className="to-review-id"> 
-                            # { request.timeoff_id } 
-                        </div>
-                        <div className="to-review-chip"> 
-                            {this.chooseChip(request.status)} 
-                        </div>
-                    </div>
-                    <div className="to-review-name-row">
-                        <div className="to-review-avatar-empid">
-                            <div className="to-review-avatar"> 
-                                <Avatar
-                                    src={request.profile_pic} 
-                                    size={60}/> 
-                            </div>
-                            <div className="to-review-empid">
-                            </div>
-                        </div>
-                        <div className="to-review-name-position">
-                            <div className="to-review-name"> 
-                                { request.last_name }, { request.first_name } 
-                            </div>
-                            <div className="to-review-position">
-                                { request.position } - { request.emp_id }
-                            </div>
-                        </div>
-                    </div>
-                    <div className="to-review-row-type-dates">
-                        <div className="to-review-type">
-                            <strong>{request.request_type}</strong>
-                        </div>
-                        <div className="to-review-dates"> 
-                            { dateDisplay } 
-                            <div className="to-review-num-days">
-                                {numDays} <span id="to-day-label">{dayLabel}</span>
-                            </div>
-                        </div>
-                        {request.reason && <div className="to-review-reason">
-                            <strong>Reason: </strong>{request.reason}</div>}        
-                    </div>
-                    <Divider />
-                </div>)
+        let completedRowsDisplay = this.state.resolvedRequests.map( (request, i) => {
+            return( 
+                <ManagerReviewCard 
+                    request={ request }
+                    cardNum={ i } 
+                    judge={ this.judge }/>
+            )
         })
         
         let idColStyles = {
@@ -188,6 +107,15 @@ class ManagerTOReview extends Component {
         }
 
         return ( 
+            <div>
+
+            <Tabs
+                onChange={this.handleTabChange}
+                value={this.state.slideIndex}
+                >
+                <Tab label="Pending" value={0} />
+                <Tab label="Reviewed" value={1} />
+            </Tabs>
             <div className="to-review-container">
             < Paper 
                 style={paperStyles} 
@@ -196,7 +124,23 @@ class ManagerTOReview extends Component {
                  <Subheader style={{fontSize: 23}}>Review Time Off Requests</Subheader>
                  <Divider />
                 
-                {rowsDisplay}
+
+             
+                                
+                <SwipeableViews
+                    index={this.state.slideIndex}
+                    onChangeIndex={this.handleTabChange}
+                    >
+                    <div>
+                        {pendingowsDisplay}
+                       
+                    </div>
+                    <div>
+                        {completedRowsDisplay}
+                        
+                    </div>
+                
+                </SwipeableViews>
 
             
 
@@ -211,6 +155,7 @@ class ManagerTOReview extends Component {
                 <div>Shift:</div>
             </Popover> */}
             </div>
+        </div>
         )
         
     
