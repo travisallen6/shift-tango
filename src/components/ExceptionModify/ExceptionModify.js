@@ -19,6 +19,8 @@ import Schedule from '../Schedule/Schedule'
 import moment from 'moment'
 import FlatButton from 'material-ui/FlatButton'
 
+import { changedScheduleEmail } from '../../mail/mail'
+
 import './ExceptionModify.css'
 
 
@@ -373,21 +375,30 @@ class ExceptionModify extends Component {
 
                 axios.get(`/api/employee/${this.state.empId}/exception`)
                 .then( returnedExceptions =>{
-                    
                     this.setState({ 
                         scheduleExceptions: returnedExceptions.data,
-                        snackbarOpen: true 
+                    })
+                    
+                    let htmlMessage = changedScheduleEmail(this.state.lastName, this.state.firstName, excToSend)
+
+                    let emailContent = {
+                        subject: "Your schedule has been changed",
+                        html: htmlMessage
+                    }
+
+                    axios.post(`api/sendemail/${this.state.empId}`, emailContent)
+                    .then( response => {
+
                     })
                 })
+                
+                .catch(err=>console.log(err))
             })
 
         }
+        this.setState({snackbarOpen: true})        
     }
 
-    
-    
-
-    
     render() {
         let { profilePic, lastName, firstName, pattern, baseDate } = this.state 
         let dateBack = moment(baseDate).subtract(1, "w").format("YYYY-MM-DD")

@@ -1,6 +1,13 @@
 require('dotenv').config()
+const nodemailer = require('nodemailer')
 
-
+var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_PASS
+    }
+})
 
 module.exports = {
 
@@ -14,7 +21,27 @@ module.exports = {
         .then( newUser => res.send(newUser))
     },
 
-    completeEmployeeProfile: (req, res, next)=>{
+    sendEmail: (req, res) => {
+
+        var mailOptions = {
+            from: 'shifttango@gmail.com',
+            // to: req.body.to,
+            subject: req.body.subject,
+            html: req.body.html
+        }
+        req.app.get('db').get_email([req.params.empid])
+        .then( emailAddress => {
+            mailOptions.to = emailAddress[0].email 
+            transporter.sendMail(mailOptions, function(err, info){
+                if(err) console.log(err)
+                else console.log(info)
+            })
+            res.sendStatus(200)
+        })
+        .catch(err => console.log(err))
+    },
+
+    completeEmployeeProfile: (req, res)=>{
 
         let { profile_pic, phone, address, city, state, email, zip } = req.body
     

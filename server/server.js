@@ -91,31 +91,10 @@ app.get('/auth/callback', passport.authenticate('auth0', {
     failureRedirect: '/failure'
 }))
 
-var transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-        user: GMAIL_USER,
-        pass: GMAIL_PASS
-    }
-})
-
-const mailOptions = {
-    from: 'travis@allen.com',
-    to: 'travisallen6@gmail.com',
-    subject: 'Hello World',
-    html: '<h1>Hello World</h1>'
-}
-
-app.get('/api/sendmail', function(req, res){
-    transporter.sendMail(mailOptions, function(err, info){
-        if(err) console.log(err)
-        else console.log(info)
-    })
-    res.sendStatus(200)
-    
-})
 
 app.get('/profilecheck', ctrl.profileCheck)
+
+app.post('/api/sendemail/:empid', ctrl.sendEmail)
 
 app.post('/api/user', ctrl.addUser)
 

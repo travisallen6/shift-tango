@@ -173,6 +173,18 @@ class PatternModify extends Component {
                     snackbarOpen: true
                 })
             )
+            let htmlMessage = changedScheduleEmail(this.state.lastName, this.state.firstName, excToSend)
+
+            let emailContent = {
+                subject: "Your schedule has been changed",
+                html: htmlMessage
+            }
+
+            axios.post(`api/sendemail/${this.state.empId}`, emailContent)
+            .then( response => {
+
+            })
+            
         }
     }
 
