@@ -14,6 +14,7 @@ import {Redirect} from 'react-router-dom'
 import moment from 'moment'
 
 import './PatternModify.css'
+import { changedPatternEmail } from '../../mail/mail';
 
 
 
@@ -170,19 +171,19 @@ class PatternModify extends Component {
             axios.post(`/api/employee/${this.state.empId}/pattern`, {pattern: preFlightPattern})
             .then(
                 this.setState({
-                    snackbarOpen: true
+                    redirect:true
                 })
+                
             )
-            let htmlMessage = changedScheduleEmail(this.state.lastName, this.state.firstName, excToSend)
+            let htmlMessage = changedPatternEmail(this.state.lastName, this.state.firstName, evalPattern)
 
             let emailContent = {
-                subject: "Your schedule has been changed",
+                subject: "Your weekly work schedule has been changed",
                 html: htmlMessage
             }
 
             axios.post(`api/sendemail/${this.state.empId}`, emailContent)
             .then( response => {
-
             })
             
         }
@@ -205,7 +206,7 @@ class PatternModify extends Component {
         let { profilePic, lastName, firstName } = this.state 
         return (
             <div className="pattern-modify-container">
-                {this.state.redirect && <Redirect to={`/manager/detail/${this.state.empId}/`} />}
+                {this.state.redirect && <Redirect to={`/manager/control/${this.state.empId}/`} />}
                 <Dialog
                         title="Errors"
                         actions={[

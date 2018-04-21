@@ -113,6 +113,7 @@ module.exports = {
                 res.send(combinedRoster)
             })
         })
+        .catch(err=>console.log(err))
     },
 
     getEmployeeDetail: (req, res) => {
