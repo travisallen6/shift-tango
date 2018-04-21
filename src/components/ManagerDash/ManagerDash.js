@@ -1,6 +1,9 @@
 import React from "react";
 import {Switch, Route} from 'react-router-dom';
 
+import {connect} from 'react-redux'
+import {getUserData} from '../../dux/reducer'
+
 import RosterDetail from '../RosterDetail/RosterDetail'
 import PatternModify from '../PatternModify/PatternModify'
 import ExceptionModify from '../ExceptionModify/ExceptionModify'
@@ -18,6 +21,7 @@ import AppBar from 'material-ui/AppBar';
 import ManagerRoster from '../ManagerRoster/ManagerRoster'
 import ManagerTOReview from "../ManagerTOReview/ManagerTOReview";
 import UserProfileView from "../UserProfileView/UserProfileView";
+import UserProfileEdit from "../UserProfileEdit/UserProfileEdit";
 // import FloatingActionButton from 'material-ui/FloatingActionButton';
 // import ContentAdd from 'material-ui/svg-icons/content/add';
 
@@ -31,6 +35,10 @@ class ManagerDash extends React.Component {
         this.state = {
             drawerOpen: false,
         }
+    }
+
+    componentDidMount(){
+        this.props.getUserData()
     }
 
     handleToggle = () => this.setState({drawerOpen: !this.state.drawerOpen});
@@ -56,8 +64,13 @@ class ManagerDash extends React.Component {
                         component={ManagerRoster} />
 
                     <Route 
+                        exact
                         path='/manager/myprofile' 
                         component={UserProfileView} />
+                        
+                    <Route 
+                        path='/manager/myprofile/edit' 
+                        component={UserProfileEdit} />
 
                     <Route 
                         path='/manager/dash' 
@@ -122,17 +135,8 @@ class ManagerDash extends React.Component {
                         />
 
                     <Divider />
-                  
-                        
-                   
                     </List>
-                    
-                    
-                    
-                    
-                    
-                    
-                   
+                
                 </Drawer>
                 
             </div>
@@ -140,4 +144,10 @@ class ManagerDash extends React.Component {
     }
 }
 
-export default ManagerDash;
+function mapStateToProps(state){
+    return {
+        user: state.user
+    }
+}
+
+export default connect(mapStateToProps, {getUserData})(ManagerDash);

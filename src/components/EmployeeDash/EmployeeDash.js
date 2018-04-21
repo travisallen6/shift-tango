@@ -1,5 +1,9 @@
 import React, {Component} from "react";
 import {Switch, Route} from 'react-router-dom';
+
+import {connect} from 'react-redux'
+import {getUserData} from '../../dux/reducer'
+
 import AppBar from 'material-ui/AppBar'
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
@@ -13,6 +17,7 @@ import EmployeeRequestDash from "../EmployeeRequestDash/EmployeeRequestDash";
 
 import './EmployeeDash.css'
 import UserProfileView from "../UserProfileView/UserProfileView";
+import UserProfileEdit from "../UserProfileEdit/UserProfileEdit";
 
 class EmployeeDash extends Component {
     constructor(props) {
@@ -20,6 +25,10 @@ class EmployeeDash extends Component {
         this.state = { 
             drawerOpen: false,
          }
+    }
+
+    componentDidMount(){
+        this.props.getUserData()
     }
 
     handleToggle = () => this.setState({drawerOpen: !this.state.drawerOpen});
@@ -31,6 +40,7 @@ class EmployeeDash extends Component {
             <div>
                 <AppBar 
                     className="employee-app-bar"
+                    style={{position:"fixed"}}
                     onLeftIconButtonClick={this.handleToggle}
                 />
 
@@ -39,9 +49,15 @@ class EmployeeDash extends Component {
                         path='/employee/' exact  
                         component={EmployeeSchedule} />
 
-                    <Route 
+                    <Route
+                        exact 
                         path='/employee/myprofile' 
                         component={UserProfileView} />
+                    
+                   
+                    <Route 
+                        path='/employee/myprofile/edit' 
+                        component={UserProfileEdit} />                    
 
                     <Route 
                         path='/employee/dash' 
@@ -83,23 +99,15 @@ class EmployeeDash extends Component {
                         onClick={this.handleClose}
                         />
 
-                    <ListItem
+                    {/* <ListItem
                         primaryText="Shift Trades"
                         href="/#/employee/RequestTO"
                         onClick={this.handleClose}
-                        />
+                        /> */}
 
                     <Divider />
-                  
-                        
-                   
+
                     </List>
-                    
-                    
-                    
-                    
-                    
-                    
                    
                 </Drawer>
             </div>
@@ -107,6 +115,11 @@ class EmployeeDash extends Component {
     }
 }
 
+function mapStateToProps(state){
+    return {
+        user: state.user
+    }
+}
 
  
-export default EmployeeDash;
+export default connect(mapStateToProps, {getUserData}) (EmployeeDash);

@@ -144,7 +144,7 @@ class ProfileEdit extends Component {
         } = this.state
 
         let { 
-            firstName, lastName, manager, picUrl, position, empId, doe,
+            firstName, lastName, manager, picUrl, position, empId, doe, inputsDisabled
         } = this.props     
 
         const half = {
@@ -189,6 +189,7 @@ class ProfileEdit extends Component {
             <div className="prof-form-name-col">
 
             {lastName && <TextField
+                disabled={inputsDisabled || false}
                 name="lastNameInput"
                 value={ lastNameInput }
                 onChange={ this.handleInputChange }
@@ -196,6 +197,7 @@ class ProfileEdit extends Component {
             /> }
 
             {firstName && <TextField
+                disabled={inputsDisabled || false}
                 name="firstNameInput"
                 value={ firstNameInput }
                 onChange={ this.handleInputChange }
@@ -208,6 +210,7 @@ class ProfileEdit extends Component {
             {empId && <TextField
                 name="empIdInput"
                 value={ empIdInput }
+                disabled={inputsDisabled || false}
                 onChange={ this.handleInputChange }
                 floatingLabelText="Employee ID"
                 style={half}
@@ -216,6 +219,7 @@ class ProfileEdit extends Component {
             {doe && <DatePicker
                 hintText="Date of Entry"
                 value={doeInput}
+                disabled={inputsDisabled || false}
                 onChange={this.handleDateInputChange}
                 floatingLabelText="Date of Entry"
                 style={half}
@@ -227,6 +231,7 @@ class ProfileEdit extends Component {
             {position && <TextField
                 name="positionInput"
                 value={ positionInput }
+                disabled={inputsDisabled || false}
                 onChange={ this.handleInputChange }
                 floatingLabelText="Position"
                 style={half}
@@ -314,7 +319,7 @@ class ProfileEdit extends Component {
                     <RaisedButton 
                         label="Cancel" 
                         default={true}
-                        // onClick={} 
+                        href={this.props.cancelPath}
                     />
                     </div>
                 </div>

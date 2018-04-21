@@ -302,6 +302,7 @@ class ManagerProfileEdit extends Component {
                 zip={ this.state.zip }
                 email={ this.state.email }
                 checkFunction={this.saveInputs}
+                cancelPath={`/#/manager/control/${this.state.empId}/`}
             />
             <div className="manager-profile-edit-danger">
                 <RaisedButton

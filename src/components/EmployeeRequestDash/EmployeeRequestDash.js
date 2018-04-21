@@ -125,8 +125,8 @@ class EmployeeRequestDash extends Component {
                         <div className="to-request-col to-request-id"> { request.timeoff_id } </div>
                         <div className="to-request-col to-request-val"> { dateDisplay } </div>
                         <div className="to-request-col to-request-chip">
-                        {request.request_type}
                         {this.chooseChip(request.status)} 
+                        {request.request_type}
                         </div>
                     </div>
             {request.reason && <div className="to-request-reason">

@@ -37,9 +37,9 @@ class EmployeeSchedule extends Component {
 
 
 
-    componentDidMount(){
-       this.props.getUserData()
-    }
+    // componentDidMount(){
+    //    this.props.getUserData()
+    // }
 
     componentWillReceiveProps(newProps){
             axios.get(`/api/employee/${newProps.user.emp_id}/detail`)
@@ -167,4 +167,4 @@ function mapStateToProps(state){
     }
 }
  
-export default connect(mapStateToProps, {getUserData})(EmployeeSchedule);
+export default connect(mapStateToProps)(EmployeeSchedule);

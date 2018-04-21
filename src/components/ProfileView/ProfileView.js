@@ -95,6 +95,10 @@ class ProfileView extends Component {
             position: 'relative'
         }
 
+        let lastNameDefined = this.props.lastName !== undefined
+        let firstNameDefined = this.props.firstName !== undefined
+        let picDefined = this.props.pic !== undefined
+
 
         return ( 
                 < Paper 
@@ -103,6 +107,12 @@ class ProfileView extends Component {
                 >
                 { this.state.redirect && <Redirect to={this.props.editLinkPath} /> }
                     
+
+                    {picDefined && <Avatar src={ this.props.pic } size={100} /> }
+
+                    {lastNameDefined && <div className='row'><h2>Last:</h2><p> { this.props.lastName } </p></div>}
+
+                    {firstNameDefined && <div className='row'><h2>First:</h2><p> { this.props.firstName } </p></div>}
 
 
                     <div className='row'><h2>Emp#:</h2><p> { this.props.empId } </p></div>

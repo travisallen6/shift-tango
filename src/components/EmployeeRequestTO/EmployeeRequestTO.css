@@ -12,13 +12,12 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 20px;
+    padding-top: 81px;
 }
 
 .emp-rto-btn-container {
     display: flex;
     justify-content: space-between;
     margin-top: 23px;
-
 }
 

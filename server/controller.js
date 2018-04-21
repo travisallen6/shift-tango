@@ -65,6 +65,7 @@ module.exports = {
         .catch( err => console.log(err))
 
     },
+
    
     terminateEmployee: (req, res) => {
         let{ empid } = req.params

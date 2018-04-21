@@ -105,9 +105,9 @@ class RosterDetail extends React.Component {
                 <div className="detail-container">
                     <ProfileView
                         empId={ this.state.empId } 
-                        pic={ pic }
-                        firstName={ firstName }
-                        lastName={ lastName }
+                        // pic={ pic }
+                        // firstName={ firstName }
+                        // lastName={ lastName }
                         position={ position }
                         doe={ doe }
                         phone={ phone }
