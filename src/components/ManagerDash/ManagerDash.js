@@ -17,6 +17,7 @@ import { Divider, FlatButton, RaisedButton } from "material-ui";
 import AppBar from 'material-ui/AppBar';
 import ManagerRoster from '../ManagerRoster/ManagerRoster'
 import ManagerTOReview from "../ManagerTOReview/ManagerTOReview";
+import UserProfileView from "../UserProfileView/UserProfileView";
 // import FloatingActionButton from 'material-ui/FloatingActionButton';
 // import ContentAdd from 'material-ui/svg-icons/content/add';
 
@@ -44,6 +45,7 @@ class ManagerDash extends React.Component {
 
                 <AppBar 
                     className="manager-app-bar"
+                    style={{position:"fixed"}}
                     onLeftIconButtonClick={this.handleToggle}
                     
                 />
@@ -52,6 +54,11 @@ class ManagerDash extends React.Component {
                     <Route 
                         path='/manager/' exact  
                         component={ManagerRoster} />
+
+                    <Route 
+                        path='/manager/myprofile' 
+                        component={UserProfileView} />
+
                     <Route 
                         path='/manager/dash' 
                         component={ManagerRoster} />
@@ -95,19 +102,24 @@ class ManagerDash extends React.Component {
                     
                     <List>
 
-                    <Subheader>Manage Schedules</Subheader>
+                    <Subheader>Employees</Subheader>
                     <ListItem
                         primaryText="Employee Roster"
                         href="/#/manager/dash"
                         onClick={this.handleClose}
                         />
                     <ListItem
-                        primaryText="Review Time Off Requests"
+                        primaryText="Load an Employee"
+                        href="/#/manager/addemployee"
+                        onClick={this.handleClose}
+                        />
+                    <Divider />
+                    <Subheader>Requests</Subheader>
+                    <ListItem
+                        primaryText="Time Off"
                         href="/#/manager/timeoff/review"
                         onClick={this.handleClose}
                         />
-                    
-                  
 
                     <Divider />
                   

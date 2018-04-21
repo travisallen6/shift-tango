@@ -169,12 +169,12 @@ class PatternModify extends Component {
             })
 
             axios.post(`/api/employee/${this.state.empId}/pattern`, {pattern: preFlightPattern})
-            .then(
-                this.setState({
-                    redirect:true
-                })
-                
-            )
+            .then( newPattern => {
+                this.props.snackbar()
+                let { sun, mon, tue, wed, thu, fri, sat } = newPattern.data[0]
+                let empPattern = {sun, mon, tue, wed, thu, fri, sat}
+                this.setState({pattern: empPattern})
+            })
             let htmlMessage = changedPatternEmail(this.state.lastName, this.state.firstName, evalPattern)
 
             let emailContent = {

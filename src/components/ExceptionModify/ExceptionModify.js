@@ -375,6 +375,7 @@ class ExceptionModify extends Component {
 
                 axios.get(`/api/employee/${this.state.empId}/exception`)
                 .then( returnedExceptions =>{
+                    this.props.snackbar()
                     this.setState({ 
                         scheduleExceptions: returnedExceptions.data,
                     })

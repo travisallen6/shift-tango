@@ -142,7 +142,7 @@ module.exports = {
         let { empid } = req.params
 
         req.app.get('db').set_employee_pattern([empid, sun, mon, tue, wed, thu, fri, sat])
-        .then( response => res.sendStatus(200) )
+        .then( response => res.send(response) )
     },
 
     addEmployeeExceptions: (req, res) => {

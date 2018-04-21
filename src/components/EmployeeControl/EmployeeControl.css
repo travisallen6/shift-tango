@@ -7,10 +7,14 @@
     margin-top: 20px;
     margin-bottom: 15px;
     position:relative;
+    z-index: -2;
+    top: 40px;
+}
 
-    /* margin: 17px 0; */
-    /* width: 90vw;  */
-
+.emp-control-tabs {
+    position: fixed;
+    z-index: 1;
+    width: 100%;
 }
 
 .emp-control-avatar {
@@ -23,8 +27,21 @@
     text-align: center;
 }
 
-/* .emp-control-close-btn {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-} */
+.emp-control-container {
+    padding-top:62px;
+}
+
+.emp-control-swipers {
+    position: relative;
+    z-index:-2;
+    top: 38px;
+}
+
+.emp-control-close-btn {
+    position:'absolute';
+    top: 115px;
+    right: 0px;
+    z-index: 0;
+}
+
+

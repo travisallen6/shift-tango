@@ -59,32 +59,32 @@ class ManagerRoster extends React.Component {
         )) : null
 
         return ( 
-            <div>
+            <div className="mgr-roster-container">
 
            
 
             <Tabs>
                 <Tab label="Active" >
-                <div className="list-container">
-                <br />
-                    <Paper style={{width: '90vw'} } zDepth={1} >
+                    <div className="list-container">
+                    <br />
+                        <Paper style={{width: '90vw'} } zDepth={1} >
 
-                    <List>
-                        <Subheader>Employee Roster</Subheader>
-                        {activeEmpList}
-                    </List>
+                        <List>
+                            <Subheader>Employee Roster</Subheader>
+                            {activeEmpList}
+                        </List>
 
-                    </Paper>
-                    <div className="roster-action-fixed">
-                        <FloatingActionButton 
-                            secondary={true}
-                            href="/#/manager/addemployee"
-                        >
-                            <ContentAdd />
-                        </FloatingActionButton>
-                    </div>
-      
-                </div> 
+                        </Paper>
+                        <div className="roster-action-fixed">
+                            <FloatingActionButton 
+                                secondary={true}
+                                href="/#/manager/addemployee"
+                            >
+                                <ContentAdd />
+                            </FloatingActionButton>
+                        </div>
+        
+                    </div> 
 
                 </Tab>
                 <Tab label="Terminated" >
@@ -96,6 +96,7 @@ class ManagerRoster extends React.Component {
                     <List>
                         <Subheader>Employee Roster</Subheader>
                         {terminatedEmpList}
+                    
                     </List>
                     </Paper>
                 </div>

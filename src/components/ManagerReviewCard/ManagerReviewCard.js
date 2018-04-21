@@ -14,7 +14,7 @@ import PendingIcon from 'material-ui/svg-icons/device/access-time'
 import ApprovedIcon from 'material-ui/svg-icons/action/thumb-up'
 import DeniedIcon from 'material-ui/svg-icons/action/thumb-down'
 import RaisedButton from 'material-ui/RaisedButton'
-import {blue300, indigo900, yellow700, yellow800, green300, green800, green700, red300, red800, red700, red200, grey800} from 'material-ui/styles/colors';
+import {blue300, indigo900, yellow700, yellow800, green300, green800, green700, red300, red800, red700, red200, grey500} from 'material-ui/styles/colors';
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 
@@ -212,8 +212,8 @@ class ManagerTOReview extends Component {
 
 
             let deniedIconColor = this.state.denialInput === "" 
-                ? red800
-                : grey800
+                ? grey500
+                : red800
 
         return ( 
             <div className="to-review-card-container">
@@ -297,8 +297,10 @@ class ManagerTOReview extends Component {
                     />
                      <TextField
                         className="to-pop-reason-input"
+                        fullWidth={true}
                         value={this.state.denialInput}
-                        floatingLabelText="Denial Reason"
+                        underlineFocusStyle={{borderColor: red200}}
+                        hintText="Denial Reason"
                         onChange={this.updateDenialInput}
                         />
                     
@@ -342,6 +344,7 @@ class ManagerTOReview extends Component {
                     {skdDisplay}
                 </div>
                         <TextField
+                        underlineFocusStyle={{borderColor: red200}}
                         className="to-pop-reason-input"
                         value={this.state.denialInput}
                         hintText=" Reason if denying"

@@ -7,7 +7,8 @@ import Paper from 'material-ui/Paper'
 import Avatar from 'material-ui/Avatar'
 import FlatButton from 'material-ui/FlatButton'
 import CloseIcon from 'material-ui/svg-icons/navigation/close'
-import { grey500 } from 'material-ui/styles/colors'
+import Snackbar from 'material-ui/Snackbar'
+import { grey500, lightGreen800, lightGreen100 } from 'material-ui/styles/colors'
 
 import RosterDetail from '../RosterDetail/RosterDetail'
 import ExceptionModify from '../ExceptionModify/ExceptionModify'
@@ -23,6 +24,7 @@ class EmployeeControl extends Component {
             lastName: '',
             firstName: '',
             profilePic: '',
+            snackbarOpen: false
          }
     }
 
@@ -47,10 +49,26 @@ class EmployeeControl extends Component {
         });
     };
 
+
+
+    snackbar = () => {
+        this.setState({
+            snackbarOpen: true
+        })
+    }
+
+    handleSnackbarClose = () => {
+        this.setState({
+            snackbarOpen: false
+        })
+    }
+
     render() { 
         return ( 
-            <div>
+            <div className="emp-control-container">
                 <Tabs
+                    className="emp-control-tabs"
+                    // style={{position:"fixed"}}
                     onChange={this.handleTabChange}
                     value={this.state.slideIndex}
                 >
@@ -67,16 +85,17 @@ class EmployeeControl extends Component {
                         />
                     <div className="emp-control-name"><h1>{`${this.state.lastName}, ${this.state.firstName}`}</h1></div>
                     
+
+                </div>
                     <FlatButton
                         className="emp-control-close-btn"
                         href={"/#/manager/dash"}
                         icon={<CloseIcon color={grey500}/>}
-                        style={{position:'absolute', top: -14, right: -4}}
+                        style={{position:'absolute', top: 115, right: 0}}
                     />
-
-                </div>
                                 
                 <SwipeableViews
+                    className="emp-control-swipers"
                     index={this.state.slideIndex}
                     onChangeIndex={this.handleTabChange}
                 >
@@ -88,16 +107,26 @@ class EmployeeControl extends Component {
                     <div>
                         <ExceptionModify 
                             empid={this.props.match.params.empid}
+                            snackbar={this.snackbar}
                         />
 
                     </div>
                     <div>
                         <PatternModify 
                             empid={this.props.match.params.empid}
+                            snackbar={this.snackbar}
                         />
                     </div>
                 
                 </SwipeableViews>
+                <Snackbar
+                        open={this.state.snackbarOpen}
+                        message={ "Done!" }
+                        contentStyle={{color: lightGreen800}}
+                        bodyStyle={{background:lightGreen100}}
+                        autoHideDuration={500}
+                        onRequestClose={this.handleSnackbarClose}
+                    />
 
 
             </div>

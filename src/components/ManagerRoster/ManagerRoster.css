@@ -2,6 +2,7 @@
     padding: 15px 5px;
     display:flex;
     justify-content:center;
+    overflow: auto;
     
 }
 
@@ -25,4 +26,8 @@ a:active {
     position: fixed;
     bottom: 21px;
     right: 21px;
+}
+
+.mgr-roster-container {
+  padding-top:64px;
 }

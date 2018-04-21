@@ -1,0 +1,19 @@
+.user-profile-view-container {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    padding: 81px 0;
+}
+
+.user-profile-container-paper {
+    padding: 15px;
+}
+
+.user-profile-headline {
+    color: rgba(0, 0, 0, 0.54);
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 48px;
+    padding-left: 16px;
+    width: 100%;
+}

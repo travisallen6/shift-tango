@@ -12,6 +12,7 @@ import EmployeeRequestTO from "../EmployeeRequestTO/EmployeeRequestTO";
 import EmployeeRequestDash from "../EmployeeRequestDash/EmployeeRequestDash";
 
 import './EmployeeDash.css'
+import UserProfileView from "../UserProfileView/UserProfileView";
 
 class EmployeeDash extends Component {
     constructor(props) {
@@ -37,15 +38,23 @@ class EmployeeDash extends Component {
                     <Route 
                         path='/employee/' exact  
                         component={EmployeeSchedule} />
+
+                    <Route 
+                        path='/employee/myprofile' 
+                        component={UserProfileView} />
+
                     <Route 
                         path='/employee/dash' 
                         component={EmployeeSchedule} />
+
                     <Route 
                         path='/employee/requestto' 
                         component={EmployeeRequestTO} />
+
                     <Route 
                         path='/employee/requestdash' 
                         component={EmployeeRequestDash} />
+
                 </Switch>   
 
                 <Drawer
