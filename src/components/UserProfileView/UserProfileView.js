@@ -25,6 +25,25 @@ class UserProfileView extends Component {
                 <div className="user-profile-container-paper">
                     <h1 className="user-profile-headline">My Profile</h1>
                     {/* <Subheader style={{fontSize: 24}}>My Profile</Subheader> */}
+                    <ProfileView
+                        empId={ this.state.empId } 
+                        pic={ pic }
+                        firstName={ firstName }
+                        lastName={ lastName }
+                        position={ position }
+                        doe={ doe }
+                        phone={ phone }
+                        address={ address }
+                        city={ city }
+                        state={ state }
+                        zip={ zip }
+                        email={ email }
+                        pattern={ pattern }
+                        exceptions={ exceptions }
+                        skdViewDate={ this.state.skdViewDate }
+                        manager={ true }
+                        editLinkPath={`/#/manager/profileedit/${this.state.empId}/`}
+                    />
                 </div>
             
             </Paper>
