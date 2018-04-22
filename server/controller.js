@@ -50,13 +50,14 @@ module.exports = {
         .catch(err => console.log(err))
     },
 
+
     completeEmployeeProfile: (req, res)=>{
 
         let { profile_pic, phone, address, city, state, email, zip, emailOk, smsOk } = req.body
     
         let { empid } = req.params
     
-        req.app.get('db').update_user_profile([empid, profile_pic, phone, address, city, state, email, zip, emailOk, smsOk])
+        req.app.get('db').update_user_profile([empid, profile_pic, phone, address, city, state, email, zip, smsOk, emailOk])
         .then( res.sendStatus(200) )
         
     },
@@ -69,6 +70,19 @@ module.exports = {
         let {empid} = req.params
 
         req.app.get('db').manager_update_employee_profile([empid, firstNameInput, lastNameInput, positionInput, managerInput, empIdInput, doeInput, phoneInput,addressInput, cityInput, stateInput, zipInput, emailInput ])
+        .then( updatedProfile => res.send(updatedProfile))
+        .catch( err => console.log(err))
+
+    },
+
+    employeeUpdateOwnProfile: (req, res)=>{
+        let {
+            firstNameInput, lastNameInput, positionInput, managerInput, empIdInput, doeInput, phoneInput, addressInput, cityInput, stateInput, zipInput, emailInput, emailOk, smsOk
+        } = req.body.profileData
+
+        let {empid} = req.params
+
+        req.app.get('db').employee_update_own_profile([empid, firstNameInput, lastNameInput, positionInput, managerInput, empIdInput, doeInput, phoneInput,addressInput, cityInput, stateInput, zipInput, emailInput, emailOk, smsOk ])
         .then( updatedProfile => res.send(updatedProfile))
         .catch( err => console.log(err))
 

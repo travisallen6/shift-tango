@@ -102,6 +102,8 @@ app.post('/api/employee/:empid/profile', ctrl.completeEmployeeProfile)
 
 app.put('/api/employee/:empid/profile', ctrl.managerUpdateEmployeeProfile)
 
+app.put('/api/employee/:empid/myprofile', ctrl.employeeUpdateOwnProfile)
+
 app.post('/api/employee/:empid/terminate', ctrl.terminateEmployee)
 
 app.get('/api/roster', ctrl.getRoster)
@@ -138,20 +140,3 @@ app.get('/auth/logout', ctrl.authLogout)
 app.listen(SERVER_PORT, () => console.log(`Hard to port ${SERVER_PORT}`))
 
 
-
-
-
-// {
-//     "timeoff_id": 1,
-//     "start_date": "2018-04-17T06:00:00.000Z",
-//     "end_date": "2018-04-18T06:00:00.000Z",
-//     "status": "Pending",
-//     "reason": "Because computer",
-//     "request_type": null,
-// }
-
-// "emp_id": 205301,
-// "last_name": "Nauahi",
-// "first_name": "John",
-// "position": "865432"
-// "profile_pic": "https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg\t",

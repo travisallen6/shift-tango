@@ -44,7 +44,7 @@ class UserProfileEdit extends Component {
     saveInputs = (profileData) => {
         let errors = []
         let { 
-            firstNameInput, lastNameInput, picUrlInput, positionInput, managerInput, empIdInput, doeInput, phoneInput, addressInput,     cityInput, stateInput, zipInput, emailInput } = profileData
+            firstNameInput, lastNameInput, picUrlInput, positionInput, managerInput, empIdInput, doeInput, phoneInput, addressInput, cityInput, stateInput, zipInput, emailInput, smsOk, emailOk } = profileData
 
 
         
@@ -117,10 +117,10 @@ class UserProfileEdit extends Component {
 
 
             let preFlightProfileData = {
-                firstNameInput: this.props.user.first_name, lastNameInput: this.props.user.last_name, positionInput: this.props.user.position, managerInput: this.props.user.mgr, empIdInput: this.props.user.emp_id, doeInput: this.props.user.doe, phoneInput, addressInput, cityInput, stateInput, zipInput, emailInput
+                firstNameInput: this.props.user.first_name, lastNameInput: this.props.user.last_name, positionInput: this.props.user.position, managerInput: this.props.user.mgr, empIdInput: this.props.user.emp_id, doeInput: this.props.user.doe, phoneInput, addressInput, cityInput, stateInput, zipInput, emailInput, smsOk, emailOk
             }
-
-            axios.put( `/api/employee/${this.props.user.emp_id}/profile/`, {profileData: preFlightProfileData})
+           
+            axios.put(  `/api/employee/${this.props.user.emp_id}/myprofile`, {profileData: preFlightProfileData})
             .then( updatedProfile => {
 
                 this.props.updateUserData(updatedProfile.data[0])
@@ -128,29 +128,6 @@ class UserProfileEdit extends Component {
                 this.setState({
                     snackbarOpen: true,
                 })
-
-                // let { 
-                //     address, city, doe, email, emp_id, first_name, last_name, mgr, phone, position, profile_pic, state, zip
-                // } = updatedProfile.data[0]
-
-
-
-                // this.setState({
-                //     firstName: first_name,
-                //     lastName: last_name,
-                //     picUrl: profile_pic,
-                //     position: position,
-                //     manager: mgr,
-                //     empId: emp_id,
-                //     doe: moment(doe).toDate(),
-                //     phone: phone,
-                //     address: address,
-                //     city: city,
-                //     state: state,
-                //     zip: zip,
-                //     email: email,
-                //     snackbarOpen: true,
-                // })
 
             })
         }
@@ -195,8 +172,8 @@ class UserProfileEdit extends Component {
                     checkFunction={this.saveInputs}
                     inputsDisabled={true}
                     cancelPath={`/#/manager/myprofile/`}
-                    emailOk={ emailok }
-                    smsOk={ smsok }
+                    emailAllowed={ emailok }
+                    smsAllowed={ smsok }
                     
                 />
 
