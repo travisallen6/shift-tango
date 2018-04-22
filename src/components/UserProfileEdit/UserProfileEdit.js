@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import ProfileEdit from '../ProfileEdit/ProfileEdit'
 
 import {connect} from 'react-redux'
+import {updateUserData} from '../../dux/reducer'
 
 import moment from 'moment'
 import axios from 'axios'
@@ -112,16 +113,27 @@ class UserProfileEdit extends Component {
                 dialogOpen: true
             })
         } else {
+
+
+
             let preFlightProfileData = {
-                firstNameInput, lastNameInput, picUrlInput, positionInput, managerInput, empIdInput, doeInput: moment(doeInput).format("YYYY-MM-DD"), phoneInput, addressInput, cityInput, stateInput, zipInput, emailInput
+                firstNameInput: this.props.user.first_name, lastNameInput: this.props.user.last_name, positionInput: this.props.user.position, managerInput: this.props.user.mgr, empIdInput: this.props.user.emp_id, doeInput: this.props.user.doe, phoneInput, addressInput, cityInput, stateInput, zipInput, emailInput
             }
 
-            axios.put( `/api/employee/${this.state.empId}/profile/`, {profileData: preFlightProfileData})
+            axios.put( `/api/employee/${this.props.user.emp_id}/profile/`, {profileData: preFlightProfileData})
             .then( updatedProfile => {
 
-                let { 
-                    address, city, doe, email, emp_id, first_name, last_name, mgr, phone, position, profile_pic, state, zip
-                } = updatedProfile.data[0]
+                this.props.updateUserData(updatedProfile.data[0])
+
+                this.setState({
+                    snackbarOpen: true,
+                })
+
+                // let { 
+                //     address, city, doe, email, emp_id, first_name, last_name, mgr, phone, position, profile_pic, state, zip
+                // } = updatedProfile.data[0]
+
+
 
                 // this.setState({
                 //     firstName: first_name,
@@ -221,5 +233,5 @@ function mapStateToProps(state){
     }
 }
  
-export default connect(mapStateToProps) (UserProfileEdit);
+export default connect(mapStateToProps, {updateUserData}) (UserProfileEdit);
 

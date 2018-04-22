@@ -144,7 +144,7 @@ class ManagerProfileEdit extends Component {
             })
         } else {
             let preFlightProfileData = {
-                firstNameInput, lastNameInput, picUrlInput, positionInput, managerInput, empIdInput, doeInput: moment(doeInput).format("YYYY-MM-DD"), phoneInput, addressInput, cityInput, stateInput, zipInput, emailInput
+                firstNameInput, lastNameInput, positionInput, managerInput, empIdInput, doeInput: moment(doeInput).format("YYYY-MM-DD"), phoneInput, addressInput, cityInput, stateInput, zipInput, emailInput
             }
 
             axios.put( `/api/employee/${this.state.empId}/profile/`, {profileData: preFlightProfileData})
