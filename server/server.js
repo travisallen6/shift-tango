@@ -104,7 +104,9 @@ app.put('/api/employee/:empid/profile', ctrl.managerUpdateEmployeeProfile)
 
 app.put('/api/employee/:empid/myprofile', ctrl.employeeUpdateOwnProfile)
 
-app.post('/api/employee/:empid/terminate', ctrl.terminateEmployee)
+app.post('/api/employee/:empid/terminate', ctrl.addTermData)
+
+app.delete('/api/employee/:empid/terminate', ctrl.terminateEmployee)
 
 app.get('/api/roster', ctrl.getRoster)
 

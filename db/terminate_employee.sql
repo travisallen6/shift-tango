@@ -1,8 +1,14 @@
-INSERT INTO terminations
-(emp_id, reason, termination_date)
-values
-($1, $2, $3);
+DELETE FROM users
+WHERE emp_id = $1;
 
-UPDATE users
-SET gmail_user = null
+DELETE FROM patterns
+WHERE emp_id = $1;
+
+DELETE FROM timeoff
+WHERE emp_id = $1;
+
+DELETE FROM exceptions
+WHERE emp_id = $1;
+
+DELETE FROM commsettings
 WHERE emp_id = $1;

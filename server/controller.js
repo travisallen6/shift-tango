@@ -88,14 +88,27 @@ module.exports = {
 
     },
 
+    addTermData: (req, res) => {
+        let {empid} = req.params
+        req.app.get('db').get_employee_detail([empid])
+        .then( employee => {
+            let { reason, termination_date } = req.body
+            let {last_name, first_name, position, doe, profile_pic, phone} = employee[0]
+
+            req.app.get('db').add_termination_data([empid, reason, termination_date, last_name, first_name, position, doe, profile_pic, phone])
+            .then( response => res.sendStatus(200) )
+        })
+        
+    },
    
     terminateEmployee: (req, res) => {
         let{ empid } = req.params
-        let { reason, termination_date } = req.body
-        req.app.get('db').terminate_employee([empid, reason, termination_date])
-        .then( terminatedEmp =>{
-            res.sendStatus(200)
-        })
+
+            req.app.get('db').terminate_employee([empid])
+            .then( terminatedEmp =>{
+                return res.sendStatus(200)
+            })
+            .catch( err => console.log(err) )
     },
 
     authCheck: (req, res) => {

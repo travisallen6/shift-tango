@@ -248,8 +248,12 @@ class ManagerProfileEdit extends Component {
 
         axios.post(`/api/employee/${this.state.empId}/terminate`, terminationData)
         .then( response => {
-            this.setState({
-                termSnackbarOpen: true
+            
+            axios.delete(`/api/employee/${this.state.empId}/terminate`)
+            .then( response => {
+                this.setState({
+                    termSnackbarOpen: true
+                })
             })
         })
     }
