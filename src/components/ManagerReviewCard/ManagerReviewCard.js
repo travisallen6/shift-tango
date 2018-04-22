@@ -100,16 +100,16 @@ class ManagerTOReview extends Component {
         this.setState({dialogOpenSkd: false})        
         
         axios.post(`/api/employee/${emp_id}/multipleexceptions`, {exceptions, timeoffId: id})
-        .then( this.props.judge(id, "Approved", null) )
+        .then( this.props.judge(id, emp_id, "Approved", null) )
         .catch(err => console.log(err))
     }
 
     handleClickDenied = () => {
-        let { timeoff_id: id } = this.props.request
+        let { timeoff_id: id, emp_id } = this.props.request
         let { denialInput: reason } = this.state
         this.setState({popoverOpen: false})
 
-        this.props.judge(id, "Denied", reason)
+        this.props.judge(id, emp_id, "Denied", reason)
     }
 
     handleRequestClose = () => {

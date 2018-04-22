@@ -3,26 +3,25 @@ UPDATE users
 SET 
 first_name = $2,	
 last_name = $3,	
-profile_pic = $4,
-position = $5,	
-mgr = $6,	
-emp_id = $7,
-doe = $8,	
-phone = $9,	
-address = $10,	
-city = $11,	
-state = $12,	
-zip = $13,	
-email = $14
+position = $4,	
+mgr = $5,	
+emp_id = $6,
+doe = $7,	
+phone = $8,	
+address = $9,	
+city = $10,	
+state = $11,	
+zip = $12,	
+email = $13
 
 WHERE emp_id = $1;
 
 UPDATE patterns
-SET emp_id = $7
+SET emp_id = $6
 WHERE emp_id = $1;
 
 UPDATE exceptions
-SET emp_id = $7
+SET emp_id = $6
 WHERE emp_id = $1;
 
 SELECT 
@@ -40,4 +39,4 @@ state,
 zip,	
 email
 from users
-WHERE emp_id = $7;
+WHERE emp_id = $6

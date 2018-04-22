@@ -55,12 +55,12 @@ module.exports = {
 
     managerUpdateEmployeeProfile: (req, res)=>{
         let {
-            firstNameInput, lastNameInput, picUrlInput, positionInput, managerInput, empIdInput, doeInput, phoneInput, addressInput, cityInput, stateInput, zipInput, emailInput 
+            firstNameInput, lastNameInput, positionInput, managerInput, empIdInput, doeInput, phoneInput, addressInput, cityInput, stateInput, zipInput, emailInput 
         } = req.body.profileData
 
         let {empid} = req.params
 
-        req.app.get('db').manager_update_employee_profile([empid, firstNameInput, lastNameInput, picUrlInput, positionInput, managerInput, empIdInput, doeInput, phoneInput,addressInput, cityInput, stateInput, zipInput, emailInput ])
+        req.app.get('db').manager_update_employee_profile([empid, firstNameInput, lastNameInput, positionInput, managerInput, empIdInput, doeInput, phoneInput,addressInput, cityInput, stateInput, zipInput, emailInput ])
         .then( updatedProfile => res.send(updatedProfile))
         .catch( err => console.log(err))
 

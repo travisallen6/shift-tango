@@ -5,6 +5,7 @@ import axios from 'axios'
 import _ from 'lodash'
 
 import ManagerReviewCard from '../ManagerReviewCard/ManagerReviewCard'
+import {timeoffRequestemail} from '../../mail/mail'
 
 import Paper from 'material-ui/Paper'
 import {Tabs, Tab} from 'material-ui/Tabs';
@@ -56,23 +57,42 @@ class ManagerTOReview extends Component {
         })
     }
 
-    judge = ( id, newStatus, reason ) => {
+    judge = ( id, emp_id, newStatus, reason ) => {
 
         let preFlightRequestUpdate = { id , newStatus, reason }
 
         axios
         axios.patch('/api/review/timeoff/', preFlightRequestUpdate)
         .then( requests => {
+
             let pending = _.filter(requests.data.timeoffRequests, (e) => e.status === "Pending")
             let resolved = _.filter(requests.data.timeoffRequests, (e) => e.status !== "Pending")
 
+            
             this.setState({
                 pendingRequests: pending,
                 resolvedRequests: resolved,
                 exceptions: requests.data.exceptions
             })
+            
+            let requestForEmail =  _.filter(requests.data.timeoffRequests, (e) => e.timeoff_id === id)
+            
+            
+
+            // Send Email
+            let htmlMessage = timeoffRequestemail(requestForEmail[0])
+
+            let emailContent = {
+                subject: `Your timeoff request has been ${newStatus}`,
+                html: htmlMessage
+            }
+
+            axios.post(`api/sendemail/${emp_id}`, emailContent)
+            .catch(err => console.log(err))
+                    
         })
     }
+
 
     handleTabChange = (value) => {
         this.setState({

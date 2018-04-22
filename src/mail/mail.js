@@ -98,3 +98,37 @@ export function changedPatternEmail(lastName, firstName, shifts) {
         </html>`
 )    
 }
+
+
+export function timeoffRequestemail(request) {
+
+    let { timeoff_id, start_date, end_date, status, reason, request_type, last_name, first_name } = request
+
+    let startDate = moment(start_date).format("MM/DD/YY")
+    let endDate = moment(end_date).format("MM/DD/YY")
+
+    let dates = startDate === endDate ? startDate : `${startDate} - ${endDate}`
+
+    let reasonWording = reason ? `The reason provided was ${reason}` : ""
+    
+    return(
+
+        `
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Your weekly schedule has been changed</title>
+        </head>
+        <body>
+        <div style="background-color: dodgerblue; padding: 30px; color=white;">
+        <img src="https://lh3.google.com/u/0/d/1L3o0TySCNlGaMM88CJEPkL0O7xldlW7O=w1920-h917-iv1" width="400px"
+        <h1>Hello ${first_name} ${last_name} !</h1>
+        <p>Your manager ${status} your ${request_type} time off request #${timeoff_id} for ${dates}. ${reasonWording} </p>
+        </div>
+        </body>
+        </html>`
+)    
+}

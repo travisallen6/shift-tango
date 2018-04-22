@@ -14,9 +14,9 @@ import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import Subheader from 'material-ui/Subheader'
 import {List, ListItem} from 'material-ui/List';
-import { Divider, FlatButton, RaisedButton } from "material-ui";
+import { Divider, FlatButton, RaisedButton, Popover, Menu } from "material-ui";
 
-
+import Avatar from 'material-ui/Avatar'
 import AppBar from 'material-ui/AppBar';
 import ManagerRoster from '../ManagerRoster/ManagerRoster'
 import ManagerTOReview from "../ManagerTOReview/ManagerTOReview";
@@ -48,6 +48,8 @@ class ManagerDash extends React.Component {
    
     render(){
 
+        let profilePath = this.props.user.mgr ? "manager" : "employee"
+
         return(
             <div>
 
@@ -55,8 +57,8 @@ class ManagerDash extends React.Component {
                     className="manager-app-bar"
                     style={{position:"fixed"}}
                     onLeftIconButtonClick={this.handleToggle}
-                    
                 />
+                
                 
                 <Switch>
                     <Route 
@@ -114,7 +116,17 @@ class ManagerDash extends React.Component {
                 >
                     
                     <List>
+                    <ListItem 
+                        primaryText="My Profile" 
+                        onClick={this.handleClose}
+                        leftAvatar={<Avatar src={this.props.user.profile_pic}/>}
+                        href={`/#/${profilePath}/myprofile`}/>
+                    <ListItem 
+                        primaryText="Log Out" 
+                        href={process.env.REACT_APP_LOGOUT}
+                        onClick={this.handleClose} />
 
+                    <Divider />
                     <Subheader>Employees</Subheader>
                     <ListItem
                         primaryText="Employee Roster"
@@ -138,6 +150,7 @@ class ManagerDash extends React.Component {
                     </List>
                 
                 </Drawer>
+
                 
             </div>
         )

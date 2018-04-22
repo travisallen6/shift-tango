@@ -14,6 +14,7 @@ import EmployeeSchedule from '../EmployeeSchedule/EmployeeSchedule'
 import { Divider, FlatButton, RaisedButton } from "material-ui";
 import EmployeeRequestTO from "../EmployeeRequestTO/EmployeeRequestTO";
 import EmployeeRequestDash from "../EmployeeRequestDash/EmployeeRequestDash";
+import Avatar from 'material-ui/Avatar'
 
 import './EmployeeDash.css'
 import UserProfileView from "../UserProfileView/UserProfileView";
@@ -35,7 +36,11 @@ class EmployeeDash extends Component {
 
     handleClose = () => this.setState({drawerOpen: false});
 
+
+    
     render() { 
+        let profilePath = this.props.user.mgr ? "manager" : "employee"    
+        
         return ( 
             <div>
                 <AppBar 
@@ -82,6 +87,17 @@ class EmployeeDash extends Component {
                 >
                     
                     <List>
+                    <ListItem 
+                        primaryText="My Profile" 
+                        onClick={this.handleClose}
+                        leftAvatar={<Avatar src={this.props.user.profile_pic}/>}
+                        href={`/#/${profilePath}/myprofile`}/>
+                    <ListItem 
+                        primaryText="Log Out" 
+                        href={process.env.REACT_APP_LOGOUT}
+                        onClick={this.handleClose} />
+
+                    <Divider />
 
                     <Subheader>Schedule</Subheader>
                     <ListItem
