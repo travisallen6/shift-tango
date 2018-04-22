@@ -12,6 +12,8 @@ import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import Avatar from 'material-ui/Avatar'
 import axios from 'axios'
+import Toggle from 'material-ui/Toggle'
+
 
 class ProfileComplete extends Component {
     constructor(props){
@@ -25,6 +27,9 @@ class ProfileComplete extends Component {
             emailInput: '',
             zipInput: '',
             profilePicUrl: this.props.user.profile_pic,
+
+            smsNotifications: false,
+            emailNotifications: false,
 
             phoneError: false,
             addressError: false,
@@ -73,9 +78,21 @@ class ProfileComplete extends Component {
         this.setState({zipInput: event.target.value})
     }
 
+    handleSmsToggle = () => {
+        this.setState({
+            smsNotifications: !this.state.smsNotifications,
+        })
+    }
+    
+    handleEmailToggle = () => {
+        this.setState({
+            emailNotifications: !this.state.emailNotifications
+        })
+    }
+
     handleSubmit(){
         let {
-            phoneInput, addressInput, cityInput, stateValue, emailInput, zipInput, profilePicUrl
+            phoneInput, addressInput, cityInput, stateValue, emailInput, zipInput, profilePicUrl, smsNotifications, emailNotifications
         } = this.state
 
         if( phoneInput.length < 10 || addressInput.length < 7 || cityInput.length < 3 || stateValue === 'State' || zipInput.length < 5 || emailInput.length < 5 ) {
@@ -95,7 +112,9 @@ class ProfileComplete extends Component {
                 city: cityInput, 
                 state: stateValue, 
                 email: emailInput,
-                zip: zipInput
+                zip: zipInput,
+                smsNotifications: smsNotifications,
+                emailNotifications: emailNotifications
             }
 
             axios.post(`/api/employee/${this.props.user.emp_id}/profile`, postBody)
@@ -112,6 +131,8 @@ class ProfileComplete extends Component {
             emailInput: '',
             zipInput: '',
             profilePicUrl: this.props.user.profile_pic,
+            emailNotifications: false,
+            smsNotifications: false,
 
             phoneError: false,
             addressError: false,
@@ -214,6 +235,21 @@ class ProfileComplete extends Component {
 
                 <br />
 
+                <Toggle
+                    label="Receive email notifications"
+                    value={this.state.emailNotifications}
+                    onToggle={this.handleEmailToggle}
+                />
+                <br />
+
+                <Toggle
+                    label="Receive text notifications"
+                    value={this.state.smsNotifications}
+                    onToggle={this.handleSmsToggle}
+                />
+
+                <br />
+                
                 <div className="profile-complete-btn-container">
 
                     <RaisedButton 

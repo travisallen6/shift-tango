@@ -118,7 +118,7 @@ class AddEmployee extends Component {
 
                 this.setState({
                     snackbarOpen: true,
-                    redirectPath: `/manager/pattern/${employeeId.data[0].emp_id}`
+                    redirectPath: `/manager/control/${employeeId.data[0].emp_id}`
                 })
             })
         }

@@ -30,7 +30,15 @@ function Login(props) {
                     </div>
 
                         {/* <a href={process.env.REACT_APP_LOGIN}> */}
-                            <RaisedButton label="Log In" backgroundColor="#00E676" labelStyle={{color: "white", fontWeight: 600, fontSize: 23}} buttonStyle={{width:'141px', height: "56px"}} href={process.env.REACT_APP_LOGIN}/>
+                            <RaisedButton 
+                                label="Log In" 
+                                // backgroundColor="#00E676" 
+                                secondary={true}
+                                labelStyle={{color: "white", 
+                                fontWeight: 600, fontSize: 23}} 
+                                buttonStyle={{width:141}}
+                                style={{height: 46}} 
+                                href={process.env.REACT_APP_LOGIN}/>
                         {/* </a> */}
 
                 </div>

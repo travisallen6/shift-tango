@@ -4,6 +4,11 @@ INSERT INTO patterns
 VALUES
 ($1, 'OFF', 'OFF', 'OFF', 'OFF', 'OFF', 'OFF', 'OFF' );
 
+INSERT INTO commsettings
+(emp_id)
+VALUES
+($1);
+
 INSERT INTO users
 (emp_id, mgr, last_name, first_name, gmail_user, position, doe)
 VALUES
