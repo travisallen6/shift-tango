@@ -9,6 +9,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 import MenuItem from 'material-ui/MenuItem';
 import SelectField from 'material-ui/SelectField';
 
+import Toggle from 'material-ui/Toggle'
+
 
 import {Link} from 'react-router-dom'
 
@@ -33,13 +35,15 @@ class ProfileEdit extends Component {
             stateInput: this.props.state || "",
             zipInput: this.props.zip || "",
             emailInput: this.props.email || "",
+            emailok: this.props.emailok || null,
+            smsok: this.props.smsOk || null
             
          }
     }
 
     componentWillReceiveProps(newProps){
 
-        let { firstName, lastName, picUrl, position, empId, doe, phone, address, city, state, zip, email, manager } = newProps
+        let { firstName, lastName, picUrl, position, empId, doe, phone, address, city, state, zip, email, manager, emailOk, smsOk } = newProps
 
         let firstNameEqual = firstName !== this.props.firstName
         let lastNameEqual = lastName !== this.props.lastName
@@ -54,8 +58,10 @@ class ProfileEdit extends Component {
         let stateEqual = state !== this.props.state
         let zipEqual = zip !== this.props.zip
         let emailEqual = email !== this.props.email
+        let emailOkEqual = emailOk !== this.props.emailOk
+        let smsOkEqual = smsOk !== this.props.smsOk
 
-        if(firstNameEqual || lastNameEqual || picUrlEqual || positionEqual || empIdEqual || doeEqual || phoneEqual || addressEqual || cityEqual || stateEqual || zipEqual || emailEqual || managerEqual){
+        if(firstNameEqual || lastNameEqual || picUrlEqual || positionEqual || empIdEqual || doeEqual || phoneEqual || addressEqual || cityEqual || stateEqual || zipEqual || emailEqual || managerEqual || smsOkEqual || emailOkEqual){
             this.setState({
                 firstNameInput: firstName,
                 lastNameInput:lastName,
@@ -69,6 +75,8 @@ class ProfileEdit extends Component {
                 stateInput: state,
                 zipInput: zip,
                 emailInput: email,
+                emailOk: emailOk,
+                smsOk: smsOk
             })
         }
     }
@@ -94,7 +102,7 @@ class ProfileEdit extends Component {
 
     
       resetInputs = () => {
-        let { firstName, lastName, picUrl, position, empId, doe, phone, address, city, state, zip, email, manager } = this.props
+        let { firstName, lastName, picUrl, position, empId, doe, phone, address, city, state, zip, email, manager, emailOk, smsOk } = this.props
        
         
             this.setState({
@@ -111,6 +119,8 @@ class ProfileEdit extends Component {
                 stateInput: state,
                 zipInput: zip,
                 emailInput: email,
+                smsOk: smsOk,
+                emailOk: emailOk
             })
         
     }
@@ -123,7 +133,7 @@ class ProfileEdit extends Component {
 
     handleSave = ( ) =>{
         let { 
-            firstNameInput, lastNameInput, picUrlInput, positionInput, managerInput, empIdInput, doeInput, phoneInput, addressInput, cityInput, stateInput, zipInput, emailInput 
+            firstNameInput, lastNameInput, picUrlInput, positionInput, managerInput, empIdInput, doeInput, phoneInput, addressInput, cityInput, stateInput, zipInput, emailInput, smsOk, emailOk 
         } = this.state
 
         let updatedProfile = {
@@ -133,11 +143,19 @@ class ProfileEdit extends Component {
         this.props.checkFunction(updatedProfile)
     }
     
-
-
+    handleSmsToggle = () => {
+        this.setState({
+            smsOk: !this.state.smsOk,
+        })
+    }
+    
+    handleEmailToggle = () => {
+        this.setState({
+            emailOk: !this.state.emailOk
+        })
+    }
     
     render() {
-        
 
         let { 
             firstNameInput, lastNameInput, positionInput, empIdInput, doeInput, phoneInput, addressInput, cityInput, stateInput, zipInput, emailInput, managerInput
@@ -300,6 +318,22 @@ class ProfileEdit extends Component {
                 />
             </div>
             
+            {this.props.emailOk !== undefined && <div className="prof-form-row prof-form-toggle">
+            <Toggle
+                label="Receive email notifications"
+                value={this.state.emailok}
+                onToggle={this.handleEmailToggle}
+            />
+            </div>}
+  
+            {this.props.smsOk !== undefined && <div className="prof-form-row prof-form-toggle">
+                <Toggle
+                    label="Receive text notifications"
+                    value={this.state.smsOk}
+                    onToggle={this.handleSmsToggle}
+                />
+            </div>}
+            
 
 
                 </div>
@@ -307,7 +341,7 @@ class ProfileEdit extends Component {
                 <RaisedButton 
                     label="Save" 
                     secondary={true} 
-                    style={full}
+                    // style={full}
                     onClick={this.handleSave}
                 />
                     <div className="prof-edit-reset-back-container">

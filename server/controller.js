@@ -29,33 +29,41 @@ module.exports = {
             subject: req.body.subject,
             html: req.body.html
         }
+
+
         req.app.get('db').get_email([req.params.empid])
         .then( emailAddress => {
-            mailOptions.to = emailAddress[0].email 
-            transporter.sendMail(mailOptions, function(err, info){
-                if(err) console.log(err)
-                else console.log(info)
-            })
-            res.sendStatus(200)
+
+            if(emailAddress[0].emailok){
+
+                mailOptions.to = emailAddress[0].email 
+                transporter.sendMail(mailOptions, function(err, info){
+                    if(err) console.log(err)
+                    else console.log(info)
+                })
+                return res.sendStatus(200)
+
+            } else {
+                return res.sendStatus(200)
+            }
         })
         .catch(err => console.log(err))
     },
 
     completeEmployeeProfile: (req, res)=>{
 
-        let { profile_pic, phone, address, city, state, email, zip } = req.body
+        let { profile_pic, phone, address, city, state, email, zip, emailOk, smsOk } = req.body
     
         let { empid } = req.params
     
-        req.app.get('db').update_user_profile([empid, profile_pic, phone, address, city, state, email, zip])
+        req.app.get('db').update_user_profile([empid, profile_pic, phone, address, city, state, email, zip, emailOk, smsOk])
         .then( res.sendStatus(200) )
-    
         
     },
 
     managerUpdateEmployeeProfile: (req, res)=>{
         let {
-            firstNameInput, lastNameInput, positionInput, managerInput, empIdInput, doeInput, phoneInput, addressInput, cityInput, stateInput, zipInput, emailInput 
+            firstNameInput, lastNameInput, positionInput, managerInput, empIdInput, doeInput, phoneInput, addressInput, cityInput, stateInput, zipInput, emailInput
         } = req.body.profileData
 
         let {empid} = req.params

@@ -113,8 +113,8 @@ class ProfileComplete extends Component {
                 state: stateValue, 
                 email: emailInput,
                 zip: zipInput,
-                smsNotifications: smsNotifications,
-                emailNotifications: emailNotifications
+                smsOk: smsNotifications,
+                emailOk: emailNotifications
             }
 
             axios.post(`/api/employee/${this.props.user.emp_id}/profile`, postBody)
@@ -161,7 +161,8 @@ class ProfileComplete extends Component {
         <div className='profile-complete-container'>
             <div className='profile-form-container'>
 
-                <h1>Hello, {this.props.user.first_name + " " + this.props.user.last_name}!</h1>
+                <h1>Welcome {this.props.user.first_name + " " + this.props.user.last_name}!</h1>
+                <h2>Please complete your profile.</h2>
                 
                 <Avatar
                     src={this.props.user.profile_pic}
@@ -170,6 +171,7 @@ class ProfileComplete extends Component {
                 {/* <img src={this.props.user.profile_pic} alt='profile-pic' width='200px'/> */}
 
                 <br />
+                
 
                 <TextField
                     floatingLabelText="Phone"
@@ -177,18 +179,32 @@ class ProfileComplete extends Component {
                     onChange={ (e)=>this.handlePhoneInputChange(e) }
                     errorText={ phoneError ? "This field is required" : null }
                 /> 
+
+                <br />
+
+                 <TextField
+                    floatingLabelText="Email Address"
+                    onChange={(e)=>this.handleEmailInputChange(e)}
+                    value={emailInput}
+                    errorText={ emailError ? "This field is required" : null }
+                />
             
                 <br />
+                <div>
+
 
                 <TextField
                     hintText="Address, Apartment, Suite"
                     multiLine={true}
                     rows={1}
-                    maxrows={2}
+                    maxRows={2}
                     onChange={ (e) => this.handleAddressInputChange(e)}
                     value={addressInput}
                     errorText={ addressError ? "This field is required" : null }
                     />
+                </div>
+
+                <br />
                 
                 <div className="city-state-group">
 
@@ -206,7 +222,7 @@ class ProfileComplete extends Component {
                         onChange={this.handleStateInputChange}
                         style={{marginBottom: '8px'}}
                         errorText={ stateError ? "This field is required" : null }
-                        >
+                    >
                 
                     {statesDisplay}
                 
@@ -226,15 +242,6 @@ class ProfileComplete extends Component {
                 
                 <br />
 
-                <TextField
-                    floatingLabelText="Email Address"
-                    onChange={(e)=>this.handleEmailInputChange(e)}
-                    value={emailInput}
-                    errorText={ emailError ? "This field is required" : null }
-                    />
-
-                <br />
-
                 <Toggle
                     label="Receive email notifications"
                     value={this.state.emailNotifications}
@@ -251,20 +258,20 @@ class ProfileComplete extends Component {
                 <br />
                 
                 <div className="profile-complete-btn-container">
-
                     <RaisedButton 
-                        label="Submit" 
                         primary={true} 
-                        style={{margin: 12}}
-                        onClick={ ()=>this.handleSubmit() } 
-                    />
-
-                    <RaisedButton 
                         label="Clear" 
-                        secondary={true} 
                         style={{margin: 12}}
                         onClick={ ()=>this.clearInputs() }
                     />
+
+                    <RaisedButton 
+                        label="Submit" 
+                        style={{margin: 12}}
+                        secondary={true} 
+                        onClick={ ()=>this.handleSubmit() } 
+                        />
+
                 </div>
             </div>
 

@@ -160,7 +160,7 @@ class UserProfileEdit extends Component {
 
     render() { 
 
-        let { address, city, doe, email, emp_id, first_name, last_name, phone, position, profile_pic, state, zip, mgr } = this.props.user
+        let { address, city, doe, email, emp_id, first_name, last_name, phone, position, profile_pic, state, zip, mgr, emailok, smsok } = this.props.user
 
         let redirectPath = mgr 
             ? `/manager/myprofile/`
@@ -195,6 +195,8 @@ class UserProfileEdit extends Component {
                     checkFunction={this.saveInputs}
                     inputsDisabled={true}
                     cancelPath={`/#/manager/myprofile/`}
+                    emailOk={ emailok }
+                    smsOk={ smsok }
                     
                 />
 

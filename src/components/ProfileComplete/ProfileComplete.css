@@ -9,7 +9,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height:100vh
+    padding-top: 40px;
 }
 
 .profile-complete-btn-container{
@@ -20,7 +20,19 @@
 .profile-form-container > h1 {
     font-size: 32px;
     margin-bottom:20px;
+    color: rgba(0, 0, 0, 0.54);
+    font-weight: 500;
+}
+.profile-form-container > h2 {
+    font-size: 21px;
+    margin-bottom:20px;
+    color: rgba(0, 0, 0, 0.54);
+    font-weight: 500;
 }
 .profile-form-container {
-    height: 80vh;
+        /* height: 80vh; */
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
 }

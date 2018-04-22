@@ -5,11 +5,11 @@
   "main": "server/server.js",
   "proxy": "http://localhost:3010",
   "dependencies": {
+    "axios": "^0.18.0",
     "body-parser": "^1.18.2",
     "classnames": "^2.2.5",
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
-    "express-handlebars": "^3.0.0",
     "lodash": "^4.17.5",
     "massive": "^4.7.1",
     "material-ui": "^0.20.0",
