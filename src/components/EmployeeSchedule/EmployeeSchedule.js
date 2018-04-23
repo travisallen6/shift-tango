@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios'
 import {connect} from 'react-redux'
+import {getUserData} from '../../dux/reducer'
 
 import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
@@ -30,6 +31,10 @@ class EmployeeSchedule extends Component {
             dateSelectInput: moment().toDate(),
             
         }
+    }
+
+    componentDidMount(){
+        this.props.getUserData()
     }
  
     componentWillReceiveProps(newProps){
@@ -162,4 +167,4 @@ function mapStateToProps(state){
     }
 }
  
-export default connect(mapStateToProps)(EmployeeSchedule);
+export default connect(mapStateToProps, {getUserData})(EmployeeSchedule);
