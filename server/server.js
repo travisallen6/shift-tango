@@ -63,8 +63,9 @@ passport.use( new Auth0Strategy({
             return done(null, null)
            
         } else {
-            let profPic = userResult[0].profile_pic === null ? 
-                profile.picture : userResult[0].profile_pic
+            let profPic = userResult[0].profile_pic === null 
+                ? profile.picture 
+                : userResult[0].profile_pic
             db.add_gprofile([
                 userResult[0].emp_id,
                 profile.id,
@@ -95,6 +96,8 @@ app.get('/auth/callback', passport.authenticate('auth0', {
 app.get('/profilecheck', ctrl.profileCheck)
 
 app.post('/api/sendemail/:empid', ctrl.sendEmail)
+
+app.post('/api/sendsms/', ctrl.sendSms)
 
 app.post('/api/user', ctrl.addUser)
 

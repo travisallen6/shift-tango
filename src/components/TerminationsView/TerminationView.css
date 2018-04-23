@@ -1,0 +1,94 @@
+.term-profile-name-header {
+    font-size: 30px;
+    width: 90vw;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding-bottom: 10px;
+}
+
+.term-row {
+    display: flex;
+    font-size: 1.2em;
+    margin-top: 10px;
+}
+
+.term-row > h2 {
+    width: 72px;
+
+}
+
+.term-address > h2 {
+    width: 72px
+}
+
+.term-skd-row {
+    display: flex;
+    width: 784px;
+    height: 110px;
+}
+
+.term-skd-cell {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 150px;
+    padding: 0 8px;
+    margin: 0 2px;
+    box-shadow: 0 2px 4px 0 rgba(231, 231, 231, 0.2), 0 1px 3px 0 rgba(155, 155, 155, 0.2);
+    background: #0091EA;
+    color: white;
+    border-radius: 5px;
+    /* box-shadow: inset 0 0 19px #0019ff; */
+}
+
+.term-skd-cell-head {
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+}
+
+.term-skd-container {
+    width: 89vw;
+    overflow-x: auto;
+    white-space: nowrap;
+    height: 130px;
+    text-align: center;
+    font-size: 1.2em;
+    margin: 0px -19px;
+}
+
+.term-skd-cell-row {
+    width:100%;
+}
+
+.term-skd-title {
+    margin-top: 16px;
+    margin-bottom: 6px;
+    font-size: 1.3em;
+    font-weight: 600;
+    text-align: center;
+}
+
+.term-dy {
+    font-size: 0.9em;
+}
+
+.term-dt {
+    font-size:1.3em
+}
+
+.term-skd-single {
+    font-size: 1.6em;
+    height: 43%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.term-profile-edit-button {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    height:67px;
+}

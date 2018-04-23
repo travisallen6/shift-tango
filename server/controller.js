@@ -1,5 +1,6 @@
 require('dotenv').config()
 const nodemailer = require('nodemailer')
+const twilio = require('twilio')(process.env.TWIL_SID, process.env.TWIL_TOKEN)
 
 var transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -8,6 +9,10 @@ var transporter = nodemailer.createTransport({
         pass: process.env.GMAIL_PASS
     }
 })
+
+
+
+
 
 module.exports = {
 
@@ -50,6 +55,17 @@ module.exports = {
         .catch(err => console.log(err))
     },
 
+    sendSms: (req, res) => {
+        let { to, message } = req.body
+
+        twilio.messages.create({
+            to: `+1${to}`,
+            from: '+13852339927',
+            body: message
+        })
+        .then( response => console.log(response) )
+        .catch( err => console.log(err) )        
+    },
 
     completeEmployeeProfile: (req, res)=>{
 

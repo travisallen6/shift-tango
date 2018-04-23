@@ -46,17 +46,17 @@ class ManagerRoster extends React.Component {
             </div>
         )) : null
        
-        let terminatedEmpList = this.state.terminatedEmployees ? this.state.terminatedEmployees.map( (employee, i) => (
-            <div key={i + employee.last_name}>
-                <Link to={`/manager/control/${employee.emp_id}/`}><ListItem
-                    primaryText={`${employee.last_name}, ${employee.first_name}`}
-                    secondaryText={employee.position}
-                    leftAvatar={<Avatar src={employee.profile_pic} />}
-                    inset={true}
-                /></Link>
-                <Divider /> 
-            </div>
-        )) : null
+        // let terminatedEmpList = this.state.terminatedEmployees ? this.state.terminatedEmployees.map( (employee, i) => (
+        //     <div key={i + employee.last_name}>
+        //         <Link to={`/manager/control/${employee.emp_id}/`}><ListItem
+        //             primaryText={`${employee.last_name}, ${employee.first_name}`}
+        //             secondaryText={employee.position}
+        //             leftAvatar={<Avatar src={employee.profile_pic} />}
+        //             inset={true}
+        //         /></Link>
+        //         <Divider /> 
+        //     </div>
+        // )) : null
 
         return ( 
             <div className="mgr-roster-container">
@@ -87,7 +87,7 @@ class ManagerRoster extends React.Component {
                     </div> 
 
                 </Tab>
-                <Tab label="Terminated" >
+                {/* <Tab label="Terminated" >
                 <div className="list-container">
                    
                     <br />
@@ -101,7 +101,7 @@ class ManagerRoster extends React.Component {
                     </Paper>
                 </div>
      
-            </Tab>
+            </Tab> */}
     
   </Tabs>
   </div>
