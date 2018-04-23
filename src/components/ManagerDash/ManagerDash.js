@@ -17,6 +17,7 @@ import {List, ListItem} from 'material-ui/List';
 import { Divider, FlatButton, RaisedButton, Popover, Menu } from "material-ui";
 
 import Avatar from 'material-ui/Avatar'
+import LaunchIcon from 'material-ui/svg-icons/action/launch'
 import AppBar from 'material-ui/AppBar';
 import ManagerRoster from '../ManagerRoster/ManagerRoster'
 import ManagerTOReview from "../ManagerTOReview/ManagerTOReview";
@@ -122,9 +123,11 @@ class ManagerDash extends React.Component {
                         leftAvatar={<Avatar src={this.props.user.profile_pic}/>}
                         href={`/#/${profilePath}/myprofile`}/>
                     <ListItem 
+                        leftIcon={<LaunchIcon />} 
                         primaryText="Log Out" 
                         href={process.env.REACT_APP_LOGOUT}
-                        onClick={this.handleClose} />
+                        onClick={this.handleClose} 
+                    />
 
                     <Divider />
                     <Subheader>Employees</Subheader>

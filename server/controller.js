@@ -27,6 +27,7 @@ module.exports = {
     },
 
     sendEmail: (req, res) => {
+        
 
         var mailOptions = {
             from: 'shifttango@gmail.com',
@@ -56,15 +57,30 @@ module.exports = {
     },
 
     sendSms: (req, res) => {
-        let { to, message } = req.body
 
-        twilio.messages.create({
-            to: `+1${to}`,
-            from: '+13852339927',
-            body: message
+        let {empid} = req.params
+        req.app.get('db').get_phone_info([empid])
+        .then( phoneData =>{
+
+            let { sms: smsAllowed, phone } = phoneData[0]
+            
+            let { message } = req.body
+            
+            if(smsAllowed){
+
+                twilio.messages.create({
+                    to: `+1${phone}`,
+                    from: '+13852339927',
+                    body: message
+                })
+                .then( response => {
+                    console.log(response) 
+                    return res.sendStatus(200) 
+                })
+                .catch( err => console.log(err) )        
+            } 
         })
-        .then( response => console.log(response) )
-        .catch( err => console.log(err) )        
+        .catch( err => console.log(err))
     },
 
     completeEmployeeProfile: (req, res)=>{

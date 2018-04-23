@@ -15,6 +15,7 @@ import moment from 'moment'
 
 import './PatternModify.css'
 import { changedPatternEmail } from '../../mail/mail';
+import { patternSms } from '../../sms/sms'
 
 
 
@@ -182,10 +183,13 @@ class PatternModify extends Component {
                 html: htmlMessage
             }
 
-            axios.post(`api/sendemail/${this.state.empId}`, emailContent)
-            .then( response => {
-            })
-            
+            axios.post(`/api/sendemail/${this.state.empId}`, emailContent)
+            .catch(err => console.log(err))
+
+            let smsMessage = patternSms(evalPattern)
+
+            axios.post(`/api/sendsms/${this.state.empId}`, { message: smsMessage })
+            .catch( err => console.log(err))
         }
     }
 

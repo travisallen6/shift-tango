@@ -15,6 +15,7 @@ import { Divider, FlatButton, RaisedButton } from "material-ui";
 import EmployeeRequestTO from "../EmployeeRequestTO/EmployeeRequestTO";
 import EmployeeRequestDash from "../EmployeeRequestDash/EmployeeRequestDash";
 import Avatar from 'material-ui/Avatar'
+import LaunchIcon from 'material-ui/svg-icons/action/launch'
 
 import './EmployeeDash.css'
 import UserProfileView from "../UserProfileView/UserProfileView";
@@ -93,6 +94,7 @@ class EmployeeDash extends Component {
                         leftAvatar={<Avatar src={this.props.user.profile_pic}/>}
                         href={`/#/${profilePath}/myprofile`}/>
                     <ListItem 
+                        leftIcon={<LaunchIcon />} 
                         primaryText="Log Out" 
                         href={process.env.REACT_APP_LOGOUT}
                         onClick={this.handleClose} />

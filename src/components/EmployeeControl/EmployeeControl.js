@@ -107,6 +107,7 @@ class EmployeeControl extends Component {
                     <div>
                         <ExceptionModify 
                             empid={this.props.match.params.empid}
+                            slideIndex={this.state.slideIndex}
                             snackbar={this.snackbar}
                         />
 

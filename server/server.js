@@ -97,7 +97,7 @@ app.get('/profilecheck', ctrl.profileCheck)
 
 app.post('/api/sendemail/:empid', ctrl.sendEmail)
 
-app.post('/api/sendsms/', ctrl.sendSms)
+app.post('/api/sendsms/:empid', ctrl.sendSms)
 
 app.post('/api/user', ctrl.addUser)
 

@@ -6,6 +6,7 @@ import _ from 'lodash'
 
 import ManagerReviewCard from '../ManagerReviewCard/ManagerReviewCard'
 import {timeoffRequestemail} from '../../mail/mail'
+import {timeoffRequestSms} from '../../sms/sms'
 
 import Paper from 'material-ui/Paper'
 import {Tabs, Tab} from 'material-ui/Tabs';
@@ -89,6 +90,11 @@ class ManagerTOReview extends Component {
 
             axios.post(`api/sendemail/${emp_id}`, emailContent)
             .catch(err => console.log(err))
+
+            let smsMessage = timeoffRequestSms(requestForEmail[0])
+
+            axios.post(`/api/sendsms/${emp_id}`, { message: smsMessage })
+            .catch( err => console.log(err))
                     
         })
     }

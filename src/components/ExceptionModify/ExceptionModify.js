@@ -20,6 +20,7 @@ import moment from 'moment'
 import FlatButton from 'material-ui/FlatButton'
 
 import { changedScheduleEmail } from '../../mail/mail'
+import { exceptionSms } from '../../sms/sms'
 
 import './ExceptionModify.css'
 
@@ -42,6 +43,28 @@ class ExceptionModify extends Component {
             snackbarOpen: false,
             redirect: false
 
+        }
+    }
+
+    componentWillReceiveProps(newProps){
+        if(newProps.slideIndex !== this.props.slideIndex && newProps.slideIndex === 1){
+            let { empid } = this.props
+            axios.get(`/api/employee/${empid}/detail`)
+            // axios.get(`/api/employee/${this.props.match.params.empid}/detail`)
+        .then( empData =>{
+            let { profile: { last_name, first_name, emp_id, profile_pic, sun, mon, tue, wed, thu, fri, sat } } = empData.data
+            let scheduleExceptions = empData.data.exceptions
+
+            this.setState({
+                lastName: last_name,
+                firstName: first_name,
+                empId: emp_id,
+                profilePic: profile_pic,
+                pattern: { sun, mon, tue, wed, thu, fri, sat },
+                scheduleExceptions: scheduleExceptions
+
+            })
+        })
         }
     }
 
@@ -327,7 +350,6 @@ class ExceptionModify extends Component {
 
             }
 
-
             return null
         })
 
@@ -349,7 +371,7 @@ class ExceptionModify extends Component {
             let preFlightExceptions = excToSend.map( exception => {
                 let excType = exception.typeInput.length > 0 
                     ? exception.typeInput
-                    : "?"
+                    : "UTO"
 
                 if(exception.shift === "OFF"){
                     return {
@@ -380,6 +402,7 @@ class ExceptionModify extends Component {
                         scheduleExceptions: returnedExceptions.data,
                     })
                     
+                    // Send Email
                     let htmlMessage = changedScheduleEmail(this.state.lastName, this.state.firstName, excToSend)
 
                     let emailContent = {
@@ -387,10 +410,17 @@ class ExceptionModify extends Component {
                         html: htmlMessage
                     }
 
-                    axios.post(`api/sendemail/${this.state.empId}`, emailContent)
-                    .then( response => {
+                    axios.post(`/api/sendemail/${this.state.empId}`, emailContent)
+                    .catch( err => console.log(err) )
 
-                    })
+                    // Send text message
+                    let smsMessage = exceptionSms(excToSend)
+
+                    axios.post( `/api/sendsms/${this.state.empId}`, { message: smsMessage } )
+                    .catch( err => console.log(err))
+
+
+
                 })
                 
                 .catch(err=>console.log(err))
