@@ -472,7 +472,7 @@ class ExceptionModify extends Component {
                         
                         <FlatButton
                             primary={true}
-                            icon={<DateRangeIcon />}
+                            icon={<DateRangeIcon className="date-btn"/>}
                             onClick={ ()=>this.toggleDateClick() }
                         />
                      
@@ -481,7 +481,8 @@ class ExceptionModify extends Component {
 
                         <FlatButton
                             secondary={true}
-                            icon={<BackIcon />}
+                            icon={<BackIcon
+                                className="cycle-btn" />}
                             onClick={ ()=>this.cycleDate(dateBack) }
                         />
                         <div className="exception-modify-year">
@@ -490,7 +491,8 @@ class ExceptionModify extends Component {
 
                         <FlatButton
                             secondary={true}
-                            icon={<ForwardIcon />}
+                            icon={<ForwardIcon 
+                                className="cycle-btn" />}
                             onClick={()=>this.cycleDate(dateForward)}
                         />
                     </div> 

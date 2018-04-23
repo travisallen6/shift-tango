@@ -232,18 +232,18 @@ class AddEmployee extends Component {
             
                 
                     <div className="add-btn-container">
-                    <RaisedButton 
-                        label="Save" 
-                        secondary={true} 
-                        style={half}
-                        onClick={this.handleSave}
-                        />
                    
                     <RaisedButton 
                         label="Cancel"
                         href="/#/manager/dash" 
                         default={true}
                         style={half}
+                        />
+                    <RaisedButton 
+                        label="Save" 
+                        secondary={true} 
+                        style={half}
+                        onClick={this.handleSave}
                         />
                     </div>
             </div>

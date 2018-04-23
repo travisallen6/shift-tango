@@ -175,7 +175,8 @@ class ProfileEdit extends Component {
         }
 
         let paperStyles = {
-            margin: '8px', 
+            margin: '8px',
+            paddingBottom: "1px", 
             width: '90vw', 
         }
 
@@ -334,27 +335,27 @@ class ProfileEdit extends Component {
             
 
 
-                </div>
                 <div className="prof-edit-btn-container">
-                <RaisedButton 
-                    label="Save" 
-                    secondary={true} 
-                    // style={full}
-                    onClick={this.handleSave}
-                />
-                    <div className="prof-edit-reset-back-container">
+                    <RaisedButton 
+                        label="Cancel" 
+                        default={true}
+                        href={this.props.cancelPath}
+                    />
                     <RaisedButton 
                         label="Reset" 
                         default={true}
                         onClick={ this.resetInputs } 
                     />
                     <RaisedButton 
-                        label="Cancel" 
-                        default={true}
-                        href={this.props.cancelPath}
+                        label="Save" 
+                        secondary={true} 
+                        style={{width: "37%"}}
+                        onClick={this.handleSave}
                     />
-                    </div>
                 </div>
+                </div>
+                    {/* <div className="prof-edit-reset-back-container">
+                    </div> */}
                 
                 
                 

@@ -133,13 +133,6 @@ class ManagerTOReview extends Component {
             )
         })
         
-        let idColStyles = {
-            padding: "0 8px",
-            height: 20, 
-            whiteSpace: "wrap",
-            textOverflow: "clip",
-        }
-
         return ( 
             <div>
 

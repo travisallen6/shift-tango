@@ -100,8 +100,8 @@ class EmployeeRequestDash extends Component {
        
         let rowsDisplay = this.state.requests.map( (request, i) => {
             let dateDisplay = request.start_date === request.end_date 
-                ? moment(request.start_date).format("M / D /YY")
-                :<div><div> {moment(request.start_date).format("M / D /YY")} </div> <div>{moment(request.end_date).format("M / D / YY")}</div></div>
+                ? moment(request.start_date).format("M/D/YY")
+                :<div><div> {moment(request.start_date).format("M /D/YY")} </div> <div>{moment(request.end_date).format("M/D/YY")}</div></div>
             
            
             return(

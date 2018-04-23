@@ -19,3 +19,11 @@
     justify-content: space-evenly;
 }
 
+.cycle-btn {
+    transform: scale(2);
+}
+
+.date-btn {
+    transform: scale(1.5);
+}
+

@@ -160,9 +160,12 @@ class ProfileComplete extends Component {
 
         <div className='profile-complete-container'>
             <div className='profile-form-container'>
+                <div className="profile-complete-header">
 
-                <h1>Welcome {this.props.user.first_name + " " + this.props.user.last_name}!</h1>
-                <h2>Please complete your profile.</h2>
+                    <h1>Welcome {this.props.user.first_name + " " +                 this.props.user.last_name}!</h1>
+                    
+                    <h2>Please complete your profile.</h2>
+                </div>
                 
                 <Avatar
                     src={this.props.user.profile_pic}
@@ -241,19 +244,21 @@ class ProfileComplete extends Component {
                 />  
                 
                 <br />
+                <div className="toggle-container">
 
                 <Toggle
-                    label="Receive email notifications"
+                    label="Email notifications"
                     value={this.state.emailNotifications}
                     onToggle={this.handleEmailToggle}
-                />
+                    />
                 <br />
 
                 <Toggle
-                    label="Receive text notifications"
+                    label="Text notifications"
                     value={this.state.smsNotifications}
                     onToggle={this.handleSmsToggle}
-                />
+                    />
+                </div>
 
                 <br />
                 

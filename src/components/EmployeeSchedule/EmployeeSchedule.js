@@ -108,7 +108,9 @@ class EmployeeSchedule extends Component {
 
                         <FlatButton
                             secondary={true}
-                            icon={<BackIcon />}
+                            icon={<BackIcon 
+                                className="cycle-btn"
+                                />}
                             onClick={ ()=>this.cycleDate(dateBack) }
                         />
                         <div className="exception-modify-year">
@@ -117,7 +119,9 @@ class EmployeeSchedule extends Component {
 
                         <FlatButton
                             secondary={true}
-                            icon={<ForwardIcon />}
+                            icon={<ForwardIcon 
+                                className="cycle-btn"
+                                />}
                             onClick={()=>this.cycleDate(dateForward)}
                         />
                     </div> 
