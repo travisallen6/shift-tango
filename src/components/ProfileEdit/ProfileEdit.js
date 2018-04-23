@@ -199,7 +199,7 @@ class ProfileEdit extends Component {
                 src={picUrl}
                 
                 />
-                <Link to="#">change</Link>
+                {/* <Link to="#">change</Link> */}
             </div>
 
             <div className="prof-form-name-col">
