@@ -54,3 +54,11 @@
     bottom: 21px;
     right: 21px;
 }
+
+.to-request-message {
+    height: 14vh;
+    width: 100%;
+    text-align: center;
+    padding-top: 11%;
+    font-size: 30px;
+}

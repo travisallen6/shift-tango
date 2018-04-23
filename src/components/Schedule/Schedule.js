@@ -319,13 +319,6 @@ class Schedule extends React.Component {
             <div>
                 {mappedShifts}
                 <div className="schedule-save-container">
-                    {this.props.editable && <RaisedButton
-                        style={{width:"45%", height: 40}}
-                        secondary={true}
-                        label={this.props.primaryBtnLabel}
-                        labelStyle={{fontSize:20}}
-                        onClick={()=>this.props.checkFunction(this.state.shifts)}
-                    /> }
                     { this.props.secondaryBtnLabel && <RaisedButton
                         style={{width:"45%", height: 40}}
                         // secondary={true}
@@ -333,6 +326,13 @@ class Schedule extends React.Component {
                         labelStyle={{fontSize:20}}
                         onClick={()=>this.props.secondaryBtnFunction()}
                         default={true}
+                        /> }
+                    {this.props.editable && <RaisedButton
+                        style={{width:"45%", height: 40}}
+                        secondary={true}
+                        label={this.props.primaryBtnLabel}
+                        labelStyle={{fontSize:20}}
+                        onClick={()=>this.props.checkFunction(this.state.shifts)}
                     /> }
                 </div>
             </div> 

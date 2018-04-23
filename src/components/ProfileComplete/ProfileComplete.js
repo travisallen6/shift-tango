@@ -45,7 +45,10 @@ class ProfileComplete extends Component {
     componentDidMount(){
         console.log('Component did mount')
         this.props.getUserData()
+        
     }
+
+    component
 
     handlePhoneInputChange(event){
         if(event.target.value.length >= 10 && this.state.phoneError) this.setState({phoneError: false})
@@ -106,7 +109,7 @@ class ProfileComplete extends Component {
         } else {
 
             let postBody = {
-                profile_pic: profilePicUrl, 
+                profile_pic: this.props.user.profile_pic, 
                 phone: phoneInput, 
                 address: addressInput, 
                 city: cityInput, 

@@ -11,6 +11,7 @@
     display: flex;
     font-size: 1.2em;
     margin-top: 10px;
+    flex-wrap: wrap;
 }
 
 .row > h2 {

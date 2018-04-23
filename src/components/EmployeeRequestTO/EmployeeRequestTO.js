@@ -149,9 +149,12 @@ class EmployeeRequestTO extends Component {
             <div 
                 className="emp-rto-container">
                 {redirect && <Redirect to="/employee/requestdash" /> }
-                <Subheader 
+                <h1 
+                    className="request-to-headline super-header"
+                    style={{fontSize: 24}}>Request Time Off</h1>
+                {/* <Subheader 
                     className="request-to-headline"
-                    style={{fontSize: 24}}>Request Time Off</Subheader>
+                    style={{fontSize: 24}}>Request Time Off</Subheader> */}
                 < Paper 
                     style={paperStyles} 
                     zDepth={1} 

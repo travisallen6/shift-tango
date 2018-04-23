@@ -119,7 +119,7 @@ class ProfileView extends Component {
                     <div className='row'><h2>Pos:</h2><p> { position } </p></div>
                     <div className='row'><h2>DOE:</h2><p> { doe } </p></div>
                     <div className='row'><h2>Phone:</h2><p> { phone } </p></div>
-                    <div className='row'><h2>Email:</h2><p> { email } </p></div>
+                    <div className='row'><h2>Email:</h2><br /><p> { email } </p></div>
                     <div className='row'>
                         <div className='address'>
                             <h2>Add:</h2>

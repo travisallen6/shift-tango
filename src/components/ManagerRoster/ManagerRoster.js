@@ -72,7 +72,7 @@ class ManagerRoster extends React.Component {
                         <Paper style={{width: '90vw'} } zDepth={1} >
 
                         <List>
-                            <Subheader>Employee Roster</Subheader>
+                            <h1 className="super-header">Employee Roster</h1>
                             {activeEmpList}
                         </List>
 
