@@ -7,6 +7,7 @@ import ManagerDash from './components/ManagerDash/ManagerDash'
 import PatternModify from './components/PatternModify/PatternModify'
 import RosterDetail from './components/RosterDetail/RosterDetail';
 import EmployeeDash from './components/EmployeeDash/EmployeeDash';
+import NotAuthorized from './components/NotAuthorized/NotAuthorized'
 
 
 class App extends Component {
@@ -19,6 +20,7 @@ class App extends Component {
             <Route path='/finishprofile' component={ProfileComplete} />
             <Route path='/manager' component={ManagerDash} />
             <Route path='/employee' component={EmployeeDash} />
+            <Route path='/notauthorized' component={NotAuthorized} />
           </Switch>
         </HashRouter>
       </div>
