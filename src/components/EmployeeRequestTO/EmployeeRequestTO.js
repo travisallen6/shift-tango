@@ -8,7 +8,6 @@ import {Redirect} from 'react-router-dom'
 import Snackbar from 'material-ui/Snackbar'
 import Paper from 'material-ui/Paper'
 import { Subheader, RaisedButton } from 'material-ui';
-import Toggle from 'material-ui/Toggle'
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import DatePicker from 'material-ui/DatePicker';
 import SelectField from 'material-ui/SelectField';
@@ -16,7 +15,6 @@ import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField'
 
 import './EmployeeRequestTO.css'
-import { lightBlue800 } from 'material-ui/styles/colors';
 import { lightGreen100 } from 'material-ui/styles/colors';
 import { lightGreen800 } from 'material-ui/styles/colors';
 
@@ -137,10 +135,6 @@ class EmployeeRequestTO extends Component {
             padding: '20px',
             position: 'relative'  
         }
-
-        let toggleLabel = this.state.dateRangeToggle 
-            ? "Multiple Days off" 
-            : "One Day Off"
 
         let { dateRange, singleDateInput, startDateInput, endDateInput, requestTypeInput, requestReasonInput } = this.state
         

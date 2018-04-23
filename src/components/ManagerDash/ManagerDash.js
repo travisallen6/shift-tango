@@ -11,10 +11,9 @@ import ManagerProfileEdit from '../ManagerProfileEdit/ManagerProfileEdit'
 import AddEmployee from '../AddEmployee/AddEmployee'
 import EmployeeControl from '../EmployeeControl/EmployeeControl'
 import Drawer from 'material-ui/Drawer';
-import MenuItem from 'material-ui/MenuItem';
 import Subheader from 'material-ui/Subheader'
 import {List, ListItem} from 'material-ui/List';
-import { Divider, FlatButton, RaisedButton, Popover, Menu } from "material-ui";
+import { Divider, } from "material-ui";
 
 import Avatar from 'material-ui/Avatar'
 import LaunchIcon from 'material-ui/svg-icons/action/launch'

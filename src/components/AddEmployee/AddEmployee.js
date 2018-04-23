@@ -146,10 +146,6 @@ class AddEmployee extends Component {
             width: "100%"
         }
         
-        const third = {
-            width: "30%"
-        }
-
         let paperStyles = {
             margin: '8px', 
             width: '90vw', 

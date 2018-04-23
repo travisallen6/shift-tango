@@ -8,18 +8,15 @@ import Paper from 'material-ui/Paper'
 import Subheader from 'material-ui/Subheader'
 import Avatar from 'material-ui/Avatar';
 import Chip from 'material-ui/Chip';
-import SvgIconFace from 'material-ui/svg-icons/action/face';
 import PendingIcon from 'material-ui/svg-icons/device/access-time'
 import ApprovedIcon from 'material-ui/svg-icons/action/thumb-up'
 import DeniedIcon from 'material-ui/svg-icons/action/thumb-down'
-import {blue300, indigo900, yellow700, yellow800, green300, green800, green700, red300, red800, red700, red200} from 'material-ui/styles/colors';
+import {yellow700, yellow800, green800, green700, red800, red700, red200} from 'material-ui/styles/colors';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 
 import './EmployeeRequestDash.css'
 import { Divider } from 'material-ui';
-import { yellow300 } from 'material-ui/styles/colors';
-import { yellow900 } from 'material-ui/styles/colors';
 import { green200 } from 'material-ui/styles/colors';
 import { yellow200 } from 'material-ui/styles/colors';
 
@@ -100,25 +97,13 @@ class EmployeeRequestDash extends Component {
             position: 'relative'  
         }
 
-        let colStyles = {
-            padding: "0 8px",
-            height: 20, 
-            whiteSpace: "wrap",
-            textOverflow: "clip",
-        }
-
+       
         let rowsDisplay = this.state.requests.map( (request, i) => {
             let dateDisplay = request.start_date === request.end_date 
                 ? moment(request.start_date).format("M / D /YY")
                 :<div><div> {moment(request.start_date).format("M / D /YY")} </div> <div>{moment(request.end_date).format("M / D / YY")}</div></div>
             
-            let idColStyles = {
-                padding: "0 8px",
-                height: 20, 
-                whiteSpace: "wrap",
-                textOverflow: "clip",
-            }
-
+           
             return(
                 <div key={i + request.timeoff_id}>
                     <div className="to-request-row">

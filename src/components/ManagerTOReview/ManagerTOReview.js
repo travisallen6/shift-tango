@@ -12,22 +12,9 @@ import Paper from 'material-ui/Paper'
 import {Tabs, Tab} from 'material-ui/Tabs';
 import SwipeableViews from 'react-swipeable-views';
 import Subheader from 'material-ui/Subheader'
-import Avatar from 'material-ui/Avatar';
-import Chip from 'material-ui/Chip';
-import SvgIconFace from 'material-ui/svg-icons/action/face';
-import PendingIcon from 'material-ui/svg-icons/device/access-time'
-import ApprovedIcon from 'material-ui/svg-icons/action/thumb-up'
-import DeniedIcon from 'material-ui/svg-icons/action/thumb-down'
-import {blue300, indigo900, yellow700, yellow800, green300, green800, green700, red300, red800, red700, red200} from 'material-ui/styles/colors';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
-import ContentAdd from 'material-ui/svg-icons/content/add';
 
 import './ManagerTOReview.css'
 import { Divider } from 'material-ui';
-import { yellow300 } from 'material-ui/styles/colors';
-import { yellow900 } from 'material-ui/styles/colors';
-import { green200 } from 'material-ui/styles/colors';
-import { yellow200 } from 'material-ui/styles/colors';
 
 
 

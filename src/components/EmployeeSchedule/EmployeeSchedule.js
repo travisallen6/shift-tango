@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios'
 import {connect} from 'react-redux'
-import {getUserData} from '../../dux/reducer'
 
 import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
 import Subheader from 'material-ui/Subheader';
 import DatePicker from 'material-ui/DatePicker';
-import Dialog from 'material-ui/Dialog';
 import ForwardIcon from 'material-ui/svg-icons/navigation/chevron-right'
 import BackIcon from 'material-ui/svg-icons/navigation/chevron-left'
 import DateRangeIcon from 'material-ui/svg-icons/action/date-range'
@@ -33,14 +31,7 @@ class EmployeeSchedule extends Component {
             
         }
     }
-
-
-
-
-    // componentDidMount(){
-    //    this.props.getUserData()
-    // }
-
+ 
     componentWillReceiveProps(newProps){
             axios.get(`/api/employee/${newProps.user.emp_id}/detail`)
             .then( empData =>{
@@ -74,7 +65,7 @@ class EmployeeSchedule extends Component {
     }
 
     render() { 
-        let { profilePic, lastName, firstName, pattern, baseDate } = this.state 
+        let { pattern, baseDate } = this.state 
 
         let dateBack = moment(baseDate).subtract(1, "w").format("YYYY-MM-DD")
         let dateForward = moment(baseDate).add(1, "w").format("YYYY-MM-DD")

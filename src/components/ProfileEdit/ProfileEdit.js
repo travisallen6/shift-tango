@@ -8,7 +8,6 @@ import DatePicker from 'material-ui/DatePicker';
 import RaisedButton from 'material-ui/RaisedButton';
 import MenuItem from 'material-ui/MenuItem';
 import SelectField from 'material-ui/SelectField';
-import axios from 'axios'
 
 import Toggle from 'material-ui/Toggle'
 import {connect} from 'react-redux'
@@ -169,10 +168,6 @@ class ProfileEdit extends Component {
 
         const half = {
             width: "45%"
-        }
-
-        const full = {
-            width: "100%"
         }
         
         const third = {
