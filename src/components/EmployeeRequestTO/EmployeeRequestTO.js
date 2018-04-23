@@ -228,26 +228,26 @@ class EmployeeRequestTO extends Component {
                 />}
         <div className="emp-rto-btn-container">
             <RaisedButton 
+                default={true}
+                label="clear"
+                onClick={this.clearInputs}
+                />
+            <RaisedButton 
                 secondary={true}
                 disabled={!allInputsFilled}
                 label="submit"
                 onClick={this.handleSubmit}
                 />
-            <RaisedButton 
-                default={true}
-                label="clear"
-                onClick={this.clearInputs}
-                />
         </div>
                 </Paper>
                 <Snackbar
-                        open={this.state.snackbarOpen}
-                        message={ "Request Submitted" }
-                        contentStyle={{color: lightGreen800}}
-                        bodyStyle={{background: lightGreen100}}
-                        autoHideDuration={500}
-                        onRequestClose={this.handleSnackbarClose}
-                    />
+                    open={this.state.snackbarOpen}
+                    message={ "Request Submitted" }
+                    contentStyle={{color: lightGreen800}}
+                    bodyStyle={{background: lightGreen100}}
+                    autoHideDuration={500}
+                    onRequestClose={this.handleSnackbarClose}
+                />
             </div>
          )
     }

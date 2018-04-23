@@ -148,7 +148,7 @@ class ManagerTOReview extends Component {
                 style={paperStyles} 
                 zDepth={1}>
 
-                 <h1 className="super-header">Review Time Off Requests</h1>
+                 <h1 className="super-header">Review Time Off </h1>
                  {/* <Subheader style={{fontSize: 23}}>Review Time Off Requests</Subheader> */}
                  <Divider />
                 
