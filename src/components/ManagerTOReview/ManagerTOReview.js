@@ -134,7 +134,7 @@ class ManagerTOReview extends Component {
         })
         
         return ( 
-            <div>
+            <div className="manager-to-review-container">
 
             <Tabs
                 onChange={this.handleTabChange}
