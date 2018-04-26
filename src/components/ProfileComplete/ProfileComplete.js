@@ -43,12 +43,10 @@ class ProfileComplete extends Component {
     }
 
     componentDidMount(){
-        console.log('Component did mount')
         this.props.getUserData()
         
     }
 
-    component
 
     handlePhoneInputChange(event){
         if(event.target.value.length >= 10 && this.state.phoneError) this.setState({phoneError: false})
@@ -198,7 +196,6 @@ class ProfileComplete extends Component {
                 <br />
                 <div>
 
-
                 <TextField
                     hintText="Address, Apartment, Suite"
                     multiLine={true}
@@ -207,7 +204,8 @@ class ProfileComplete extends Component {
                     onChange={ (e) => this.handleAddressInputChange(e)}
                     value={addressInput}
                     errorText={ addressError ? "This field is required" : null }
-                    />
+                />
+
                 </div>
 
                 <br />
@@ -283,7 +281,7 @@ class ProfileComplete extends Component {
                 </div>
             </div>
 
-            { this.state.formComplete ? <Redirect to={redirectPath} /> : null }
+            { this.state.formComplete && <Redirect to={redirectPath} /> }
 
         </div>
     

@@ -46,6 +46,7 @@ class EmployeeDash extends Component {
             <div>
                 <AppBar 
                     className="employee-app-bar"
+                    title="Employee Mode"
                     style={{position:"fixed"}}
                     onLeftIconButtonClick={this.handleToggle}
                 />
@@ -98,6 +99,11 @@ class EmployeeDash extends Component {
                         primaryText="Log Out" 
                         href={process.env.REACT_APP_LOGOUT}
                         onClick={this.handleClose} />
+                    <ListItem
+                        primaryText="Switch to Manager Mode"
+                        href="/#/manager/dash"
+                        onClick={this.handleClose}
+                        />
 
                     <Divider />
 
