@@ -11,14 +11,14 @@ import TextField from 'material-ui/TextField/TextField';
 
 class Login extends React.Component {
 
-    constructor(){
-        super()
-        this.state = {
-            authorized: true,
-            // userInput: '',
-            // snackbarOpen: false
-        }
-    }
+    // constructor(){
+    //     super()
+    //     this.state = {
+    //         authorized: true,
+    //         userInput: '',
+    //         snackbarOpen: false
+    //     }
+    // }
 
     handleInputChange(e){
         this.setState({
@@ -35,7 +35,7 @@ class Login extends React.Component {
 render(){
 
     const style = {
-        height: "67vh",
+        height: "34vh",
         width: "100vw",
         margin: 20,
         textAlign: 'center',
@@ -54,10 +54,10 @@ render(){
                     <div className='login-logo'>
                         <img src={logo} width="100%" alt='Logo'/>
                     </div>
-                    <div className='login-text'><strong>Please enter your Gmail Username</strong></div>
+                    {/* <div className='login-text'><strong>Please enter your Gmail Username</strong></div>
                     <div className='login-text'>This will simulate a user with manager credentials authorizing you as a manager</div>
-                    <div className='login-text'>If a user attempts to login before being authorized, they will be denied access.</div>
-                            { this.state.authorized && <div className="login-auth-field">
+                    <div className='login-text'>If a user attempts to login before being authorized, they will be denied access.</div> */}
+                            {/* { this.state.authorized && <div className="login-auth-field">
 
                             <TextField 
                                 value={this.state.userInput}
@@ -75,7 +75,7 @@ render(){
                                 buttonStyle={{width:120}}
                                 style={{height: 35}} 
                             />
-                            </div>}
+                            </div>} */}
 
                             <RaisedButton 
                                 label="Log In" 

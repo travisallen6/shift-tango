@@ -32,3 +32,13 @@ INSERT INTO timeoff
 (205301, '2018-05-20', '2018-05-23', 'UTO', 'Pending' ),
 (205301, '2018-05-28', '2018-04-29', 'VAC', 'Pending' );
 
+insert into timeoff
+(emp_id, start_date, end_date, status, request_type, reason)
+values
+(579135, '2018-05-25', '2018-05-25', 'Pending', 'SICK', 'Doctors Appointment'),	
+(468024, '2018-05-01', '2018-05-08', 'Pending', 'VAC', 'Disneyland'),
+(680246, '2018-08-10', '2018-08-13', 'Pending', 'UTO', 'Fathers retirement getaway'),	
+(357913, '2018-09-13', '2018-09-13', 'Denied', 'SICK', 'Invalid reason'),	
+(3687, '2018-05-23', '2018-05-23', 'Approved', 'VAC', 'Going to the zoo'),	
+(2258, '2018-06-02', '2018-06-08', 'Pending', 'UTO', 'Mental health day');	
+
