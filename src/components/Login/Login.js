@@ -2,9 +2,12 @@ import React from 'react'
 import './Login.css'
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
+// import Snackbar from 'material-ui/Snackbar'
 
 import logo from '../../images/Logo.jpg'
 import TextField from 'material-ui/TextField/TextField';
+// import { lightGreen800 } from 'material-ui/styles/colors';
+// import { lightGreen100 } from 'material-ui/styles/colors';
 
 class Login extends React.Component {
 
@@ -12,9 +15,9 @@ class Login extends React.Component {
         super()
         this.state = {
             authorized: true,
-            userInput: ''
+            // userInput: '',
+            // snackbarOpen: false
         }
-
     }
 
     handleInputChange(e){
@@ -22,6 +25,12 @@ class Login extends React.Component {
             userInput: e.target.value
         })
     }
+
+    // handleSnackbarClose = () => {
+    //     this.setState({
+    //         snackbarOpen: false,
+    //     })
+    // }
 
 render(){
 
@@ -76,6 +85,15 @@ render(){
                                 buttonStyle={{width:141}}
                                 style={{height: 46}} 
                                 href={process.env.REACT_APP_LOGIN}/> 
+                            
+                            {/* <Snackbar
+                                open={this.state.snackbarOpen}
+                                message={ "Authorized" }
+                                contentStyle={{color: lightGreen800}}
+                                bodyStyle={{background:lightGreen100}}
+                                autoHideDuration={500}
+                                onRequestClose={this.handleSnackbarClose}
+                            /> */}
 
                 </div>
             </Paper>
