@@ -12,9 +12,9 @@ const   express = require('express')
         , populateDatabase = require('../db/utils/popDB')
         // , cors = require('cors')
         
-        const {
-            SERVER_PORT,
-            SESSION_SECRET,
+const {
+    SERVER_PORT,
+    SESSION_SECRET,
     DOMAIN,
     CLIENT_ID,
     CLIENT_SECRET,
@@ -32,7 +32,7 @@ app.use(bodyParser.json())
 
 massive(CONNECTION_STRING).then( db => {
     app.set('db', db);
-    populateDatabase(db)
+    // populateDatabase(db)
     cron.schedule('0 0 * * *', () => {
         populateDatabase(db)
     });
@@ -41,8 +41,6 @@ massive(CONNECTION_STRING).then( db => {
 })
 .then( ()=>console.log(`db connected`) )
 .catch( err => console.log(err) )
-
-// app.use(express.static(__dirname + './../build'))
 
 app.use(session({
     secret: SESSION_SECRET,
@@ -99,6 +97,24 @@ app.get('/auth/callback', passport.authenticate('auth0', {
 }))
 
 app.get('/api/loginusers', ctrl.getLoginUsers)
+
+app.get('/api/mocklogin/:authid', (req, res) => {
+    const {authid} = req.params
+    req.app.get('db').mock_login([authid])
+    .then( user => {
+        const foundUser = user[0]
+        if(!foundUser) {
+            res.redirect(process.env.FAILURE_REDIRECT)
+        } else {
+            req.session.user = user[0]
+            if(foundUser.mgr){
+                res.redirect(process.env.MANAGER_REDIRECT)
+            } else {
+                res.redirect(process.env.EMPLOYEE_REDIRECT)
+            }
+        }
+    })
+})
 
 app.get('/profilecheck', ctrl.profileCheck)
 

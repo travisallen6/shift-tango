@@ -23,7 +23,16 @@ class Login extends React.Component {
 
     componentDidMount() {
         axios.get('/api/loginusers')
-        .then( users => this.setState({userSelection: users.data}))
+        .then( users => {
+            users.data.push({
+                profile_pic: 'https://cdn0.iconfinder.com/data/icons/law-crime-and-justice-1/32/gangster-boss-criminal-avatar-detective-police-suspect-512.png',
+                last_name: 'Danger',
+                first_name: 'Stranger',
+                position: 'Unauthorized User',
+                auth_id: 'none'
+            })
+            this.setState({userSelection: users.data})
+        })
         .catch( err => console.log(err))
     }
 
@@ -42,7 +51,7 @@ class Login extends React.Component {
 render(){
 
     const style = {
-        height: "80vh",
+        height: "95vh",
         width: "100vw",
         margin: 20,
         textAlign: 'center',
@@ -54,7 +63,8 @@ render(){
     };
     
     const displayUsers = this.state.userSelection.map( (user) => (
-        <ListItem 
+        <ListItem
+            href={`http://localhost:3010/api/mocklogin/${user.auth_id}`}
             primaryText={`${user.last_name}, ${user.first_name}`}
             secondaryText={`${user.position}`}
             leftAvatar={<Avatar src={user.profile_pic} />}
@@ -69,9 +79,9 @@ render(){
                     <div className='login-logo'>
                         <img src={logo} width="100%" alt='Logo'/>
                     </div>
-                    {/* <p className='login-text'>
-                        This app was originally built to only allow users to log into the app once they were authorized by an administrator. As you might imagine, this would make the application difficult to explore without giving away contact information. In the name of allowing exploration without requiring your information, below you will find a selection of users that you can log in with. Enjoy! 
-                    </p> */}
+                    <p className='login-text'>
+                        This app was originally built to only allow users to log into the app once they were authorized by an administrator. As you might imagine, this would make the application difficult to explore without being authorized first. In the name of allowing exploration without requiring your information, below is a list of users that you can log in as. Enjoy! 
+                    </p>
                     <List>
                         {displayUsers}
                     </List>

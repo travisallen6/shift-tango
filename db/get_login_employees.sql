@@ -1,3 +1,4 @@
 select * from users where emp_id in
-(203013, 103419, 366338);
+(103419, 203013, 366338)
+order by mgr desc;
 
