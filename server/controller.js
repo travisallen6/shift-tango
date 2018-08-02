@@ -10,11 +10,12 @@ var transporter = nodemailer.createTransport({
     }
 })
 
-
-
-
-
 module.exports = {
+    getLoginUsers: (req, res) => {
+        req.app.get('db').get_login_employees()
+        .then(employees => res.send(employees))
+        .catch(err => console.log(err))
+    },
 
     addUser: (req, res) => {
         let { 

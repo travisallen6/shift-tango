@@ -4,6 +4,12 @@ CREATE table terminations
     emp_id integer,
     reason varchar(240),
     termination_date date
+    last_name varchar(180),
+    first_name varchar(180),
+    position varchar(180),
+    doe date,
+    profile_pic text,
+    phone varchar(80);
 );
 
 alter table terminations

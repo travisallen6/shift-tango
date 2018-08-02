@@ -8,11 +8,13 @@ const   express = require('express')
         , bodyParser = require('body-parser')
         , ctrl = require('./controller')
         , nodemailer = require('nodemailer')
+        , cron = require('node-cron')
+        , populateDatabase = require('../db/utils/popDB')
         // , cors = require('cors')
-
-const {
-    SERVER_PORT,
-    SESSION_SECRET,
+        
+        const {
+            SERVER_PORT,
+            SESSION_SECRET,
     DOMAIN,
     CLIENT_ID,
     CLIENT_SECRET,
@@ -30,6 +32,10 @@ app.use(bodyParser.json())
 
 massive(CONNECTION_STRING).then( db => {
     app.set('db', db);
+    populateDatabase(db)
+    cron.schedule('0 0 * * *', () => {
+        populateDatabase(db)
+    });
     // app.get('db').init.seed()
     // .then( res => console.log(res) )
 })
@@ -61,14 +67,14 @@ passport.use( new Auth0Strategy({
             // If the user hasn't been loaded into the database by a manager prior to logging in.
 
             return done(null, null)
-           
+            
         } else {
             let profPic = userResult[0].profile_pic === null 
                 ? profile.picture 
                 : userResult[0].profile_pic
-            db.add_gprofile([
-                userResult[0].emp_id,
-                profile.id,
+                db.add_gprofile([
+                    userResult[0].emp_id,
+                    profile.id,
                 profPic
             ]).then( createdUser => {
                 return done(null, userResult[0].emp_id )
@@ -92,6 +98,7 @@ app.get('/auth/callback', passport.authenticate('auth0', {
     failureRedirect: '/#/notauthorized'
 }))
 
+app.get('/api/loginusers', ctrl.getLoginUsers)
 
 app.get('/profilecheck', ctrl.profileCheck)
 
@@ -137,7 +144,6 @@ app.get('/api/employee/:empid/exception', ctrl.getEmployeeExceptions)
 app.get('/auth/me', ctrl.authCheck)
 
 app.get('/auth/logout', ctrl.authLogout)
-
 
 
 

@@ -1,7 +1,7 @@
 create table patterns
 (
     pattern_id serial primary key,
-    emp_id integer,
+    emp_id integer references users on delete cascade,
     sun varchar(10),
     mon varchar(10),
     tue varchar(10),

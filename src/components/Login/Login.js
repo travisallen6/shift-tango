@@ -1,8 +1,11 @@
 import React from 'react'
 import './Login.css'
+import axios from 'axios'
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 // import Snackbar from 'material-ui/Snackbar'
+import {List, ListItem} from 'material-ui/List';
+import Avatar from 'material-ui/Avatar';
 
 import logo from '../../images/Logo.jpg'
 import TextField from 'material-ui/TextField/TextField';
@@ -11,14 +14,18 @@ import TextField from 'material-ui/TextField/TextField';
 
 class Login extends React.Component {
 
-    // constructor(){
-    //     super()
-    //     this.state = {
-    //         authorized: true,
-    //         userInput: '',
-    //         snackbarOpen: false
-    //     }
-    // }
+    constructor(){
+        super()
+        this.state = {
+            userSelection: []
+        }
+    }
+
+    componentDidMount() {
+        axios.get('/api/loginusers')
+        .then( users => this.setState({userSelection: users.data}))
+        .catch( err => console.log(err))
+    }
 
     handleInputChange(e){
         this.setState({
@@ -35,7 +42,7 @@ class Login extends React.Component {
 render(){
 
     const style = {
-        height: "34vh",
+        height: "80vh",
         width: "100vw",
         margin: 20,
         textAlign: 'center',
@@ -44,7 +51,15 @@ render(){
         justifyContents: 'space-between',
         alignItems: 'center',
         padding: '7px'
-    };    
+    };
+    
+    const displayUsers = this.state.userSelection.map( (user) => (
+        <ListItem 
+            primaryText={`${user.last_name}, ${user.first_name}`}
+            secondaryText={`${user.position}`}
+            leftAvatar={<Avatar src={user.profile_pic} />}
+        />
+    ))
 
     return (
         <div className='login-page-container'>
@@ -54,47 +69,23 @@ render(){
                     <div className='login-logo'>
                         <img src={logo} width="100%" alt='Logo'/>
                     </div>
-                    {/* <div className='login-text'><strong>Please enter your Gmail Username</strong></div>
-                    <div className='login-text'>This will simulate a user with manager credentials authorizing you as a manager</div>
-                    <div className='login-text'>If a user attempts to login before being authorized, they will be denied access.</div> */}
-                            {/* { this.state.authorized && <div className="login-auth-field">
+                    {/* <p className='login-text'>
+                        This app was originally built to only allow users to log into the app once they were authorized by an administrator. As you might imagine, this would make the application difficult to explore without giving away contact information. In the name of allowing exploration without requiring your information, below you will find a selection of users that you can log in with. Enjoy! 
+                    </p> */}
+                    <List>
+                        {displayUsers}
+                    </List>
+                        
 
-                            <TextField 
-                                value={this.state.userInput}
-                                hintText="Gmail Username" 
-                                onChange={this.handleInputChange}
-                                style={{width:158}}
-                                />
-                            
-                            <RaisedButton 
-                                onClick={this.handleSubmit}
-                                label="Authorize" 
-                                primary={true}
-                                labelStyle={{color: "white", 
-                                fontWeight: 600, fontSize: 16}} 
-                                buttonStyle={{width:120}}
-                                style={{height: 35}} 
-                            />
-                            </div>} */}
-
-                            <RaisedButton 
-                                label="Log In" 
-                                secondary={true}
-                                labelStyle={{color: "white", 
-                                fontWeight: 600, fontSize: 23}} 
-                                buttonStyle={{width:141}}
-                                style={{height: 46}} 
-                                href={process.env.REACT_APP_LOGIN}/> 
-                            
-                            {/* <Snackbar
-                                open={this.state.snackbarOpen}
-                                message={ "Authorized" }
-                                contentStyle={{color: lightGreen800}}
-                                bodyStyle={{background:lightGreen100}}
-                                autoHideDuration={500}
-                                onRequestClose={this.handleSnackbarClose}
-                            /> */}
-
+                    {/* <RaisedButton 
+                        label="Log In" 
+                        secondary={true}
+                        labelStyle={{color: "white", 
+                        fontWeight: 600, fontSize: 23}} 
+                        buttonStyle={{width:141}}
+                        style={{height: 46}} 
+                        href={process.env.REACT_APP_LOGIN}
+                    />  */}
                 </div>
             </Paper>
         </div>
