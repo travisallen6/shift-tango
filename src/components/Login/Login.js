@@ -60,7 +60,7 @@ render(){
     const displayUsers = this.state.userSelection.map( (user) => (
         <ListItem
             key={user.auth_id}
-            href={`http://localhost:3010/api/mocklogin/${user.auth_id}`}
+            href={`${process.env.REACT_APP_MOCK_LOGIN}/${user.auth_id}`}
             primaryText={`${user.last_name}, ${user.first_name}`}
             secondaryText={`${user.position}`}
             leftAvatar={<Avatar src={user.profile_pic} />}
