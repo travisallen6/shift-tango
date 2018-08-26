@@ -14,6 +14,20 @@
     height:100vh;
     width: 100vw;
     background-color:#2196F3;
+
+    
+}
+
+.login-page-paper {
+    height: 95vh;
+    width: 370px;
+    margin: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 7px;
 }
 
 .login-auth-field {
@@ -27,3 +41,9 @@
     font-size: 17px;
     line-height: 22px;
 }
+
+/* @media only screen and (min-width: 380px) {
+    .login-page-paper {
+        width: 370px;
+    }
+} */

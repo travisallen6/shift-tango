@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 import moment from 'moment'
 import axios from 'axios'
-import _ from 'lodash'
 
 import mergeSchedules from '../../mergeSchedules'
 
@@ -14,16 +13,12 @@ import PendingIcon from 'material-ui/svg-icons/device/access-time'
 import ApprovedIcon from 'material-ui/svg-icons/action/thumb-up'
 import DeniedIcon from 'material-ui/svg-icons/action/thumb-down'
 import RaisedButton from 'material-ui/RaisedButton'
-import {blue300, indigo900, yellow700, yellow800, green300, green800, green700, red300, red800, red700, red200, grey500} from 'material-ui/styles/colors';
+import {yellow200, yellow700, yellow800, green800, green200, green700, red800, red700, red200, grey500} from 'material-ui/styles/colors';
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 
 import './ManagerReviewCard.css'
 import { Divider } from 'material-ui';
-import { yellow300 } from 'material-ui/styles/colors';
-import { yellow900 } from 'material-ui/styles/colors';
-import { green200 } from 'material-ui/styles/colors';
-import { yellow200 } from 'material-ui/styles/colors';
 
 
 class ManagerTOReview extends Component {
@@ -147,7 +142,7 @@ class ManagerTOReview extends Component {
     render() { 
             let { request, reqExceptions } = this.props
             let { sun, mon, tue, wed, thu, fri, sat } = this.props.request
-            let  item = request.timeoff_id
+            // let  item = request.timeoff_id
      
             let dateDisplay = request.start_date === request.end_date 
                 ? <div className="to-review-card-date-group"> <div><strong>Date:</strong> {moment(request.start_date).format("ddd, MMM DD, YYYY") }</div></div>

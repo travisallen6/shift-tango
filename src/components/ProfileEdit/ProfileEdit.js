@@ -12,10 +12,6 @@ import SelectField from 'material-ui/SelectField';
 import Toggle from 'material-ui/Toggle'
 import {connect} from 'react-redux'
 
-
-import {Link} from 'react-router-dom'
-
-
 import './ProfileEdit.css'
 
 class ProfileEdit extends Component {
@@ -104,8 +100,6 @@ class ProfileEdit extends Component {
     
       resetInputs = () => {
         let { firstName, lastName, picUrl, position, empId, doe, phone, address, city, state, zip, email, manager, emailok, smsok } = this.props
-       
-        
             this.setState({
                 firstNameInput: firstName,
                 lastNameInput:lastName,

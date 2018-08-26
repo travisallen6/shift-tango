@@ -28,8 +28,6 @@ module.exports = {
     },
 
     sendEmail: (req, res) => {
-        
-
         var mailOptions = {
             from: 'shifttango@gmail.com',
             // to: req.body.to,
@@ -37,38 +35,27 @@ module.exports = {
             html: req.body.html
         }
 
-
         req.app.get('db').get_email([req.params.empid])
         .then( emailAddress => {
-
             if(emailAddress[0].emailok){
-
                 mailOptions.to = emailAddress[0].email 
                 transporter.sendMail(mailOptions, function(err, info){
                     if(err) console.log(err)
                     else console.log(info)
                 })
-                return res.sendStatus(200)
-
-            } else {
-                return res.sendStatus(200)
-            }
+            } 
+            return res.sendStatus(200)
         })
         .catch(err => console.log(err))
     },
 
     sendSms: (req, res) => {
-
         let {empid} = req.params
         req.app.get('db').get_phone_info([empid])
         .then( phoneData =>{
-
             let { sms: smsAllowed, phone } = phoneData[0]
-            
             let { message } = req.body
-            
             if(smsAllowed){
-
                 twilio.messages.create({
                     to: `+1${phone}`,
                     from: '+13852339927',
@@ -85,40 +72,30 @@ module.exports = {
     },
 
     completeEmployeeProfile: (req, res)=>{
-
         let { profile_pic, phone, address, city, state, email, zip, emailOk, smsOk } = req.body
-    
         let { empid } = req.params
-    
         req.app.get('db').update_user_profile([empid, profile_pic, phone, address, city, state, email, zip, smsOk, emailOk])
         .then( res.sendStatus(200) )
-        
     },
 
     managerUpdateEmployeeProfile: (req, res)=>{
         let {
             firstNameInput, lastNameInput, positionInput, managerInput, empIdInput, doeInput, phoneInput, addressInput, cityInput, stateInput, zipInput, emailInput
         } = req.body.profileData
-
         let {empid} = req.params
-
         req.app.get('db').manager_update_employee_profile([empid, firstNameInput, lastNameInput, positionInput, managerInput, empIdInput, doeInput, phoneInput,addressInput, cityInput, stateInput, zipInput, emailInput ])
         .then( updatedProfile => res.send(updatedProfile))
         .catch( err => console.log(err))
-
     },
 
     employeeUpdateOwnProfile: (req, res)=>{
         let {
             firstNameInput, lastNameInput, positionInput, managerInput, empIdInput, doeInput, phoneInput, addressInput, cityInput, stateInput, zipInput, emailInput, emailOk, smsOk
         } = req.body.profileData
-
         let {empid} = req.params
-
         req.app.get('db').employee_update_own_profile([empid, firstNameInput, lastNameInput, positionInput, managerInput, empIdInput, doeInput, phoneInput,addressInput, cityInput, stateInput, zipInput, emailInput, emailOk, smsOk ])
         .then( updatedProfile => res.send(updatedProfile))
         .catch( err => console.log(err))
-
     },
 
     addTermData: (req, res) => {
@@ -127,7 +104,6 @@ module.exports = {
         .then( employee => {
             let { reason, termination_date } = req.body
             let {last_name, first_name, position, doe, profile_pic, phone} = employee[0]
-
             req.app.get('db').add_termination_data([empid, reason, termination_date, last_name, first_name, position, doe, profile_pic, phone])
             .then( response => res.sendStatus(200) )
         })
@@ -136,7 +112,6 @@ module.exports = {
    
     terminateEmployee: (req, res) => {
         let{ empid } = req.params
-
             req.app.get('db').terminate_employee([empid])
             .then( terminatedEmp =>{
                 return res.sendStatus(200)

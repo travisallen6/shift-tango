@@ -1,27 +1,13 @@
 import React, { Component } from 'react';
-
 import {connect} from 'react-redux'
 import moment from 'moment'
-
-
 import ProfileView from '../ProfileView/ProfileView'
-
-import Paper from 'material-ui/Paper'
-import Subheader from 'material-ui/Paper'
-
 import "./UserProfileView.css"
-
-
 
 class UserProfileView extends Component {
 
     render() { 
-        let { address, city, doe, email, emp_id, first_name, last_name, phone, position, profile_pic, state, zip, mgr } = this.props.user
-
-        let paperStyles = {
-            margin: '8px', 
-            width: '90vw', 
-        }
+        let { address, city, email, emp_id, first_name, last_name, phone, position, profile_pic, state, zip, mgr } = this.props.user
 
         let prettyDoe = moment(this.props.doe).format("MM/DD/YYYY")
 

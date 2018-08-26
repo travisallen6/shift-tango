@@ -5,7 +5,6 @@ import ProfileEdit from '../ProfileEdit/ProfileEdit'
 import {connect} from 'react-redux'
 import {updateUserData} from '../../dux/reducer'
 
-import moment from 'moment'
 import axios from 'axios'
 import {Redirect} from 'react-router-dom'
 import Dialog from 'material-ui/Dialog'
@@ -44,15 +43,20 @@ class UserProfileEdit extends Component {
     saveInputs = (profileData) => {
         let errors = []
         let { 
-            firstNameInput, lastNameInput, picUrlInput, positionInput, managerInput, empIdInput, doeInput, phoneInput, addressInput, cityInput, stateInput, zipInput, emailInput, smsOk, emailOk } = profileData
-
-
+            firstNameInput, 
+            lastNameInput, 
+            phoneInput, addressInput, 
+            cityInput, stateInput, 
+            zipInput, 
+            emailInput, 
+            smsOk, 
+            emailOk 
+        } = profileData
         
         if(!lastNameInput){
             let error = <div><strong>Last Name</strong> is required and cannot be blank</div>
             errors.push(error)
         }
-
         if(!firstNameInput){
             let error = <div><strong>First Name</strong> is required and cannot be blank</div>
             errors.push(error)
@@ -122,13 +126,10 @@ class UserProfileEdit extends Component {
            
             axios.put(  `/api/employee/${this.props.user.emp_id}/myprofile`, {profileData: preFlightProfileData})
             .then( updatedProfile => {
-
                 this.props.updateUserData(updatedProfile.data[0])
-
                 this.setState({
                     snackbarOpen: true,
                 })
-
             })
         }
 
@@ -137,7 +138,7 @@ class UserProfileEdit extends Component {
 
     render() { 
 
-        let { address, city, doe, email, emp_id, first_name, last_name, phone, position, profile_pic, state, zip, mgr, emailok, smsok } = this.props.user
+        let { address, city, email, first_name, last_name, phone, position, profile_pic, state, zip, mgr, emailok, smsok } = this.props.user
 
         let redirectPath = mgr 
             ? `/manager/myprofile/`

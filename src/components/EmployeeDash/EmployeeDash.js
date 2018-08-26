@@ -6,12 +6,11 @@ import {getUserData} from '../../dux/reducer'
 
 import AppBar from 'material-ui/AppBar'
 import Drawer from 'material-ui/Drawer';
-import MenuItem from 'material-ui/MenuItem';
 import Subheader from 'material-ui/Subheader'
 import {List, ListItem} from 'material-ui/List';
 
 import EmployeeSchedule from '../EmployeeSchedule/EmployeeSchedule'
-import { Divider, FlatButton, RaisedButton } from "material-ui";
+import { Divider } from "material-ui";
 import EmployeeRequestTO from "../EmployeeRequestTO/EmployeeRequestTO";
 import EmployeeRequestDash from "../EmployeeRequestDash/EmployeeRequestDash";
 import Avatar from 'material-ui/Avatar'
@@ -99,11 +98,11 @@ class EmployeeDash extends Component {
                         primaryText="Log Out" 
                         href={process.env.REACT_APP_LOGOUT}
                         onClick={this.handleClose} />
-                    <ListItem
+                    {/* <ListItem
                         primaryText="Switch to Manager Mode"
                         href="/#/manager/dash"
                         onClick={this.handleClose}
-                        />
+                        /> */}
 
                     <Divider />
 

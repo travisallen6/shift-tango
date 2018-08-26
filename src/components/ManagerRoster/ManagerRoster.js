@@ -4,7 +4,6 @@ import axios from 'axios'
 import Avatar from 'material-ui/Avatar';
 import {List, ListItem} from 'material-ui/List';
 import {Tabs, Tab} from 'material-ui/Tabs';
-import Subheader from 'material-ui/Subheader';
 import Divider from 'material-ui/Divider';
 import Paper from 'material-ui/Paper';
 import FloatingActionButton from 'material-ui/FloatingActionButton';

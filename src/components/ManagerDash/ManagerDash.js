@@ -22,9 +22,6 @@ import ManagerRoster from '../ManagerRoster/ManagerRoster'
 import ManagerTOReview from "../ManagerTOReview/ManagerTOReview";
 import UserProfileView from "../UserProfileView/UserProfileView";
 import UserProfileEdit from "../UserProfileEdit/UserProfileEdit";
-// import FloatingActionButton from 'material-ui/FloatingActionButton';
-// import ContentAdd from 'material-ui/svg-icons/content/add';
-
 
 
 class ManagerDash extends React.Component {
@@ -128,11 +125,11 @@ class ManagerDash extends React.Component {
                         href={process.env.REACT_APP_LOGOUT}
                         onClick={this.handleClose} 
                     />
-                     <ListItem
+                     {/* <ListItem
                         primaryText="Switch to Employee Mode"
                         href="/#/employee/dash"
                         onClick={this.handleClose}
-                        />
+                        /> */}
 
                     <Divider />
                     <Subheader>Employees</Subheader>

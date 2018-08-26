@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import Schedule from '../Schedule/Schedule'
 import axios from 'axios'
 import Paper from 'material-ui/Paper';
-import Divider from 'material-ui/Divider';
-import Avatar from 'material-ui/Avatar';
-import Subheader from 'material-ui/Subheader';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import Snackbar from 'material-ui/Snackbar';
@@ -207,7 +204,6 @@ class PatternModify extends Component {
     
     render() {
         
-        let { profilePic, lastName, firstName } = this.state 
         return (
             <div className="pattern-modify-container">
                 {this.state.redirect && <Redirect to={`/manager/control/${this.state.empId}/`} />}

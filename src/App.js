@@ -4,8 +4,6 @@ import {Switch, Route, HashRouter} from 'react-router-dom'
 import Login from './components/Login/Login'
 import ProfileComplete from './components/ProfileComplete/ProfileComplete'
 import ManagerDash from './components/ManagerDash/ManagerDash'
-import PatternModify from './components/PatternModify/PatternModify'
-import RosterDetail from './components/RosterDetail/RosterDetail';
 import EmployeeDash from './components/EmployeeDash/EmployeeDash';
 import NotAuthorized from './components/NotAuthorized/NotAuthorized'
 

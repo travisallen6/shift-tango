@@ -3,7 +3,6 @@ import axios from 'axios'
 
 import {Tabs, Tab} from 'material-ui/Tabs';
 import SwipeableViews from 'react-swipeable-views';
-import Paper from 'material-ui/Paper'
 import Avatar from 'material-ui/Avatar'
 import FlatButton from 'material-ui/FlatButton'
 import CloseIcon from 'material-ui/svg-icons/navigation/close'

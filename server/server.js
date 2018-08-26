@@ -7,6 +7,7 @@ const   express = require('express')
         , massive = require('massive')
         , bodyParser = require('body-parser')
         , ctrl = require('./controller')
+        , mid = require('./middleware')
         , nodemailer = require('nodemailer')
         , cron = require('node-cron')
         , populateDatabase = require('../db/utils/popDB')
@@ -89,6 +90,7 @@ passport.deserializeUser( (empId, done) => {
         done(null, loggedInUser[0]);
     })
 })
+app.use(mid.sessionToReqUser)
 
 app.get('/auth', passport.authenticate('auth0'))
 app.get('/auth/callback', passport.authenticate('auth0', {

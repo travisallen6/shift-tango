@@ -2,15 +2,10 @@ import React from 'react'
 import './Login.css'
 import axios from 'axios'
 import Paper from 'material-ui/Paper';
-import RaisedButton from 'material-ui/RaisedButton';
-// import Snackbar from 'material-ui/Snackbar'
 import {List, ListItem} from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';
 
 import logo from '../../images/Logo.jpg'
-import TextField from 'material-ui/TextField/TextField';
-// import { lightGreen800 } from 'material-ui/styles/colors';
-// import { lightGreen100 } from 'material-ui/styles/colors';
 
 class Login extends React.Component {
 
@@ -51,8 +46,8 @@ class Login extends React.Component {
 render(){
 
     const style = {
-        height: "95vh",
-        width: "100vw",
+        height: '95vh',
+        width: '100vw',
         margin: 20,
         textAlign: 'center',
         display: 'flex',
@@ -64,6 +59,7 @@ render(){
     
     const displayUsers = this.state.userSelection.map( (user) => (
         <ListItem
+            key={user.auth_id}
             href={`http://localhost:3010/api/mocklogin/${user.auth_id}`}
             primaryText={`${user.last_name}, ${user.first_name}`}
             secondaryText={`${user.position}`}
@@ -73,7 +69,7 @@ render(){
 
     return (
         <div className='login-page-container'>
-            <Paper style={style} zDepth={2}>
+            <Paper className='login-page-paper' zDepth={2}>
                 <div className='login-container'>
 
                     <div className='login-logo'>

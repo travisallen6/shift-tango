@@ -19,7 +19,6 @@ class ProfileComplete extends Component {
     constructor(props){
         super(props)
         this.state = {
-
             phoneInput: '',
             addressInput: '',
             cityInput: '',
@@ -27,17 +26,14 @@ class ProfileComplete extends Component {
             emailInput: '',
             zipInput: '',
             profilePicUrl: this.props.user.profile_pic,
-
             smsNotifications: false,
             emailNotifications: false,
-
             phoneError: false,
             addressError: false,
             cityError: false,
             stateError: false,
             emailError: false,
             zipError: false,
-
             formComplete: false,
         }        
     }
@@ -93,7 +89,7 @@ class ProfileComplete extends Component {
 
     handleSubmit(){
         let {
-            phoneInput, addressInput, cityInput, stateValue, emailInput, zipInput, profilePicUrl, smsNotifications, emailNotifications
+            phoneInput, addressInput, cityInput, stateValue, emailInput, zipInput, smsNotifications, emailNotifications
         } = this.state
 
         if( phoneInput.length < 10 || addressInput.length < 7 || cityInput.length < 3 || stateValue === 'State' || zipInput.length < 5 || emailInput.length < 5 ) {

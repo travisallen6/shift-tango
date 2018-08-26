@@ -93,13 +93,8 @@ class RosterDetail extends React.Component {
        })
     }
 
-    
-
     render() { 
-        let { pic, firstName, lastName, position, doe, phone, address, city, state, zip, email, pattern, exceptions, } = this.state.employee
-        
-        
-
+        let { position, doe, phone, address, city, state, zip, email, pattern, exceptions, } = this.state.employee
             
             return (
                 <div className="detail-container">
@@ -122,8 +117,6 @@ class RosterDetail extends React.Component {
                         manager={ true }
                         editLinkPath={`/#/manager/edit/${this.state.empId}/`}
                     />
-                   
-
             </div> 
         )
     }

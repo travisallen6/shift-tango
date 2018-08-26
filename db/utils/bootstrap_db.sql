@@ -5,7 +5,7 @@ DROP TABLE IF EXISTS commsettings;
 DROP TABLE IF EXISTS users;
 create table users (
 	emp_id INTEGER PRIMARY KEY,
-	mgr VARCHAR(50),
+	mgr BOOLEAN,
 	last_name VARCHAR(50),
 	first_name VARCHAR(50),
 	auth_id VARCHAR(50),
@@ -47,7 +47,8 @@ CREATE TABLE timeoff
     emp_id INTEGER REFERENCES users ON DELETE CASCADE,
     start_date DATE NOT NULL,
     end_date DATE NOT NULL,
-    status VARCHAR(120), 
+    status VARCHAR(120),
+    reason VARCHAR(200),
     request_type VARCHAR(80)
 );
 

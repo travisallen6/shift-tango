@@ -74,70 +74,55 @@ class ManagerProfileEdit extends Component {
     saveInputs = (profileData) => {
         let errors = []
         let { 
-            firstNameInput, lastNameInput, picUrlInput, positionInput, managerInput, empIdInput, doeInput, phoneInput, addressInput,     cityInput, stateInput, zipInput, emailInput } = profileData
-
-
-        
+            firstNameInput, lastNameInput, positionInput, managerInput, empIdInput, doeInput, phoneInput, addressInput,     cityInput, stateInput, zipInput, emailInput } = profileData
         if(!lastNameInput){
             let error = <div><strong>Last Name</strong> is required and cannot be blank</div>
             errors.push(error)
         }
-
         if(!firstNameInput){
             let error = <div><strong>First Name</strong> is required and cannot be blank</div>
             errors.push(error)
         }
-       
         if(!empIdInput){
             let error = <div><strong>Employee ID</strong> is required and cannot be blank</div>
             errors.push(error)
         }
-        
         if(!doeInput){
             let error = <div><strong>Date of Entry (DOE) </strong> is required and cannot be blank</div>
             errors.push(error)
         }
-
         if(!positionInput){
             let error = <div><strong>Position</strong> is required and cannot be blank</div>
             errors.push(error)
         }
-        
         if(!phoneInput){
             let error = <div><strong>Phone Number</strong> is required and cannot be blank</div>
             errors.push(error)
         }
-
         if(!emailInput){
             let error = <div><strong>Email</strong> is required and cannot be blank</div>
             errors.push(error)
         }
-        
         if(!addressInput){
             let error = <div><strong>Address</strong> is required and cannot be blank</div>
             errors.push(error)
         }
-        
         if(!cityInput){
             let error = <div><strong>City</strong> is required and cannot be blank</div>
             errors.push(error)
         }
-        
         if(!stateInput){
             let error = <div><strong>State</strong> is required and cannot be blank</div>
             errors.push(error)
         }
-        
         if(!zipInput){
             let error = <div><strong>Zip Code</strong> is required and cannot be blank</div>
             errors.push(error)
         }
-        
         if (errors.length > 0) {
             let allErrors = errors.map( (error, i) =>{
                 return <div className="profile-error-item"key={i}> { error } </div>
             })
-
             this.setState({
                 errors: allErrors,
                 dialogOpen: true
@@ -146,14 +131,11 @@ class ManagerProfileEdit extends Component {
             let preFlightProfileData = {
                 firstNameInput, lastNameInput, positionInput, managerInput, empIdInput, doeInput: moment(doeInput).format("YYYY-MM-DD"), phoneInput, addressInput, cityInput, stateInput, zipInput, emailInput
             }
-
             axios.put( `/api/employee/${this.state.empId}/profile/`, {profileData: preFlightProfileData})
             .then( updatedProfile => {
-
                 let { 
                     address, city, doe, email, emp_id, first_name, last_name, mgr, phone, position, profile_pic, state, zip
                 } = updatedProfile.data[0]
-
                 this.setState({
                     firstName: first_name,
                     lastName: last_name,
@@ -170,11 +152,8 @@ class ManagerProfileEdit extends Component {
                     email: email,
                     snackbarOpen: true,
                 })
-
             })
         }
-
-
     }    
 
     closeDialog = () => {
@@ -245,10 +224,8 @@ class ManagerProfileEdit extends Component {
             reason: terminationReason,
             termination_date: moment(terminationDate).format("YYYY-MM-DD")
         }
-
         axios.post(`/api/employee/${this.state.empId}/terminate`, terminationData)
         .then( response => {
-            
             axios.delete(`/api/employee/${this.state.empId}/terminate`)
             .then( response => {
                 this.setState({
@@ -257,9 +234,8 @@ class ManagerProfileEdit extends Component {
             })
         })
     }
-
     
-      render() {
+    render() {
         const dialogActions = [
             <FlatButton
               label="Ok"
@@ -267,7 +243,6 @@ class ManagerProfileEdit extends Component {
               onClick={this.closeDialog}
             />
         ]
-
         const styles = {
             thumbOff: {
               backgroundColor: '#ffcccc',
@@ -285,122 +260,118 @@ class ManagerProfileEdit extends Component {
               color: 'red',
             },
         };
-
         
         return ( 
-        <div className="manager-profile-edit-container">
-            {this.state.redirect && <Redirect to={`/manager/detail/${this.state.empId}/`}/>}
-            {this.state.termRedirect && <Redirect to={`/manager/dash/`}/>}
-            <ProfileEdit 
-                firstName={ this.state.firstName }
-                lastName={ this.state.lastName }
-                picUrl={ this.state.picUrl }
-                position={ this.state.position }
-                manager={ this.state.manager }
-                empId={ this.state.empId }
-                doe={ this.state.doe }
-                phone={ this.state.phone }
-                address={ this.state.address }
-                city={ this.state.city }
-                state={ this.state.state }
-                zip={ this.state.zip }
-                email={ this.state.email }
-                checkFunction={this.saveInputs}
-                cancelPath={`/#/manager/control/${this.state.empId}/`}
-            />
-            <div className="manager-profile-edit-danger">
-                <RaisedButton
-                    label="Danger"
-                    icon={ <WarningIcon color={fullWhite}/> }
-                    backgroundColor={red500}
-                    labelColor={fullWhite}
-                    onClick={this.toggleDanger}
+            <div className="manager-profile-edit-container">
+                {this.state.redirect && <Redirect to={`/manager/detail/${this.state.empId}/`}/>}
+                {this.state.termRedirect && <Redirect to={`/manager/dash/`}/>}
+                <ProfileEdit 
+                    firstName={ this.state.firstName }
+                    lastName={ this.state.lastName }
+                    picUrl={ this.state.picUrl }
+                    position={ this.state.position }
+                    manager={ this.state.manager }
+                    empId={ this.state.empId }
+                    doe={ this.state.doe }
+                    phone={ this.state.phone }
+                    address={ this.state.address }
+                    city={ this.state.city }
+                    state={ this.state.state }
+                    zip={ this.state.zip }
+                    email={ this.state.email }
+                    checkFunction={this.saveInputs}
+                    cancelPath={`/#/manager/control/${this.state.empId}/`}
                 />
-                {this.state.dangerZone && <div                          className="manager-profile-edit-danger-zone">
-                <Toggle
-                    label="Terminate?"
-                    thumbStyle={styles.thumbOff}
-                    trackStyle={styles.trackOff}
-                    thumbSwitchedStyle={styles.thumbSwitched}
-                    trackSwitchedStyle={styles.trackSwitched}
-                    labelStyle={styles.labelStyle}
-                    onToggle={this.toggleTermination}
-                    toggled={this.state.terminate}
-
-                />
-
-                { this.state.terminate && <div className="termination-name">
-                    You are about to terminate:
-                    <h1>{this.state.firstName} {this.state.lastName}</h1>
-                </div> }
-
-                    {this.state.terminate && <DatePicker 
-                        floatingLabelText="Date of Termination"
-                        floatingLabelStyle={{color: red500}} 
-                        container="inline" 
-                        mode="portrait"
-                        onChange={this.handleTerminationDate} 
-                    />}
-
-                    {this.state.terminationDate && <TextField
-                        floatingLabelText="Termination Reason"
-                        underlineStyle={{borderColor: red500}}
-                        floatingLabelStyle={{color: red500}}
-                        onChange={this.handleTerminationReason}
-                        underlineFocusStyle={{borderColor: red500}}
-                    />}
-
-                    {this.state.terminationReason && <div className="termination-btn-container">
+                <div className="manager-profile-edit-danger">
                     <RaisedButton
-                        label="Terminate"
-                        icon={ <GavelIcon color={fullWhite}/> }
+                        label="Danger"
+                        icon={ <WarningIcon color={fullWhite}/> }
                         backgroundColor={red500}
                         labelColor={fullWhite}
-                        onClick={this.executeTermination}
+                        onClick={this.toggleDanger}
                     />
-                        <RaisedButton
-                        label="Cancel"
-                        default={true}
-                        onClick={this.cancelTermination}
+                    {this.state.dangerZone && <div                          className="manager-profile-edit-danger-zone">
+                    <Toggle
+                        label="Terminate?"
+                        thumbStyle={styles.thumbOff}
+                        trackStyle={styles.trackOff}
+                        thumbSwitchedStyle={styles.thumbSwitched}
+                        trackSwitchedStyle={styles.trackSwitched}
+                        labelStyle={styles.labelStyle}
+                        onToggle={this.toggleTermination}
+                        toggled={this.state.terminate}
+
                     />
+
+                    { this.state.terminate && <div className="termination-name">
+                        You are about to terminate:
+                        <h1>{this.state.firstName} {this.state.lastName}</h1>
+                    </div> }
+
+                        {this.state.terminate && <DatePicker 
+                            floatingLabelText="Date of Termination"
+                            floatingLabelStyle={{color: red500}} 
+                            container="inline" 
+                            mode="portrait"
+                            onChange={this.handleTerminationDate} 
+                        />}
+
+                        {this.state.terminationDate && <TextField
+                            floatingLabelText="Termination Reason"
+                            underlineStyle={{borderColor: red500}}
+                            floatingLabelStyle={{color: red500}}
+                            onChange={this.handleTerminationReason}
+                            underlineFocusStyle={{borderColor: red500}}
+                        />}
+
+                        {this.state.terminationReason && <div className="termination-btn-container">
+                            <RaisedButton
+                                label="Terminate"
+                                icon={ <GavelIcon color={fullWhite}/> }
+                                backgroundColor={red500}
+                                labelColor={fullWhite}
+                                onClick={this.executeTermination}
+                            />
+                            <RaisedButton
+                                label="Cancel"
+                                default={true}
+                                onClick={this.cancelTermination}
+                            />
+                        </div>}
                     </div>}
-
-                    
-
-                </div>}
-
-            </div>
-                <Dialog
-                title="Errors"
-                actions={dialogActions}
-                modal={false}
-                open={this.state.dialogOpen}
-                onRequestClose={this.closeDialog}
-            >
-                <div className="blank-errors">
-                    {this.state.errors}
                 </div>
+                <Dialog
+                    title="Errors"
+                    actions={dialogActions}
+                    modal={false}
+                    open={this.state.dialogOpen}
+                    onRequestClose={this.closeDialog}
+                >
 
-            </Dialog>
-            <Snackbar
+                    <div className="blank-errors">
+                        {this.state.errors}
+                    </div>
+
+                </Dialog>
+                <Snackbar
                     open={this.state.snackbarOpen}
                     message={ "Profile Saved" }
                     contentStyle={{color: lightGreen800}}
                     bodyStyle={{background:lightGreen100}}
                     autoHideDuration={800}
                     onRequestClose={this.closeSnackbar}
-            />
-            <Snackbar
+                />
+                <Snackbar
                     open={this.state.termSnackbarOpen}
                     message={ "Employee Terminated" }
                     contentStyle={{color: red800}}
                     bodyStyle={{background:red100}}
                     autoHideDuration={800}
                     onRequestClose={this.closeTermSnackbar}
-            />
-        </div>
+                />
+            </div>
         )
-}
+    }
 }
  
 export default ManagerProfileEdit;

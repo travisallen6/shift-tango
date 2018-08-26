@@ -11,12 +11,9 @@ import {timeoffRequestSms} from '../../sms/sms'
 import Paper from 'material-ui/Paper'
 import {Tabs, Tab} from 'material-ui/Tabs';
 import SwipeableViews from 'react-swipeable-views';
-import Subheader from 'material-ui/Subheader'
 
 import './ManagerTOReview.css'
 import { Divider } from 'material-ui';
-
-
 
 class ManagerTOReview extends Component {
     constructor(props) {
@@ -32,25 +29,18 @@ class ManagerTOReview extends Component {
     componentDidMount(){
         axios.get(`/api/review/timeoff`)
         .then( requests => {
-
-            
             let pending = _.filter(requests.data.timeoffRequests, (e) => e.status === "Pending")
             let resolved = _.filter(requests.data.timeoffRequests, (e) => e.status !== "Pending")
-
             this.setState({
                 pendingRequests: pending,
                 resolvedRequests: resolved,
                 exceptions: requests.data.exceptions
             })
-
         })
     }
 
     judge = ( id, emp_id, newStatus, reason ) => {
-
         let preFlightRequestUpdate = { id , newStatus, reason }
-
-        axios
         axios.patch('/api/review/timeoff/', preFlightRequestUpdate)
         .then( requests => {
 
