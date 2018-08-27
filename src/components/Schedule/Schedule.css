@@ -15,6 +15,7 @@
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
+    width: 45%;
 }
 
 .schedule-label-dow {
@@ -37,7 +38,7 @@
 .schedule-value-not-off {
     height: 100%;
     display: flex;
-    width: 77%;
+    width: 100%;
     justify-content: center;
     padding-right: 24px;
 }
@@ -91,4 +92,39 @@
 .schedule-reason-input {
     height: 50%;
     margin-bottom: -8px;
+}
+
+@media only screen and (max-width: 370px) {
+    .schedule-value-not-off {
+        padding-right: 0px;
+    }
+}
+
+@media only screen and (min-width: 530px) {
+    .schedule-value-time-container {
+        flex-direction: row;
+        width: 100%;
+        align-items: center;
+    }
+
+    .schedule-label-dow {
+        font-size: 30px !important;
+    }
+
+    .schedule-value-time-container-start::after {
+        content: ' - '
+    }
+
+    .schedule-date-label {
+        flex-direction: row;
+    }
+
+    .schedule-value {
+        width: 280px;
+    }
+
+    .schedule-value-not-off {
+        padding: 0;
+        width: 100%;
+    }
 }

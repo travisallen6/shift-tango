@@ -5,6 +5,7 @@ import axios from 'axios'
 import _ from 'lodash'
 
 import ManagerReviewCard from '../ManagerReviewCard/ManagerReviewCard'
+import Loading from '../Loading/Loading'
 import {timeoffRequestemail} from '../../mail/mail'
 import {timeoffRequestSms} from '../../sms/sms'
 
@@ -22,7 +23,8 @@ class ManagerTOReview extends Component {
             pendingRequests: [],
             resolvedRequests: [],
             exceptions: [],
-            slideIndex: 0
+            slideIndex: 0,
+            loading: true
          }
     }
 
@@ -34,7 +36,8 @@ class ManagerTOReview extends Component {
             this.setState({
                 pendingRequests: pending,
                 resolvedRequests: resolved,
-                exceptions: requests.data.exceptions
+                exceptions: requests.data.exceptions,
+                loading: false
             })
         })
     }
@@ -86,12 +89,12 @@ class ManagerTOReview extends Component {
 
     render() { 
        
-        let paperStyles = {
-            margin: '8px', 
-            width: '90vw', 
-            padding: '20px',
-            position: 'relative'  
-        }
+        // let paperStyles = {
+        //     margin: '8px', 
+        //     width: '90vw', 
+        //     padding: '20px',
+        //     position: 'relative'  
+        // }
         
         let pendingowsDisplay = this.state.pendingRequests.map( (request, i) => {
             let empExceptions = _.filter( this.state.exceptions, e => {
@@ -122,6 +125,10 @@ class ManagerTOReview extends Component {
                     judge={ this.judge }/>
             )
         })
+
+        if(this.state.loading) {
+            return <Loading />
+        }
         
         return ( 
             <div className="manager-to-review-container">
@@ -135,7 +142,8 @@ class ManagerTOReview extends Component {
             </Tabs>
             <div className="to-review-container">
             < Paper 
-                style={paperStyles} 
+                className='mtor-paper'
+                // style={paperStyles} 
                 zDepth={1}>
 
                  <h1 className="super-header">Review Time Off </h1>
@@ -150,12 +158,10 @@ class ManagerTOReview extends Component {
                     onChangeIndex={this.handleTabChange}
                     >
                     <div>
-                        {pendingowsDisplay}
-                       
+                        {pendingowsDisplay.length > 0 ? pendingowsDisplay : <h2 className='mtor-no-items'>No Pending Requests</h2>}
                     </div>
                     <div>
-                        {completedRowsDisplay}
-                        
+                        {completedRowsDisplay.length > 0 ? completedRowsDisplay : <h2 className='mtor-no-items'>No Completed Requests</h2>}
                     </div>
                 
                 </SwipeableViews>

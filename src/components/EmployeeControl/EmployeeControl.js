@@ -12,6 +12,7 @@ import { grey500, lightGreen800, lightGreen100 } from 'material-ui/styles/colors
 import RosterDetail from '../RosterDetail/RosterDetail'
 import ExceptionModify from '../ExceptionModify/ExceptionModify'
 import PatternModify from '../PatternModify/PatternModify'
+import Loading from '../Loading/Loading'
 
 import './EmployeeControl.css'
 
@@ -62,7 +63,10 @@ class EmployeeControl extends Component {
         })
     }
 
-    render() { 
+    render() {
+        if(!this.state.lastName) {
+            return <Loading />
+        } 
         return ( 
             <div className="emp-control-container">
                 <Tabs

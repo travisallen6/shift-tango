@@ -25,6 +25,7 @@ module.exports = {
         req.app.get('db')
         .add_user([empIdInput, managerInput, lastNameInput, firstNameInput, googleInput, positionInput, doeInput])
         .then( newUser => res.send(newUser))
+        .catch( err => console.log(err))
     },
 
     sendEmail: (req, res) => {

@@ -76,20 +76,21 @@ class ProfileView extends Component {
         //     }) 
         // }
 
-        let paperStyles = {
-            margin: '8px', 
-            width: '90vw', 
-            padding: '20px',
-            position: 'relative'
-        }
+        // let paperStyles = {
+        //     margin: '8px', 
+        //     width: '90vw', 
+        //     padding: '20px',
+        //     position: 'relative'
+        // }
 
         let lastNameDefined = this.props.lastName !== undefined
         let firstNameDefined = this.props.firstName !== undefined
         let picDefined = this.props.pic !== undefined
 
         return ( 
-            < Paper 
-                style={paperStyles} 
+            < Paper
+                className='profile-view-paper'
+                // style={paperStyles} 
                 zDepth={1} 
             >
                 { this.state.redirect && <Redirect to={this.props.editLinkPath} /> }

@@ -13,6 +13,7 @@ import DateRangeIcon from 'material-ui/svg-icons/action/date-range'
 
 
 import Schedule from '../Schedule/Schedule'
+import Loading from '../Loading/Loading'
 import moment from 'moment'
 import FlatButton from 'material-ui/FlatButton'
 
@@ -29,7 +30,7 @@ class EmployeeSchedule extends Component {
             scheduleExceptions: [],
             datePickerShowing: false,
             dateSelectInput: moment().toDate(),
-            
+            loading: true
         }
     }
 
@@ -47,8 +48,8 @@ class EmployeeSchedule extends Component {
                     lastName: last_name,
                     firstName: first_name,
                     pattern: { sun, mon, tue, wed, thu, fri, sat },
-                    scheduleExceptions: scheduleExceptions
-
+                    scheduleExceptions: scheduleExceptions,
+                    loading: false
                 })
             })
 
@@ -82,17 +83,15 @@ class EmployeeSchedule extends Component {
             ? yearStart
             : `${yearStart} - ${yearEnd}`        
 
-        let paperStyles = {
-            margin: '8px', 
-            width: '90vw', 
-            padding: '20px',
-            position: 'relative'  
+        if(this.state.loading) {
+            return <Loading />
         }
 
         return ( 
             <div className="employee-schedule-container">
-                < Paper 
-                    style={paperStyles} 
+                < Paper
+                    className='employee-schedule-paper' 
+                    // style={paperStyles} 
                     zDepth={1} 
                 >
                     <Subheader

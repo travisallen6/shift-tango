@@ -123,6 +123,26 @@
     font-size: 20px;
 }
 
+h2.mtor-no-items {
+    font-size: 30px;
+    margin-top: 70px;
+    display: flex;
+    justify-content: center;
+}
+
+.mtor-paper {
+    margin: 8px; 
+    width: 90vw; 
+    padding: 20px;
+    position: relative;  
+}
+
 .manager-to-review-container {
     padding-top: 64px;
+}
+
+@media only screen and (min-width: 800px) {
+    .mtor-paper {
+        width: 790px;
+    }
 }

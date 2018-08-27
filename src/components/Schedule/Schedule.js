@@ -93,15 +93,6 @@ class Schedule extends React.Component {
                 }
             }
         }
-        
-
-
-
-
-        
-
-
-        
     }
 
     toggleEditing(i){
@@ -197,11 +188,11 @@ class Schedule extends React.Component {
                 
                 <div className='schedule-row'>
 
-                    <div className="schedule-input-toggle">
-                    {this.props.editable && <Checkbox 
+                    {this.props.editable && <div className="schedule-input-toggle">
+                     <Checkbox 
                             onCheck={()=>this.toggleEditing(i)} 
-                    checked={this.state.shifts[i].inputsShowing}/> }
-                    </div>
+                    checked={this.state.shifts[i].inputsShowing}/> 
+                    </div> }
                 
                     <div className="schedule-date-label">
                         <div 
@@ -234,8 +225,8 @@ class Schedule extends React.Component {
                             className="schedule-value-not-off">
 
                             <div className="schedule-value-time-container">
-                                <div> {this.state.shifts[i].timeValueStart} </div>
-                                <div>{ this.state.shifts[i].timeValueEnd } </div> 
+                                <div className="schedule-value-time-container-start"> {this.state.shifts[i].timeValueStart} </div>
+                                <div className="schedule-value-time-container-end">{ this.state.shifts[i].timeValueEnd } </div> 
                             </div>
                         
                         </div>}

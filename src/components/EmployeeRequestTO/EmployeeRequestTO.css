@@ -21,3 +21,20 @@
     margin-top: 23px;
 }
 
+.emp-rto-content-container {
+    width: 90vw;
+}
+
+.employee-request-to-paper {
+    margin: 8px;
+    width: 100%;
+    padding: 20px;
+    position: relative;
+}
+
+@media only screen and (min-width: 560px) {
+    .emp-rto-content-container {
+        width: 530px;
+    }
+}
+

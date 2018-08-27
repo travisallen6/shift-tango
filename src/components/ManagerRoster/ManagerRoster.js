@@ -8,6 +8,7 @@ import Divider from 'material-ui/Divider';
 import Paper from 'material-ui/Paper';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
+import Loading from '../Loading/Loading'
 
 import './ManagerRoster.css'
 
@@ -30,6 +31,9 @@ class ManagerRoster extends React.Component {
 
 
     render() {
+        if(this.state.activeEmployees.length === 0) {
+            return <Loading />;
+        }
 
 
         let activeEmpList = this.state.activeEmployees ? this.state.activeEmployees.map( (employee, i) => (

@@ -44,4 +44,11 @@
     z-index: 0;
 }
 
+@media only screen and (min-width: 515px) {
+    .emp-control-name-header {
+        width: 600px;
+    }
+}
+
+
 

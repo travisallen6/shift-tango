@@ -25,13 +25,13 @@ create table commsettings (
 	commsettings_id	serial primary key,		
 	sms	boolean DEFAULT false,		
 	email boolean	DEFAULT false,		
-	emp_id	integer	references users on delete cascade
+	emp_id	integer
 );
 
 create table patterns
 (
     pattern_id serial primary key,
-    emp_id integer references users on delete cascade,
+    emp_id integer,
     sun varchar(10),
     mon varchar(10),
     tue varchar(10),
@@ -44,7 +44,7 @@ create table patterns
 CREATE TABLE timeoff 
 (
     timeoff_id SERIAL PRIMARY KEY,
-    emp_id INTEGER REFERENCES users ON DELETE CASCADE,
+    emp_id INTEGER,
     start_date DATE NOT NULL,
     end_date DATE NOT NULL,
     status VARCHAR(120),

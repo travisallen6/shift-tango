@@ -52,12 +52,10 @@ class ManagerDash extends React.Component {
 
                 <AppBar 
                     className="manager-app-bar"
-                    title="Manager Mode"
+                    title="Shift Tango"
                     style={{position:"fixed"}}
                     onLeftIconButtonClick={this.handleToggle}
                 />
-                
-                
                 <Switch>
                     <Route 
                         path='/manager/' exact  
@@ -106,7 +104,6 @@ class ManagerDash extends React.Component {
                 </Switch>
 
                 <Drawer
-                    
                     docked={false}
                     width={200}
                     open={this.state.drawerOpen}
@@ -125,12 +122,6 @@ class ManagerDash extends React.Component {
                         href={process.env.REACT_APP_LOGOUT}
                         onClick={this.handleClose} 
                     />
-                     {/* <ListItem
-                        primaryText="Switch to Employee Mode"
-                        href="/#/employee/dash"
-                        onClick={this.handleClose}
-                        /> */}
-
                     <Divider />
                     <Subheader>Employees</Subheader>
                     <ListItem
@@ -149,15 +140,10 @@ class ManagerDash extends React.Component {
                         primaryText="Time Off"
                         href="/#/manager/timeoff/review"
                         onClick={this.handleClose}
-                        />
-                   
-
+                    />
                     <Divider />
                     </List>
-                
                 </Drawer>
-
-                
             </div>
         )
     }

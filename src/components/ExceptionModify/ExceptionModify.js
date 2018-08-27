@@ -359,12 +359,12 @@ class ExceptionModify extends Component {
         let yearDisplay = yearStart === yearEnd 
             ? yearStart
             : `${yearStart} - ${yearEnd}`        
-        let paperStyles = {
-            margin: '8px', 
-            width: '90vw', 
-            padding: '20px',
-            position: 'relative'  
-        }
+        // let paperStyles = {
+        //     margin: '8px', 
+        //     width: '90vw', 
+        //     padding: '20px',
+        //     position: 'relative'  
+        // }
         return ( 
             <div className="exception-container">
                 {this.state.redirect && <Redirect to={`/manager/detail/${this.state.empId}`} />}
@@ -377,7 +377,8 @@ class ExceptionModify extends Component {
                     <div><h1>{`${lastName}, ${firstName}`}</h1></div>
                 </div> */}
                 < Paper 
-                    style={paperStyles} 
+                    className='exception-modify-paper'
+                    // style={paperStyles} 
                     zDepth={1} 
                 >
                     <div className="pattern-sub-container">

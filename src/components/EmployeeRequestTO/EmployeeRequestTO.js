@@ -129,12 +129,12 @@ class EmployeeRequestTO extends Component {
     }
 
     render() { 
-        let paperStyles = {
-            margin: '8px', 
-            width: '90vw', 
-            padding: '20px',
-            position: 'relative'  
-        }
+        // let paperStyles = {
+        //     margin: '8px', 
+        //     width: '90vw', 
+        //     padding: '20px',
+        //     position: 'relative'  
+        // }
 
         let { dateRange, singleDateInput, startDateInput, endDateInput, requestTypeInput, requestReasonInput } = this.state
         
@@ -146,8 +146,9 @@ class EmployeeRequestTO extends Component {
         let {redirect} = this.state
 
         return ( 
-            <div 
-                className="emp-rto-container">
+            <div className="emp-rto-container">
+                <div className="emp-rto-content-container">
+                
                 {redirect && <Redirect to="/employee/requestdash" /> }
                 <h1 
                     className="request-to-headline super-header"
@@ -155,8 +156,9 @@ class EmployeeRequestTO extends Component {
                 {/* <Subheader 
                     className="request-to-headline"
                     style={{fontSize: 24}}>Request Time Off</Subheader> */}
-                < Paper 
-                    style={paperStyles} 
+                < Paper
+                    className='employee-request-to-paper'
+                    // style={paperStyles} 
                     zDepth={1} 
                 >
                 <Subheader style={{fontSize: 18}}>I would like to request:</Subheader>
@@ -240,6 +242,7 @@ class EmployeeRequestTO extends Component {
                 />
         </div>
                 </Paper>
+                </div>
                 <Snackbar
                     open={this.state.snackbarOpen}
                     message={ "Request Submitted" }

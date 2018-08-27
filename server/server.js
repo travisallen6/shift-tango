@@ -101,7 +101,7 @@ app.get('/api/mocklogin/:authid', (req, res) => {
     const {authid} = req.params
     req.app.get('db').mock_login([authid])
     .then( user => {
-        const foundUser = user[0]
+        const foundUser = user[0];
         if(!foundUser) {
             res.redirect(process.env.FAILURE_REDIRECT)
         } else {

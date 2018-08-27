@@ -15,6 +15,8 @@ import {yellow700, yellow800, green800, green700, red800, red700, red200} from '
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 
+import Loading from '../Loading/Loading'
+
 import './EmployeeRequestDash.css'
 import { Divider } from 'material-ui';
 import { green200 } from 'material-ui/styles/colors';
@@ -91,12 +93,12 @@ class EmployeeRequestDash extends Component {
 
     render() { 
 
-        let paperStyles = {
-            margin: '8px', 
-            width: '90vw', 
-            padding: '20px',
-            position: 'relative'  
-        }
+        // let paperStyles = {
+        //     margin: '8px', 
+        //     width: '90vw', 
+        //     padding: '20px',
+        //     position: 'relative'  
+        // }
 
        
         let rowsDisplay = this.state.requests.map( (request, i) => {
@@ -122,10 +124,14 @@ class EmployeeRequestDash extends Component {
                 </div>)
         })
 
+        if(this.state.loading) {
+            return <Loading />
+        }
+
         return ( 
             <div className="request-dash-container">
                  < Paper 
-                    style={paperStyles} 
+                    className='to-request-paper'
                     zDepth={1} 
                 >
                 <Subheader style={{fontSize: 24}}>My Requests</Subheader>
@@ -138,7 +144,7 @@ class EmployeeRequestDash extends Component {
                 </div>
                 <Divider />
 
-                {this.state.requests.length === 0 && this.state.loading && <div className="to-request-message"><h1>Loading...</h1></div>}
+                {/* {this.state.requests.length === 0 && this.state.loading && <div className="to-request-message"><h1>Loading...</h1></div>} */}
                 {this.state.requests.length === 0 && !this.state.loading && <div className="to-request-message"><h1>No Requests Yet</h1></div>}
 
                 {rowsDisplay}

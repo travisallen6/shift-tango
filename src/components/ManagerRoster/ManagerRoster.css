@@ -31,3 +31,10 @@ a:active {
 .mgr-roster-container {
   padding-top:64px;
 }
+
+@media only screen and (min-width: 680px) {
+    .list-container {
+        width: 670px;
+        margin: 0 auto;
+    }
+}

@@ -62,3 +62,17 @@
     padding-top: 11%;
     font-size: 30px;
 }
+
+.to-request-paper {
+    margin: 8px; 
+    width: 90vw; 
+    padding: 20px;
+    position: relative;
+}
+
+@media only screen and (min-width: 570px) {
+    .to-request-paper {
+        width: 550px;
+    }
+
+}

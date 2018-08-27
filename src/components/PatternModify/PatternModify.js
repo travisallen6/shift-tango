@@ -227,8 +227,9 @@ class PatternModify extends Component {
                     </Dialog>
                
                 <Paper 
-                    zDepth={1} 
-                    style={{width:'90%', padding:'20px'}}
+                    zDepth={1}
+                    className='pattern-modify-paper'
+                    // style={{width:'90%', padding:'20px'}}
                 >
                     
                     {/* <Divider /> */}
