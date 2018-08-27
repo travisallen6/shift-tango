@@ -7,21 +7,21 @@ import RaisedButton from 'material-ui/RaisedButton'
 
 export default function NotAuthorized(){
 
-    const style = {
-        height: "55vh",
-        width: "100vw",
-        margin: 20,
-        textAlign: 'center',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContents: 'space-between',
-        alignItems: 'center',
-        padding: '7px'
-    };
+    // const style = {
+    //     height: "55vh",
+    //     width: "100vw",
+    //     margin: 20,
+    //     textAlign: 'center',
+    //     display: 'flex',
+    //     flexDirection: 'column',
+    //     justifyContents: 'space-between',
+    //     alignItems: 'center',
+    //     padding: '7px'
+    // };
 
     return(
         <div className='not-auth-page-container'>
-        <Paper style={style} zDepth={2}>
+        <Paper className='not-auth-paper' zDepth={2}>
             <div className='not-auth-container'>
 
                 <h1>You are not authorized</h1>
@@ -33,7 +33,7 @@ export default function NotAuthorized(){
                     fontWeight: 600, fontSize: 18}} 
                     buttonStyle={{width:141}}
                     style={{height: 46}} 
-                    href={process.env.REACT_APP_LOGIN}/>
+                    href={process.env.REACT_APP_LOGIN_PAGE}/>
             </div>
         </Paper>
     </div>
