@@ -44,18 +44,6 @@ class Login extends React.Component {
     // }
 
 render(){
-
-    const style = {
-        height: '95vh',
-        width: '100vw',
-        margin: 20,
-        textAlign: 'center',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContents: 'space-between',
-        alignItems: 'center',
-        padding: '7px'
-    };
     
     const displayUsers = this.state.userSelection.map( (user) => (
         <ListItem

@@ -5,7 +5,6 @@ import {connect} from 'react-redux'
 import {getUserData} from '../../dux/reducer'
 
 import AppBar from 'material-ui/AppBar'
-import Logo from '../../images/Shift Tango Favicon.png'
 import Drawer from 'material-ui/Drawer';
 import Subheader from 'material-ui/Subheader'
 import {List, ListItem} from 'material-ui/List';
