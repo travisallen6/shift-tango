@@ -65,7 +65,7 @@ CREATE table terminations
     profile_pic text,
     phone varchar(80)
 );
-
+insert into users (emp_id, mgr, last_name, first_name, auth_id, profile_pic, gmail_user, phone, position, doe, address, city, state, zip, email) values (999999, false, 'Allen', 'Travis', 'nwRxkurtUsV7Id', 'https://media.licdn.com/dms/image/C5603AQEeCR7r2XonIg/profile-displayphoto-shrink_200_200/0?e=1546473600&v=beta&t=6s6hoAsTRcXw1BTe6bLmrF6IZ_WZW_k7AVf3_OCwJrk', 'travisallen', '2612294103', 'Web Developer', '2012-07-14', '123 Main Street', 'Salt Lake City', 'UT', 84123, 'travisallen6@gmail.com');
 insert into users (emp_id, mgr, last_name, first_name, auth_id, profile_pic, gmail_user, phone, position, doe, address, city, state, zip, email) values (439521, false, 'Betje', 'Emmalee', 'nwRxkurtUsV7Id', null, 'ebetje0', '2612294103', 'Editor', '2012-07-14', '20 Prairie Rose Park', 'West Valley City', 'UT', 84130, 'ebetje0@quantcast.com');
 insert into users (emp_id, mgr, last_name, first_name, auth_id, profile_pic, gmail_user, phone, position, doe, address, city, state, zip, email) values (891595, false, 'Crellim', 'Milly', 'csuQ3M9gf3IboZ', null, 'mcrellim1', '3292964668', 'Senior Developer', '2012-04-27', '17286 Glacier Hill Hill', 'Logan', 'UT', 84214, 'mcrellim1@yolasite.com');
 insert into users (emp_id, mgr, last_name, first_name, auth_id, profile_pic, gmail_user, phone, position, doe, address, city, state, zip, email) values (568700, false, 'Pammenter', 'Nicolea', 'qn2pyQ7pVOBkaJ', null, 'npammenter2', '9821595924', 'Account Coordinator', '2012-12-10', '541 Stoughton Park', 'American Fork', 'UT', 84483, 'npammenter2@soup.io');
